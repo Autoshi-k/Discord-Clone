@@ -1,0 +1,20 @@
+@import '../../style.scss';
+
+.server-icon {
+  margin-top: .5em;
+  transition: 0.3s;
+  overflow: hidden;
+  border-radius: 2em;
+
+  img {
+    width: 30px;
+  }
+}
+
+.server-icon:hover {
+  border-radius: .7em;
+}
+
+.server-icon.active {
+  border-radius: .7em;
+}

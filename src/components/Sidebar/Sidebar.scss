@@ -1,0 +1,25 @@
+@import '../../style.scss';
+
+.sidebar {
+  width: 13em;
+  padding: .5em;
+  height: 100vh;
+  background-color: $secondry-color;
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    row-gap: .5em;
+  }
+
+  input {
+    background-color: $darkest-grey;
+    color: $text;
+    border: none;
+    border-radius: .3em;
+    font-size: .8em;
+    height: 2em;
+    padding: .6em;
+    width: 100%;
+  }
+}

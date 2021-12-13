@@ -1,0 +1,29 @@
+.sidebar {
+  width: 13em;
+  padding: .5em;
+  height: 100vh;
+  background-color: #36393f;
+}
+
+.sidebar .list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: .5em;
+}
+
+.sidebar input {
+  background-color: #202225;
+  color: #798597;
+  border: none;
+  border-radius: .3em;
+  font-size: .8em;
+  height: 2em;
+  padding: .6em;
+  width: 100%;
+}
+/*# sourceMappingURL=Sidebar.css.map */

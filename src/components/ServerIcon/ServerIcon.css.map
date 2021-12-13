@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,YAAY,CAAC;EACX,UAAU,EAAE,IAAI;EAChB,UAAU,EAAE,IAAI;EAChB,QAAQ,EAAE,MAAM;EAChB,aAAa,EAAE,GAAG;CAKnB;;AATD,AAME,YANU,CAMV,GAAG,CAAC;EACF,KAAK,EAAE,IAAI;CACZ;;AAGH,AAAA,YAAY,AAAA,MAAM,CAAC;EACjB,aAAa,EAAE,IAAI;CACpB;;AAED,AAAA,YAAY,AAAA,OAAO,CAAC;EAClB,aAAa,EAAE,IAAI;CACpB",
+    "sources": [
+        "ServerIcon.scss",
+        "../../style.scss"
+    ],
+    "names": [],
+    "file": "ServerIcon.css"
+}
