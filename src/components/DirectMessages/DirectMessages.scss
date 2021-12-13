@@ -1,6 +1,21 @@
 @import '../../style.scss';
 
-.main-personal {
+.direct-messages-window {
   display: flex;
   flex: 1;
+
+  .sidebar-title {
+    text-transform: uppercase;
+    font-size: .75em;
+    font-weight: 700;
+    color: $text;
+    text-align: left;
+    padding-left: .5rem;
+    margin-bottom: .5rem;
+    cursor: default;
+  }
+
+  .sidebar-title:hover {
+    color: white;
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import ChannelsBar from './components/ChannelsBar/ChannelsBar';
-import MainPersonal from './components/MainPersonal/MainPersonal';
+import ServerBar from './components/ServerBar/ServerBar';
+import DirectMessages from './components/DirectMessages/DirectMessages';
 
 
 function App() {
@@ -11,8 +11,8 @@ function App() {
     <div className="app">
       { user ? 
         <>
-          <ChannelsBar />
-          <MainPersonal />
+          <ServerBar />
+          <DirectMessages />
         </>
       : 
         console.log("hi")

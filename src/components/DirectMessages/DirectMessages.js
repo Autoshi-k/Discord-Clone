@@ -12,7 +12,7 @@ function DirectMessages() {
 
   const friends = [1, 2];
   return (
-  <div className="main-personal">
+  <div className="direct-messages-window">
     <Sidebar> 
       <input type="text" placeholder="search or start a chat"/>
       <Divider />
@@ -26,7 +26,7 @@ function DirectMessages() {
       </div>
       
     </Sidebar>
-    {/* <Chat /> */}
+    <Chat />
   </div>
   )
 }
