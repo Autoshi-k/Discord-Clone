@@ -1,4 +1,16 @@
 @import '../../style.scss';
+.server-icon-container {
+  display: flex;  
+  flex-direction: row;
+  justify-content: center;
+}
+
+.server-state {
+  display: none;
+  background-color: white;
+  height: 10%;
+  width: .2em;
+}
 
 .server-icon {
   margin-top: .5em;
@@ -13,6 +25,11 @@
 
 .server-icon:hover {
   border-radius: .7em;
+
+  .server-state {
+    display: inline-block;
+
+  }
 }
 
 .server-icon.active {
