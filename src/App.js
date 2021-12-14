@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import ServerBar from './components/ServerBar/ServerBar';
 import DirectMessages from './components/DirectMessages/DirectMessages';
+import 'semantic-ui-css/semantic.min.css';
 
 
 function App() {

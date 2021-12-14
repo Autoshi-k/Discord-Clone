@@ -2,18 +2,16 @@ import React, { useState } from 'react';
 import { ServerIcon } from '../ServerIcon/ServerIcon';
 import Divider from '@mui/material/Divider';
 
-// import './ServerBar.css';
+import './ServerBar.css';
 
 export default function ServerBar() {
   const [chatRoom, setChatRoom] = useState('direct-messages');
   const handleServerClick = (e) => {
-    console.log(e);
-    console.log('e');
     setChatRoom(e);
   }
   console.log(chatRoom);
   return (
-    <div className="channels-bar">
+    <div className="server-bar">
       <ServerIcon iconStyle="rounded" isActive={chatRoom === 'direct-messages' ? "active" : null} id="direct-messages" handleServerClick={handleServerClick} />
       <Divider />
       <ServerIcon iconStyle="circular" isActive={chatRoom === '988887' ? "active" : null} id="988887" handleServerClick={handleServerClick} />

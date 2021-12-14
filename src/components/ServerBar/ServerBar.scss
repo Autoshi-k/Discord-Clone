@@ -1,10 +1,9 @@
 @import '../../style.scss';
 
-.channels-bar {
+.server-bar {
   height: 100vh;
-  width: 80px;
+  min-width: 5.2em;
   background-color: $darkest-grey;
-  background-color: yellowgreen;
 
   display: flex; 
   flex-direction: column;
