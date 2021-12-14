@@ -7,6 +7,7 @@ export function Chat() {
       hiii
       <MessageContainer role="first" />
       <MessageContainer role="other" />
+      <MessageContainer role="other" />
     </div>
   )
 }

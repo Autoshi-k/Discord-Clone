@@ -5,4 +5,6 @@
   width: 500px;
   background-color: $primary-color;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
