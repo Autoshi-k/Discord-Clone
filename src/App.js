@@ -1,23 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import ServerBar from './components/ServerBar/ServerBar';
-import DirectMessages from './components/DirectMessages/DirectMessages';
+// import ServerBar from './components/ServerBar/ServerBar';
+// import DirectMessages from './components/DirectMessages/DirectMessages';
 import 'semantic-ui-css/semantic.min.css';
+import ChannelsHome from './pages/ChannelsHome';
+import { Routes, Route } from "react-router-dom";
+import Login from './pages/Login';
 
 
 function App() {
 
-  const user = "Autoshiii-k";
+  // useEffect(() => {
+  //   fetch("/auth/google").then(res=>res.json()).then(json=>console.log(json));
+  // }, [])
+  // const user = "Autoshiii-k";
   return (
     <div className="app">
-      { user ? 
-        <>
-          <ServerBar />
-          <DirectMessages />
-        </>
-      : 
-        console.log("hi")
-      }
+      <Routes>
+        <Route path="/channels" element={<ChannelsHome />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </div>
   );
 }

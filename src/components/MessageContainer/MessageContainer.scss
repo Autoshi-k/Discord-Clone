@@ -53,3 +53,11 @@
 .message:hover, .secondary:hover {
   background-color: $secondry-color;
 }
+
+.visbale-hover {
+  opacity: 0;
+}
+
+.message:hover .visbale-hover {
+  opacity: 1;
+}

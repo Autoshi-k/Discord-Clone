@@ -25,7 +25,7 @@ function MessageContainer({ role }) {
     </div> :
     <div class="message">
       <div className="message-container">
-        <span className='date'>to</span>
+        <span className='date visbale-hover'>to</span>
         <div className='message-content secondary'>This is my second message</div>
       </div>
     </div>

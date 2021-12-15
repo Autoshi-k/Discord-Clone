@@ -58,4 +58,12 @@
 .message:hover, .secondary:hover {
   background-color: #36393f;
 }
+
+.visbale-hover {
+  opacity: 0;
+}
+
+.message:hover .visbale-hover {
+  opacity: 1;
+}
 /*# sourceMappingURL=MessageContainer.css.map */
