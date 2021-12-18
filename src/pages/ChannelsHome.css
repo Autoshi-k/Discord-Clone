@@ -1,0 +1,8 @@
+.home-page {
+  text-align: center;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  height: 100vh;
+  width: 100vw;
+}
