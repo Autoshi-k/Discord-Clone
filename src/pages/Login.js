@@ -1,39 +1,35 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Navigate } from 'react-router-dom';
-import { useContext } from 'react';
-import User from "../userContext";
+import { connect } from 'react-redux';
+import { login } from '../actions';
 
 
-function Login(params) {
-
-  const [resAuth, setResAuth] = useState('');
-  const {setUser} = useContext(User);
+const Login = ({ userAuth, login }) => {
 
   useEffect(() => {
      function getData () {
       fetch('/api/user')
       .then(res => res.json())
-      .then(data => setResAuth(data))
+      .then(data => login(data))
       .catch(err => console.log(err));
     }
     getData();
   }, [])
 
-  console.log(resAuth);
-  const updateUser = () => {
-    console.log(resAuth);
-    setUser(resAuth);
-  }
-  updateUser();
-
   return (
     <div>
+      { console.log(userAuth) }
       <form action="http://localhost:3001/auth/google" method="GET">
         <button type="submit"> GOOGLE BUTTON </button>
       </form>
-      { resAuth && updateUser && <Navigate to="/channels" /> }
+      { userAuth && <Navigate to="/channels" /> }
     </div>
   )
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return { userAuth: state.user }
+}
+
+// export default connect(hey)(Hi);
+export default connect(mapStateToProps, { login })(Login);

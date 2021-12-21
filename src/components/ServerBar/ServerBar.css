@@ -2,6 +2,7 @@
 .server-bar {
   height: 100vh;
   min-width: 5.2em;
+  width: 5.2em;
   background-color: #202225;
   display: -webkit-box;
   display: -ms-flexbox;

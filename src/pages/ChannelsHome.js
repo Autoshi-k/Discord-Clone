@@ -1,50 +1,78 @@
-import React, { Component, useEffect, useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+// css
 import './ChannelsHome.css';
+import 'semantic-ui-css/semantic.min.css';
 import ServerBar from '../components/ServerBar/ServerBar';
 import DirectMessages from '../components/DirectMessages/DirectMessages';
-import 'semantic-ui-css/semantic.min.css';
-// import { Redirect } from "react-router";
-import { Navigate } from 'react-router-dom';
-import { render } from '@testing-library/react';
 
-
-const isAuth = () => {
-  return fetch('/api/user')
-  .then(res => res.json())
-  .then(data => data)
-  .catch(err => console.log(err))
+function Dashboard({ userAuth }) {
+  // if (!userAuth) return <Navigate to="/Login" />
+  return (
+    <>
+      { !userAuth && <Navigate to="/Login" /> }
+      <div className='dashboad'>
+        <ServerBar />
+        <DirectMessages />
+        {/* this is the dashbord */}
+      </div>
+    </>
+  )
 }
 
-// class IsAuth {
-//   constructor() {
-//     super();
+const mapStateToProps = state => {
+  return {userAuth: state.user}
+}
 
-  
-//   }
-  
+export default connect(mapStateToProps)(Dashboard);
+
+
+
+
+
+
+
+
+
+
+// const isAuth = () => {
+//   return fetch('/api/user')
+//   .then(res => res.json())
+//   .then(data => data)
+//   .catch(err => console.log(err))
 // }
 
-class ChannelsHome extends React.Component {
-  
-  constructor(props) {
-    super(props);
-    
-  }
-  render() {
-    const { name } = this.props;
-    return (
-      <div className="home-page">
-        <>
-          <ServerBar />
-          <div></div>
-          <DirectMessages />
-        </>
-       </div>
-    );
- }
-}
+// // class IsAuth {
+// //   constructor() {
+// //     super();
 
-export default ChannelsHome;
+  
+// //   }
+  
+// // }
+
+// class ChannelsHome extends React.Component {
+  
+//   constructor(props) {
+//     super(props);
+    
+//   }
+//   render() {
+//     const { name } = this.props;
+//     return (
+//       <div className="home-page">
+//         <>
+//           <ServerBar />
+//           <div></div>
+//           <DirectMessages />
+//         </>
+//        </div>
+//     );
+//  }
+// }
+
+// export default ChannelsHome;
 
 
 // class ChannelsHome extends Component {

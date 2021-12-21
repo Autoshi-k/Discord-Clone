@@ -2,9 +2,10 @@
 
 .chat-window {
   height: 100vh;
-  width: 500px;
+  // width: 500px;
   background-color: $primary-color;
   flex: 1;
+  // width: 100vw;
   display: flex;
   flex-direction: column;
 
