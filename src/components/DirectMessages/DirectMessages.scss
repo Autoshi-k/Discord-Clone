@@ -3,15 +3,20 @@
 .direct-messages-window {
   display: flex;
   flex: 1;
+  // height: 100vh;
   // width: ;
-  background-color: brown;
+
+  .users-list {
+    flex: 1;
+    // flex-grow: 1;
+  }
 
   .sidebar-title {
     text-transform: uppercase;
     font-size: .9em;
     font-weight: 500;
     letter-spacing: .05em;
-    color: $text;
+    color: $sidebar-text-icons;
     text-align: left;
     padding-left: .5rem;
     margin-bottom: .5rem;

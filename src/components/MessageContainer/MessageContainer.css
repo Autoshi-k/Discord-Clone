@@ -40,23 +40,23 @@
 .message .username {
   font-size: 1.4rem;
   display: inline-block;
-  color: whitesmoke;
+  color: #DEEBE2;
   padding-bottom: .3em;
 }
 
 .message .date {
   font-size: .9rem;
-  color: #798597;
+  color: #D1DDDE;
 }
 
 .message-content {
   margin: 0;
-  color: whitesmoke;
+  color: #D1DDDE;
   text-align: left;
 }
 
 .message:hover, .secondary:hover {
-  background-color: #36393f;
+  background-color: #32353B;
 }
 
 .visbale-hover {

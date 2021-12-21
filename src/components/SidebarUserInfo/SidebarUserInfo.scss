@@ -1,0 +1,28 @@
+@import '../../style.scss';
+
+.sidebar-user-information {
+  // width: 100%;
+  height: 3.5em;
+  background-color: $sidebar-user-info;
+  margin: 0 -.7em;
+  padding: 0.7em;
+  display: flex;
+  align-items: center;
+  
+
+  .user-information {
+    text-align: left;
+    color: $chat-name-display;
+    margin-left: .5em;
+  }
+  
+  .display-name {
+    font-weight: 600;
+  }
+
+  .mini-sub {
+    // background-color: blue;
+    line-height: .8em;
+    font-size: .8rem;
+  }
+}

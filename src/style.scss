@@ -1,8 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Roboto:wght@400;500;700&display=swap');
 
 $darkest-grey: #202225;
-$secondry-color: #36393f;
-$primary-color: #393c42;
+// $secondry-color: #36393f;
+// $primary-color: #393c42;
 $lightest-grey: #40444b;
 
-$text: #798597;
+
+// backgournd colors
+$secondry-color: #202225;
+$sidebar: #2F3136;
+$sidebar-hover: #393C43;
+$sidebar-user-info: #292B2F;
+$primary-color: #36393F;
+$primary-color-hover: #32353B;
+$chat-input: #40444B;
+
+
+// text colors
+$text: #D1DDDE;
+$chat-name-display: #DEEBE2;
+$chat-text-icons: #B9BBBE;
+$sidebar-text-icons: #8E9297;

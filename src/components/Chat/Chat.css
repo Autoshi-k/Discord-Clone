@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Roboto:wght@400;500;700&display=swap");
 .chat-window {
   height: 100vh;
-  background-color: #393c42;
+  background-color: #36393F;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -21,7 +21,7 @@
 }
 
 .chat-window .input-box {
-  background-color: #40444b;
+  background-color: #40444B;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -31,7 +31,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 0 1em .5em;
+  margin: 0 1em 1.8em;
   height: 3.5em;
   border-radius: .5em;
 }

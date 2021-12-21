@@ -34,7 +34,7 @@
   .username {
     font-size: 1.4rem;
     display: inline-block;
-    color: whitesmoke;
+    color: $chat-name-display;
     padding-bottom: .3em;
   }
   
@@ -46,12 +46,12 @@
 
 .message-content {
   margin: 0;
-  color: whitesmoke;
+  color: $text;
   text-align: left;
 }
 
 .message:hover, .secondary:hover {
-  background-color: $secondry-color;
+  background-color: $primary-color-hover;
 }
 
 .visbale-hover {

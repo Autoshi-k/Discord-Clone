@@ -6,7 +6,12 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  background-color: brown;
+}
+
+.direct-messages-window .users-list {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .direct-messages-window .sidebar-title {
@@ -14,7 +19,7 @@
   font-size: .9em;
   font-weight: 500;
   letter-spacing: .05em;
-  color: #798597;
+  color: #8E9297;
   text-align: left;
   padding-left: .5rem;
   margin-bottom: .5rem;
