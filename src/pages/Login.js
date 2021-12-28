@@ -1,33 +1,53 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../actions';
 
-
+// let user;
 const Login = ({ userAuth, login }) => {
 
-  useEffect(() => {
-     function getData () {
+  const [user, setUser] = useState(null);
+  let test;
+// console.log(userAuth);
+  const loginForm = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = loginForm.current;
+    // console.log(form);
+    // console.log(form['email'].value);
+    // const [user, setUser] = useState(null);
+    fetch('/login', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: form['email'].value, password: form['password'].value })
+    })
+    .then(res => {
+      console.log(res.status);
+    if (res.status === 200) {
       fetch('/api/user')
       .then(res => res.json())
-      .then(data => login(data))
-      .catch(err => console.log(err));
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
     }
-    getData();
-  }, [])
-
+    // console.log(res);
+    })
+  }
+  console.log(user);
+  console.log(test);
   return (
     <div>
-      { console.log(userAuth) }
-      <form action="http://localhost:3001/auth/google" method="GET">
-        <button type="submit"> GOOGLE BUTTON </button>
+      <form onSubmit={ handleSubmit } ref={loginForm} action="/login" method="POST">
+        <input type="text" name="email" placeholder="Email" />
+        <input type="password" name="password" placeholder="passowrd" />
+        <input type="submit" value="login" />
       </form>
-      { userAuth && <Navigate to="/channels" /> }
     </div>
   )
 }
 
 const mapStateToProps = state => {
+  // console.log(state);
   return { userAuth: state.user }
 }
 
