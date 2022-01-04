@@ -2,37 +2,41 @@ import React, { useContext, useEffect, useState } from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
 // import ChannelsHome from './pages/ChannelsHome';
 // import WebSocketProvider from './socketwebContext';
+
+// Redux
 import { connect } from 'react-redux';
 import { login } from './actions';
-import Home from './pages/Home';
-// import {io} from "socket.io-client";
-import io from 'socket.io-client';
+// Pages
+import Home from './pages/Home/Home';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Login from './pages/Login';
 import Signup from './pages/Signup';
+// import socketIOClient from 'socket.io-client';
 
+// export const getUserSessionFromServer = async () => {
+//   const res = await fetch('/api/user');
+//   const data = await res.json();
+//   console.log(data);
+//   login(data);
+//   console.log('data from getSession');
+// }
 
-export const getUserSessionFromServer = async () => {
-  const res = await fetch('/api/user');
-  const data = await res.json();
-  console.log('data from getSession', data);
-  return { name: 'shani' };
-}
 function App({ userAuth }) {
-  // const [user, setUser] = useState(null);
   console.log('app run');
 
-
+  // const [response, setResponse] = useState("");
 
   // useEffect(() => {
-  //   async function getUserByFetch () {
-  //     login(await getUserSessionFromServer());
-  //     console.log('userAuth App', userAuth);
-  //   }
-  //   getUserByFetch();
-  //  }, [])
+  //   const socket = socketIOClient('/');
+  //   socket.on('connect', data => {
+  //     setResponse(data);
+  //   });
+
+  //   // clean up the socket
+  //   return () => socket.disconnect();
+  // }, []);
 
   //  const [socket, setSocket] = useState(null);
 
@@ -58,7 +62,7 @@ function App({ userAuth }) {
   // const { ws } = useContext(WebSocketContext);
 
 
-  
+  console.log(userAuth);
   return (
     // <WebSocketProvider>
       <div className="app">

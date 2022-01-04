@@ -8,7 +8,7 @@ export const WebSocketContext = createContext(null)
 // export { WebSocketContext }
 
 const WebSocketProvider = ({ children }) => {
-  let [socket, setSocket] = useState(io());
+  const [socket, setSocket] = useState(io());
  
  useEffect(() => {
     socket.on('connect', (socket1) => {

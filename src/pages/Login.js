@@ -3,51 +3,48 @@ import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../actions';
 
-// let user;
 const Login = ({ userAuth, login }) => {
 
-  const [user, setUser] = useState(null);
-  let test;
-// console.log(userAuth);
   const loginForm = useRef(null);
+  const [rediret, setRedirect] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = loginForm.current;
-    // console.log(form);
-    // console.log(form['email'].value);
-    // const [user, setUser] = useState(null);
-    fetch('/login', {
+    fetch('/api/user/login', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: form['email'].value, password: form['password'].value })
     })
-    .then(res => {
-      console.log(res.status);
-    if (res.status === 200) {
-      fetch('/api/user')
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
-    }
-    // console.log(res);
-    })
+    .then(res => res.headers.get('auth-token'))
+    .then(res => window.localStorage.setItem('auth-token', res))
+    .then((fetch('/api/channels', { method: 'GET', headers: {
+      "content-type": "application/json",
+      Authorization: localStorage.getItem("auth-token")
+    } })
+      .then(res => res.json()))
+      .then(data => login(data))
+      .catch(err => console.log(err)))
+    .catch(err => console.log(err))
+    // if (res.status === 200) {
+    //   setRedirect(true);
+    // })
   }
-  console.log(user);
-  console.log(test);
+  console.log(userAuth);
   return (
     <div>
-      <form onSubmit={ handleSubmit } ref={loginForm} action="/login" method="POST">
+      { rediret && <Navigate to="/channels" /> }
+      <form onSubmit={ handleSubmit } ref={loginForm} action="/api/user/login" method="POST">
         <input type="text" name="email" placeholder="Email" />
         <input type="password" name="password" placeholder="passowrd" />
         <input type="submit" value="login" />
+        <button onClick={ () => setRedirect(true) }>go to channels</button>
       </form>
     </div>
   )
 }
 
 const mapStateToProps = state => {
-  // console.log(state);
   return { userAuth: state.user }
 }
 

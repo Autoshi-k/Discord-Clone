@@ -8,7 +8,7 @@ import './SidebarUserInfo.css';
 const SidebarUserInfo = ({ user }) => {
 
   const navigate = (prop) => {
-    console.log('here');
+    // console.log('here');
     if (!prop.user) return <Navigate to="/login" />
   }
 
@@ -37,7 +37,7 @@ const SidebarUserInfo = ({ user }) => {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log(state);
   return {user: state}
 }
 

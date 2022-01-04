@@ -1,28 +1,29 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
-import { login } from '../actions';
-import clouds from '../assets/clouds.svg';
-import leftArt from '../assets/left.svg';
-import rightArt from '../assets/right.svg';
-import { getUserSessionFromServer } from '../App';
-
+import { login } from '../../actions';
+import clouds from '../../assets/clouds.svg';
+import leftArt from '../../assets/left.svg';
+import rightArt from '../../assets/right.svg';
+// import {getUserSessionFromServer} from '../../App';
 import './Home.css';
+
+
 
 const Home = ({ userAuth }) => {
 
-  useEffect(() => {
-    async function getUserByFetch () {
-      login(await getUserSessionFromServer());
-    }
-    getUserByFetch();
-   }, [])
+  const [navigate, setNavigate] = useState(false);
 
-   console.log(userAuth);
+  // useEffect(() => {
+  //   if (userAuth) {
+  //     setNavigate(true);
+  //   } else getUserSessionFromServer();
+  // }, [userAuth])
+  // console.log(userAuth);
 
   return (
     <div className="home">
-      {  }
+      { navigate && <Navigate to="/channels" /> }
       <div className="cover-text">
         <h1>IMAGINE A PLACE...</h1>
         <p>

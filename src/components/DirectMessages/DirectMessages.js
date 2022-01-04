@@ -21,7 +21,7 @@ function DirectMessages() {
       </ListItem>
       <div className="users-list">
         <div className="sidebar-title">direct messages</div>
-        {friends.map(use => <ListItemUser name="IS" image="http://d279m997dpfwgl.cloudfront.net/wp/2021/11/LukeCrywalkerMain_01_00480-1000x563.jpg" />)}
+        {friends.map((use, index) => <ListItemUser key={ index } name="IS" image="http://d279m997dpfwgl.cloudfront.net/wp/2021/11/LukeCrywalkerMain_01_00480-1000x563.jpg" />)}
       </div>
       
     </Sidebar>
