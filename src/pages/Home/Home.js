@@ -1,29 +1,15 @@
-import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
-import { login } from '../../actions';
+import { Link } from 'react-router-dom';
 import clouds from '../../assets/clouds.svg';
 import leftArt from '../../assets/left.svg';
 import rightArt from '../../assets/right.svg';
-// import {getUserSessionFromServer} from '../../App';
 import './Home.css';
 
 
 
-const Home = ({ userAuth }) => {
-
-  const [navigate, setNavigate] = useState(false);
-
-  // useEffect(() => {
-  //   if (userAuth) {
-  //     setNavigate(true);
-  //   } else getUserSessionFromServer();
-  // }, [userAuth])
-  // console.log(userAuth);
+const Home = () => {
 
   return (
     <div className="home">
-      { navigate && <Navigate to="/channels" /> }
       <div className="cover-text">
         <h1>IMAGINE A PLACE...</h1>
         <p>
@@ -45,9 +31,4 @@ const Home = ({ userAuth }) => {
   )
 }
 
-const mapStateToProps = state => {
-  console.log(state);
-  return { userAuth: state.user }
-} 
-
-export default connect(mapStateToProps, { login })(Home);
+export default Home;
