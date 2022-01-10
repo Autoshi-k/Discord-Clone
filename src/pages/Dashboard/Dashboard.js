@@ -26,41 +26,17 @@ function Dashboard() {
         console.log(data.err); 
         return;
       };
-      dispatch(login(data));
+      console.log(data);
+      dispatch(login(data[0]));
     })
   }, [])
   
-  
-  
-  // const [killme, setKillme] = useState(false);
-  // useEffect(() => {
-  //   setKillme(true);
-  //   console.log('useEffect kill');
-  // }, [])
-
-  // useEffect(() => {
-  //   if (!killme) return;
-  //   console.log('hi');
-  //   fetch('/api/channels', { 
-  //     method: 'GET', 
-  //     headers: {
-  //       "content-type": "application/json",
-  //       Authorization: localStorage.getItem("auth-token")
-  //     } })
-  //     .then(res => res.json())
-  //     .then(data => { 
-  //       login(data[0]);
-  //       console.log('hello from deshboard')
-  //       console.log(data[0])
-  //     })
-  //     .catch(err => console.log(err))
-  // }, [killme])
   return (
     <>
-      <div>{ user.tag }</div>
+      {/* <div>{ user.tag }</div> */}
       <div className="dashboad">
-        {/* <ServerBar /> */}
-        {/* <DirectMessages /> */}
+        <ServerBar />
+        <DirectMessages />
       </div>
   </>
   )
