@@ -47,7 +47,7 @@ function DirectMessages() {
       { status ?  
       <div className="users-list">
         <div className="sidebar-title" onClick={ () => addCoversation() }>direct messages</div>
-        { user.conversetions.map((conv, index) => <ListItemUser key={ index } name={conv.nickname } image="http://d279m997dpfwgl.cloudfront.net/wp/2021/11/LukeCrywalkerMain_01_00480-1000x563.jpg" />)}
+        { user.conversetions.map((conv, index) => <ListItemUser key={ index } name={conv.displayName } image={ conv.image } />)}
       </div>
       :
       null

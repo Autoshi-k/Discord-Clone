@@ -12,13 +12,13 @@ const Signup = () => {
     fetch('/signup', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: form['username'].value,email: form['email'].value, password: form['password'].value })
+      body: JSON.stringify({ displayName: form['displayName'].value,email: form['email'].value, password: form['password'].value })
     })
   }
   return (
     <div>
       <form onSubmit={handleSubmit} ref={signupForm} >
-        <input type="text" name="username" placeholder="username" />
+        <input type="text" name="displayName" placeholder="username" />
         <input type="text" name="email" placeholder="email" />
         <input type="password" name="password" placeholder="password" />
         <input type="submit" value="sign up" />

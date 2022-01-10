@@ -6,11 +6,12 @@ export const userSlice = createSlice({
   initialState: { 
     status: false,
     value: {
-      nickname: '',
+      displayName: '',
       linked: {},
       conversations: [],
       tag: 0,
       email: '',
+      status: 0
     } 
   },
   reducers: {

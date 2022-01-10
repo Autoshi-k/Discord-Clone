@@ -27,9 +27,8 @@ const Login = ({ userAuth, login }) => {
       .then(res => res.json()))
       .then(data => { 
         login(data[0]);
-        console.log('hellow there, ', data[0])
         const objData = data[0];
-        localStorage.setItem('user-data', JSON.stringify({ id: objData.id, displayName: objData.username, tag: objData.tag }));
+        localStorage.setItem('user-data', JSON.stringify({ id: objData.id, displayName: objData.displayName, tag: objData.tag }));
         localStorage.setItem('email', objData.email);
       })
       .catch(err => console.log(err)))
