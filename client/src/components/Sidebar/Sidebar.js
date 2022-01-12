@@ -8,20 +8,6 @@ import SidebarUserInfo from "../SidebarUserInfo/SidebarUserInfo";
 // import person3 from '../../images/person3.jpg';
 
 export function Sidebar({ children }) {
-  const users = {
-    "kdfsjkf78434h3" : {
-      name: "Json Smith",
-      // image: person1
-    },
-    "kdfsjsnjncy4h3" : {
-      name: "JayXx7",
-      // image: person2
-    },
-    "kdfsjkf78438k3" : {
-      name: "Rozzet",
-      // image: person3
-    }
-  }
   return (
     <div className="sidebar">
       { children }

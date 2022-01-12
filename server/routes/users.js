@@ -15,13 +15,13 @@ router.post('/addConv', verify, async (req, res) => {
   // user who made the request
   const user = await User.findOne({ id: req.user.id });
   const { displayName, tag } = req.body;
-
-  console.log(user);
+  
+  console.log('me', user, 'other', displayName);
   // user to add to { conversations }
   const addUser = await User.findOne(
     { displayName: displayName },
     // addUser doesnt include data below (i can change it like in line 10)
-    { _id: 0, conversetions: 0, email: 0, date: 0, Linked: 0, password: 0 }
+    { _id: 0, conversations: 0, email: 0, date: 0, Linked: 0, password: 0 }
   );
 
   if (!addUser) return res.send({ err: 'user doesnt exist' });
@@ -29,7 +29,7 @@ router.post('/addConv', verify, async (req, res) => {
   // update new converstion -- need to check if id alreay exist
   // or if its the same as user id (user adding himself)
   // ALSO need to add conversation in the other user !IMPORTANT
-  user.conversetions.push({ id: addUser.id, displayName: addUser.displayName, tag: addUser.tag });
+  user.conversations.push({ id: addUser.id, displayName: addUser.displayName, tag: addUser.tag });
   await user.save();
   res.status(200).send({ id: addUser.id, displayName: addUser.displayName, tag: addUser.tag });
 })

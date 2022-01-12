@@ -28,6 +28,7 @@ const Login = ({ userAuth, login }) => {
       .then(data => { 
         login(data[0]);
         const objData = data[0];
+        console.log(objData);
         localStorage.setItem('user-data', JSON.stringify({ id: objData.id, displayName: objData.displayName, tag: objData.tag }));
         localStorage.setItem('email', objData.email);
       })

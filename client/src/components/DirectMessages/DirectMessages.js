@@ -18,11 +18,21 @@ function DirectMessages() {
     const newConAdd = prompt('write your friend username & tag');
     // getting the promt and spliting it to username and tag
     const mark = newConAdd.indexOf('#');
-    const username = newConAdd.slice(0, mark);
-    const tag = newConAdd.slice(mark + 1);
+    let displayName, tag;
+    // if there is no #, mark is the whole displayName, else split tag and name
+    // const displayName = mark === -1 ? newConAdd : newConAdd.slice(0, mark);
+    if (mark === -1) {
+      displayName = newConAdd;
+      tag = null; 
+    } else {
+      displayName = newConAdd.slice(0, mark);
+      tag = newConAdd.slice(mark + 1);
+    }
+    console.log(displayName);
+    console.log(tag);
     fetch('/api/users/addConv', { 
       method: 'POST', 
-      body: JSON.stringify({ username, tag }),
+      body: JSON.stringify({ displayName, tag }),
       headers: {
         "content-type": "application/json",
         "Authorization": localStorage.getItem("auth-token")
@@ -47,7 +57,7 @@ function DirectMessages() {
       { status ?  
       <div className="users-list">
         <div className="sidebar-title" onClick={ () => addCoversation() }>direct messages</div>
-        { user.conversetions.map((conv, index) => <ListItemUser key={ index } name={conv.displayName } image={ conv.image } />)}
+        { user.conversations.map((conv, index) => <ListItemUser key={ index } name={conv.displayName } image={ conv.image } />)}
       </div>
       :
       null
