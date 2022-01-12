@@ -44,11 +44,8 @@ const userSchema = new mongoose.Schema({
     servers: Array
   },
   conversations: Array,
-  _id: false
-  // prevent _id
-  // subdocArray: [{
-    // field: { type: String }
-//  }]
+  // prevent _id - have an error !fix
+  // _id: false
 }, { timestamps: true })
 
 const User = new mongoose.model('User', userSchema);

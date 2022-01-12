@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
   // check if email already exist
   const emailExist = await User.findOne({ 'email': req.body.email});
   if (emailExist) return res.status(400).send('Email already exist');
-  
+  console.log('hnani');
   // Hash password
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(req.body.password, salt);
@@ -30,11 +30,15 @@ router.post('/register', async (req, res) => {
     password: hashPassword 
   });
   
+  console.log(user);
   // add user & password to DB
   try {
     await user.save();
     res.send(user.id + ' Created');
   } catch (err) {
+      // i want User schema won't have _id, but when trying to save new user
+      // error => docuement must have an _id before saving
+      console.log(err);
       res.status(400).send(err);
   }
 });
