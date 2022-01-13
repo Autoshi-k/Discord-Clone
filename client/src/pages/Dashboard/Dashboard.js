@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { login } from '../../features/user';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import io from 'socket.io-client';
 
 // css
 import './ChannelsHome.css';
@@ -8,8 +9,10 @@ import 'semantic-ui-css/semantic.min.css';
 import ServerBar from '../../components/ServerBar/ServerBar';
 import DirectMessages from '../../components/DirectMessages/DirectMessages';
 
+const socket = io();
+// const socket = io('http//localhost:3001', { transports: ['websocket', 'polling'] });
+
 function Dashboard() {
-  const user = useSelector(state => state.user.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,7 +20,7 @@ function Dashboard() {
       method: 'GET',
       headers: {
         "content-type": "application/json",
-        "Authorization": localStorage.getItem("auth-token"), // need to add state - when i get 401 need to navigate
+        "Authorization": localStorage.getItem("auth-token"),
       }
     })
     .then(res => res.json())
@@ -26,14 +29,22 @@ function Dashboard() {
         console.log(data.err); 
         return;
       };
-      console.log(data);
       dispatch(login(data[0]));
+    })
+  }, [])
+
+  useEffect(() => {
+    socket.on('connection', () => {
+      console.log('connection have being made');
+    })
+
+    socket.on('disconnect', () => {
+      console.log('user died');
     })
   }, [])
   
   return (
     <>
-      {/* <div>{ user.tag }</div> */}
       <div className="dashboad">
         <ServerBar />
         <DirectMessages />

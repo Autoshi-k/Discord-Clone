@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
-import { Routes, Route, Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 // Pages
 import Home from './pages/Home/Home';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-
 
 function App() {
   return (

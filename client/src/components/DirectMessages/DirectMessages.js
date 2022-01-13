@@ -1,6 +1,5 @@
 import { Chat } from "../Chat/Chat";
 import { Sidebar } from "../Sidebar/Sidebar";
-import { PeopleAltIcon } from '@mui/icons-material/PeopleAlt';
 import { Divider, ListItem } from "@mui/material";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
@@ -20,7 +19,6 @@ function DirectMessages() {
     const mark = newConAdd.indexOf('#');
     let displayName, tag;
     // if there is no #, mark is the whole displayName, else split tag and name
-    // const displayName = mark === -1 ? newConAdd : newConAdd.slice(0, mark);
     if (mark === -1) {
       displayName = newConAdd;
       tag = null; 
@@ -28,8 +26,6 @@ function DirectMessages() {
       displayName = newConAdd.slice(0, mark);
       tag = newConAdd.slice(mark + 1);
     }
-    console.log(displayName);
-    console.log(tag);
     fetch('/api/users/addConv', { 
       method: 'POST', 
       body: JSON.stringify({ displayName, tag }),

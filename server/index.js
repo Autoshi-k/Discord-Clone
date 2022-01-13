@@ -8,7 +8,7 @@ import session from 'express-session';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { Server } from 'socket.io';
-import http from 'http';
+import http, { createServer } from 'http';
 
 // Import routes
 import { router as authRouter } from './routes/auth.js';
@@ -35,7 +35,26 @@ app.get('/', (req, res) => {
   res.send('test test')
 })
 
-// const server = http.createServer(app);
+
+// Socket IO
+const server = createServer(app);
+const io = new Server(server);
+
+io.on("connection", (socket) => {
+  console.log("New client connected");
+
+  // socket.on('newMsg', message => {
+  //   io.emit('message', {
+  //     text: message,
+  //     date: new Date().toISOString(),
+  //   })
+  // })
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
+
 // const io = new Server(server, {
 //   cors: {
 //     origin: '*',
@@ -72,4 +91,4 @@ app.get('/', (req, res) => {
 // app.use('/', auth);
 
 // app.listen(3001, () => console.log('server running on port 3001'));
-app.listen(3001, (err) => console.log(err ? err : 'IS OKE'));
+server.listen(3001, (err) => console.log(err ? err : 'IS OKE'));

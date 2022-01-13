@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { login } from '../actions';
 
-const Login = ({ userAuth, login }) => {
+const Login = ({ login }) => {
+  const user = useSelector(state => state.user.value);
+  console.log(user);
+  const dispatch = useDispatch();
 
   const loginForm = useRef(null);
   const [rediret, setRedirect] = useState(false);
@@ -26,7 +28,7 @@ const Login = ({ userAuth, login }) => {
       } })
       .then(res => res.json()))
       .then(data => { 
-        login(data[0]);
+        dispatch(login(data[0]));
         const objData = data[0];
         console.log(objData);
         localStorage.setItem('user-data', JSON.stringify({ id: objData.id, displayName: objData.displayName, tag: objData.tag }));
@@ -38,7 +40,6 @@ const Login = ({ userAuth, login }) => {
     //   setRedirect(true);
     // })
   }
-  console.log(userAuth);
   return (
     <div>
       { rediret && <Navigate to="/channels" /> }
@@ -52,8 +53,5 @@ const Login = ({ userAuth, login }) => {
   )
 }
 
-const mapStateToProps = state => {
-  return { userAuth: state.user }
-}
 
-export default connect(mapStateToProps, { login })(Login);
+export default Login;
