@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { login } from '../../features/user';
 import { useDispatch } from 'react-redux';
-import io from 'socket.io-client';
 
 // css
 import './ChannelsHome.css';
@@ -9,12 +8,10 @@ import 'semantic-ui-css/semantic.min.css';
 import ServerBar from '../../components/ServerBar/ServerBar';
 import DirectMessages from '../../components/DirectMessages/DirectMessages';
 
-const socket = io();
-// const socket = io('http//localhost:3001', { transports: ['websocket', 'polling'] });
-
 function Dashboard() {
   const dispatch = useDispatch();
 
+  // getting the user information and changing the state/localstorage
   useEffect(() => {
     fetch('/api/channels', {
       method: 'GET',
@@ -29,19 +26,26 @@ function Dashboard() {
         console.log(data.err); 
         return;
       };
-      dispatch(login(data[0]));
+      const objData = data[0];
+      dispatch(login(objData));
+      // check if local storage match to the user who is currently logged in
+      if (objData.id === localStorage.getItem('user-data').id) return;
+      localStorage.setItem('user-data', JSON.stringify({ id: objData.id, displayName: objData.displayName, tag: objData.tag }));
+      localStorage.setItem('email', objData.email);
     })
   }, [])
 
-  useEffect(() => {
-    socket.on('connection', () => {
-      console.log('connection have being made');
-    })
+  // useEffect(() => {
+  //   socket.on('connection', () => {
+  //     console.log('connection have being made');
+  //   })
 
-    socket.on('disconnect', () => {
-      console.log('user died');
-    })
-  }, [])
+  //   return () => {
+  //     socket.on('disconnect', () => {
+  //     console.log('user died');
+  //     })
+  //   }
+  // }, [])
   
   return (
     <>

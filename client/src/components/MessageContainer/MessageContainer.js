@@ -2,31 +2,31 @@ import './MessageContainer.css';
 import { Comment } from 'semantic-ui-react'
 import { ListItem, Avatar, ListItemText, Typography } from '@mui/material';
 
-function MessageContainer({ role }) {
+function MessageContainer({ role, sender, image, sentAt, content }) {
   return ( 
     <>    
-    { role === "first" ? 
+    { role === 'primary' ? 
       <div className="message">
         <div className="message-container">
           <div className="avatar">
             <Avatar  
             sx={{ justifySelf:"flex-start" }}
-            src='https://react.semantic-ui.com/images/avatar/small/matt.jpg'>
+            src={ image }>
             </Avatar>
           </div>
           <div className="message-sub-container">
             <div>
-              <div className='username'>shani</div>
+              <div className='username'>{ sender }</div>
               <span className='date'>today 7:00</span>
             </div>
-          <div className='message-content'>This is my message</div>
+          <div className='message-content'>{ content }</div>
           </div>
         </div>
     </div> :
     <div className="message">
       <div className="message-container">
         <span className='date visbale-hover'>to</span>
-        <div className='message-content secondary'>This is my second message</div>
+        <div className='message-content secondary'>{ content }</div>
       </div>
     </div>
     }

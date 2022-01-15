@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from 'react-router-dom';
+import { login } from '../features/user';
 
-const Login = ({ login }) => {
+const Login = () => {
   const user = useSelector(state => state.user.value);
-  console.log(user);
   const dispatch = useDispatch();
 
   const loginForm = useRef(null);

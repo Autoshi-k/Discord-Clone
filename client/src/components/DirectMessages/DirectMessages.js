@@ -6,11 +6,15 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { ListItemUser } from "../ListItemUser/ListItemUser";
 
 import './DirectMessages.css'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-function DirectMessages() {
+function DirectMessages({ socket, newRoom }) {
   const user = useSelector(state => state.user.value);
-  const status = useSelector(state => state.user.status);
+  const rooms = useSelector(state => state);
+  // const status = useSelector(state => state.user.status);
+
+  const dispatch = useDispatch();
+
 
   // adding a new conversation
   const addCoversation = () => {
@@ -36,11 +40,11 @@ function DirectMessages() {
     })
     .then(res => res.json())
     .then(data => {
-      if (data.err) console.log('need to do somethig');
-      
+      if (data.err) console.log(data.err);
+      dispatch(newRoom(data));     
     })
   }
-
+  console.log(rooms);
   console.log(user);
   return (
   <div className="direct-messages-window">
@@ -50,10 +54,10 @@ function DirectMessages() {
       <ListItem>
         <DeleteOutlinedIcon /> <div>Friends</div>
       </ListItem>
-      { status ?  
+      { user.value.rooms.private.length ?  
       <div className="users-list">
         <div className="sidebar-title" onClick={ () => addCoversation() }>direct messages</div>
-        { user.conversations.map((conv, index) => <ListItemUser key={ index } name={conv.displayName } image={ conv.image } />)}
+        { rooms.private.map((room, index) => <ListItemUser key={ index } name={room.displayName } image={ room.image } />)}
       </div>
       :
       null

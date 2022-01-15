@@ -39,11 +39,14 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   status: Boolean,
-  linked: {
-    friends: Array,
+  rooms: {
+    private: [{
+      type: ObjectId,
+      ref: 'PrivateRoom'
+    }],
     servers: Array
   },
-  conversations: Array,
+  friends: Array,
   // prevent _id - have an error !fix
   // _id: false
 }, { timestamps: true })
