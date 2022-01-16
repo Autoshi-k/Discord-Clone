@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { ObjectId } from 'mongodb';
 
 const userSchema = new mongoose.Schema({
   id: {
@@ -41,10 +40,7 @@ const userSchema = new mongoose.Schema({
   },
   status: Boolean,
   rooms: {
-    private: [{
-      type: ObjectId,
-      ref: 'PrivateRoom'
-    }],
+    private: Array,
     servers: Array
   },
   friends: Array,
