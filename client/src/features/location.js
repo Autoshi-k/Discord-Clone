@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const locationSlice = createSlice({
-  value: {
-    lobby: 'private-messages',
-    room: ''
+  name: 'location',
+  initialState: {
+    value: {
+      lobby: 'private-messages',
+      room: ''
+    }
   },
   reducers: {
     changeLocation: (state, action) => {
