@@ -20,6 +20,8 @@ const Login = () => {
     })
     .then(res => res.headers.get('auth-token'))
     .then(res => window.localStorage.setItem('auth-token', res))
+    // after logging in, fetching user information
+    // from /api/channels as preparation for redirect to /channels
     .then((fetch('/api/channels', { 
       method: 'GET', 
       headers: {
@@ -27,15 +29,19 @@ const Login = () => {
         "Authorization": localStorage.getItem("auth-token")
       } })
       .then(res => res.json()))
-      .then(data => { 
-        dispatch(login(data[0]));
-        const objData = data[0];
-        console.log(objData);
-        localStorage.setItem('user-data', JSON.stringify({ id: objData.id, displayName: objData.displayName, tag: objData.tag }));
-        localStorage.setItem('email', objData.email);
+      .then(dataInArry => {
+        const data = dataInArry[0]; 
+        console.log(data);
+        dispatch(login(data));
+        localStorage.setItem('user-data', JSON.stringify({ id: data.id, displayName: data.displayName, tag: data.tag }));
+        localStorage.setItem('email', data.email);
       })
-      .catch(err => console.log(err)))
-    .catch(err => console.log(err))
+      .catch(err => {
+        // console.log(err)
+        // if (err.status === 400) alert('Email or password is wrong');
+        // alert(res.err);
+      }))
+      .catch(err => console.log(err))
     // if (res.status === 200) {
     //   setRedirect(true);
     // })
