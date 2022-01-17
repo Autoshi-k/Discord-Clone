@@ -1,5 +1,6 @@
 import express from 'express';
 import { auth as verify } from '../helper/tokenVerify.js';
+import PrivateRoom from '../models/PrivateRooms.js';
 import User from '../models/User.js';
 
 export const router = express.Router();
@@ -17,19 +18,40 @@ router.post('/addConv', verify, async (req, res) => {
   const { displayName, tag } = req.body;
   
   console.log('me', user, 'other', displayName);
-  // user to add to { conversations }
-  const addUser = await User.findOne(
-    { displayName: displayName },
-    // addUser doesnt include data below (i can change it like in line 10)
-    { _id: 0, conversations: 0, email: 0, date: 0, Linked: 0, password: 0 }
-  );
-
+  // user to add to { rooms: private }
+  const addUser = await User.findOne({ displayName: displayName });
   if (!addUser) return res.send({ err: 'user doesnt exist' });
-
+  
+  let newRoom;
+  try {
+    newRoom = new PrivateRoom({
+      participants: [{
+        id: user.id,
+        displayName: user.displayName,
+        image: user.image,
+        tag: user.tag
+      }, {
+        id: addUser.id,
+        displayName: addUser.displayName,
+        image: addUser.image,
+        tag: addUser.tag
+      }]
+    });
+    await newRoom.save();
+    user.rooms.private.push(newRoom);
+    addUser.rooms.private.push(newRoom);
+    await user.save();
+    await addUser.save();
+    
+  } catch (err) {
+    console.log(err);
+  }
+  
+  
   // update new converstion -- need to check if id alreay exist
   // or if its the same as user id (user adding himself)
   // ALSO need to add conversation in the other user !IMPORTANT
-  user.conversations.push({ id: addUser.id, displayName: addUser.displayName, tag: addUser.tag });
-  await user.save();
-  res.status(200).send({ id: addUser.id, displayName: addUser.displayName, tag: addUser.tag });
+  // user.conversations.push({ id: addUser.id, displayName: addUser.displayName, tag: addUser.tag });
+  // await user.save();
+  res.status(200).send({ newRoom });
 })

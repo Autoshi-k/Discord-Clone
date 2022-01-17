@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
   
   // check if email exist
   const user = await User.findOne({ 'email': req.body.email});
-  if (!user) return res.status(400).send('Email or password is wrong');
+  if (!user) return res.status(400).send({ err : 'Email or password is wrong'});
   console.log('2');
   
   // validate password --ERROR
@@ -65,5 +65,6 @@ router.post('/login', async (req, res) => {
   res.header('auth-token', token).json(token);
   console.log('3');
   
-  res.json({ isAuth: true, token, user});
+  // res.json({ isAuth: true, token, user});
+  console.log('4');
 })
