@@ -7,22 +7,20 @@ import { ListItemUser } from "../ListItemUser/ListItemUser";
 
 import './DirectMessages.css'
 import { useDispatch, useSelector } from "react-redux";
+import { addRoom } from '../../features/user';
 
 function DirectMessages({ socket, newRoom }) {
   const user = useSelector(state => state.user.value);
-  const rooms = useSelector(state => state);
-  // const status = useSelector(state => state.user.status);
 
   const dispatch = useDispatch();
-
 
   // adding a new conversation
   const addCoversation = () => {
     const newConAdd = prompt('write your friend username & tag');
+    if (newConAdd === null) return;
     // getting the promt and spliting it to username and tag
     const mark = newConAdd.indexOf('#');
     let displayName, tag;
-    // if there is no #, mark is the whole displayName, else split tag and name
     if (mark === -1) {
       displayName = newConAdd;
       tag = null; 
@@ -41,11 +39,9 @@ function DirectMessages({ socket, newRoom }) {
     .then(res => res.json())
     .then(data => {
       if (data.err) console.log(data.err);
-      dispatch(newRoom(data));     
+      dispatch(addRoom(data.newRoom));
     })
   }
-  console.log(rooms);
-  console.log(user);
   return (
   <div className="direct-messages-window">
     <Sidebar> 
@@ -54,14 +50,16 @@ function DirectMessages({ socket, newRoom }) {
       <ListItem>
         <DeleteOutlinedIcon /> <div>Friends</div>
       </ListItem>
-      { user.value.rooms.private.length ?  
       <div className="users-list">
         <div className="sidebar-title" onClick={ () => addCoversation() }>direct messages</div>
-        { rooms.private.map((room, index) => <ListItemUser key={ index } name={room.displayName } image={ room.image } />)}
+        { user.rooms.private.length ?
+          user.rooms.private.map((room, index) => {
+          const userToDisplay = room.participants[0].id === user.id ? room.participants[1] : room.participants[0];
+          return <ListItemUser key={ userToDisplay.id } name={userToDisplay.displayName } image={ userToDisplay.image } />
+        })
+        : <div style={{ flex: 1 }}></div>
+        }
       </div>
-      :
-      null
-      }
     </Sidebar>
     <Chat />
   </div>

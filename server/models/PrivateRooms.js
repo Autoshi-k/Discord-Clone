@@ -4,12 +4,9 @@ import { ObjectId } from 'mongodb';
 // import Message from "./Message";
 
 const privateRoomSchema = new mongoose.Schema({
-  participants: [],
-  messages: [{
-    type: ObjectId,
-    ref: 'Message'
-  }]
+  participants: Array,
+  messages: Array
 }, { timestamps: true })
 
-const PrivateRoom = new mongoose.model('User', privateRoomSchema);
+const PrivateRoom = new mongoose.model('PrivateRoom', privateRoomSchema);
 export default PrivateRoom;

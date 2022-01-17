@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 export const userSlice = createSlice({
   name: "user",
   initialState: { 
-    status: false,
     value: {
       displayName: '',
-      linked: {},
-      conversations: [],
+      image: '',
+      rooms: {
+        private: [],
+        servers: []
+      },
+      friends: [],
       tag: 0,
       email: '',
       status: 0
@@ -16,12 +18,20 @@ export const userSlice = createSlice({
   },
   reducers: {
     login: (state, action) => {
-      state.status = true;
       state.value = action.payload;
+    },
+    addRoom: (state, action) => {
+      state.value = {
+        ...state.value,
+        rooms: {
+          ...state.value.rooms,
+          private: [...state.value.rooms.private, action.payload]
+        }
+      }
     }
   }
 })
 
-export const { login } = userSlice.actions;
+export const { login, addRoom } = userSlice.actions;
 
 export default userSlice.reducer;

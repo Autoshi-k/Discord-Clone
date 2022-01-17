@@ -10,7 +10,7 @@ import DirectMessages from '../../components/DirectMessages/DirectMessages';
 
 function Dashboard() {
   const dispatch = useDispatch();
-
+  console.log('dashboard');
   // getting the user information and changing the state/localstorage
   useEffect(() => {
     fetch('/api/channels', {
