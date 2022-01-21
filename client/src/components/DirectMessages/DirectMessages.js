@@ -1,11 +1,13 @@
-import { Chat } from "../Chat/Chat";
-import { Sidebar } from "../Sidebar/Sidebar";
 import { Divider, ListItem } from "@mui/material";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
+// Components
+import { Chat } from "../Chat/Chat";
+import { Sidebar } from "../Sidebar/Sidebar";
 import { ListItemUser } from "../ListItemUser/ListItemUser";
 
 import './DirectMessages.css'
+// Redux
 import { useDispatch, useSelector } from "react-redux";
 import { addRoom } from '../../features/user';
 
@@ -55,7 +57,7 @@ function DirectMessages({ socket, newRoom }) {
         { user.rooms.private.length ?
           user.rooms.private.map((room, index) => {
           const userToDisplay = room.participants[0].id === user.id ? room.participants[1] : room.participants[0];
-          return <ListItemUser key={ userToDisplay.id } name={userToDisplay.displayName } image={ userToDisplay.image } />
+          return <ListItemUser key={ room._id } room={{ roomId: room._id, userId: userToDisplay.id }} name={userToDisplay.displayName } image={ userToDisplay.image } />
         })
         : <div style={{ flex: 1 }}></div>
         }

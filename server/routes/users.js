@@ -37,6 +37,7 @@ router.post('/addConv', verify, async (req, res) => {
         tag: addUser.tag
       }]
     });
+    console.log(newRoom);
     await newRoom.save();
     user.rooms.private.push(newRoom);
     addUser.rooms.private.push(newRoom);

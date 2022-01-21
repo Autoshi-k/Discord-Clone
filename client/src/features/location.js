@@ -5,12 +5,15 @@ export const locationSlice = createSlice({
   initialState: {
     value: {
       lobby: 'private-messages',
-      room: ''
+      room: {
+        roomId: '',
+        userId: ''
+      }
     }
   },
   reducers: {
     changeLocation: (state, action) => {
-      state.value = { lobby: action.payload.lobby, room: action.payload.room }
+      state.value = action.payload;
     }
   }
 })

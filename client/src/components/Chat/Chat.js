@@ -8,21 +8,35 @@ import { useEffect, useRef, useState } from 'react';
 import './Chat.css';
 import { useSelector } from 'react-redux';
 
-const socket = io();
-
+let socket;
 
 export function Chat() {
-
   const user = useSelector(state => state.user.value);
+  const location = useSelector(state => state.location.value);
   const [message, setMessage] = useState('');
   const [newMessages, setNewMessages] = useState([]);
   const newMessagesRef = useRef(newMessages);
-
+  
   useEffect(() => newMessagesRef.current = newMessages)
   useEffect(() => {
-    socket.on('success send new message', msg => {
-      setNewMessages([...newMessagesRef.current, msg]);
-    })
+    console.log(JSON.parse(localStorage.getItem('user-data')).id);
+    socket = io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
+    socket.on("connect", () => {
+      console.log(socket.id); 
+
+      socket.on('show number', number => {
+        alert(number);
+      })
+    
+      socket.on('test', ({ newMessage, toSocketId }) => {
+        console.log('beckyyyy');
+        console.log(newMessage);
+        // console.log(toSocketId);
+        setNewMessages([...newMessagesRef.current, newMessage]);
+      })
+
+
+    });
   }, [])
   
   const changeMesasgeValue = (e) => {
@@ -32,7 +46,7 @@ export function Chat() {
   const submitMessage = (e) => {
     if (e.code !== 'Enter') return;
     e.preventDefault();
-
+    
     const msg = {
       senderDisplayName: user.displayName,
       senderId: user.id,
@@ -41,10 +55,15 @@ export function Chat() {
       type: 'Image',
       content: message
     }
-
-    socket.emit('try send new message', msg);
+    
+    console.log(location.room);
+    console.log(location.room.roomId);
+    console.log(location.room.userId);
+    socket.emit('try send new message', { msg: msg, to: location.room.roomId, reciver: location.room.userId});
     setMessage('');
   }
+
+  const tryMe = () => socket.emit('try', location.room.userId);
 
   return (
     <div className="chat-window">
@@ -53,14 +72,11 @@ export function Chat() {
           
           newMessages.map((message, index) => {
             console.log(message);
-            console.log(newMessages);
             const prevMessage = index ? newMessages[index - 1] : null;
+            // check who is the sender to determinate msg role (primary or secondary)
             const role = prevMessage ? 
-            // if its not the first message, check who is the sender
             prevMessage.sender.displayName === message.sender.displayName ?
-            // same sender - role is secondary, new sender - primary 
             'secondary' : 'primary' 
-            // in case of first new message (no other messages in state)
             : 'primary';
 
             return <MessageContainer 
@@ -76,6 +92,7 @@ export function Chat() {
       null
       }
       </div>
+      <button onClick={ tryMe }>click here motherfucker</button>
 
       <div className="input-box" onKeyUp={ submitMessage }>
         <div className="add-media"><DeleteOutlinedIcon sx={{ fontSize: 30 }} /></div>

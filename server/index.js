@@ -16,6 +16,8 @@ import { router as channelsRouter } from './routes/channels.js';
 import { router as findUsersRouter } from './routes/users.js';
 import { connect } from 'http2';
 import Message from './models/Message.js';
+import PrivateRoom from './models/PrivateRooms.js';
+import Connected from './models/Connected.js';
 
 dotenv.config();
 
@@ -42,28 +44,53 @@ app.get('/', (req, res) => {
 const server = createServer(app);
 const io = new Server(server);
 
+let connectedUsers = [];
 io.on("connection", socket => {
-  
-  socket.on('try send new message', async msg => {
-    try {
-      const newMessage = new Message({
-        content: msg.content,
-        sender: {
-          id: msg.senderId,
-          displayName: msg.senderDisplayName,
-          image: msg.senderImage,
-        }
-      });
 
-     await newMessage.save();
-     return io.emit('success send new message', newMessage);
+  connectedUsers.push({
+    socketId: socket.id,
+    userId: socket.handshake.auth.userId
+  })
+  // can use connection to update user status
+
+  socket.on('try send new message', async ({ msg, to, reciver }) => {
+    // now to is an onj (roomId, userId)
+    // to is privateRoom id , privateRoom include user id
+    let toSocketId;
+    const newMessage = new Message({
+      content: msg.content,
+      sender: {
+        id: msg.senderId,
+        displayName: msg.senderDisplayName,
+        image: msg.senderImage,
+      }
+    });
+    try {
+      const room = await PrivateRoom.findOne({ _id: to});
+      room.messages.push(newMessage);
+      await room.save();
+      await newMessage.save();
+      const userIdToSocketId = room.participants.find(participant => participant.id === reciver).id;
+      toSocketId = connectedUsers.find(user => user.userId === userIdToSocketId).socketId;
+      // socket.to(toSocketId).emit('success send new message', { newMessage, toSocketId });
+      // socket.emit('test', toSocketId);
     } catch (err) {
       console.log(err);
     }
+    console.log(connectedUsers);
+    console.log('thats me', socket.id);
+    socket.broadcast.emit('test', { newMessage, toSocketId });
+    // socket.emit('test', { newMessage, toSocketId });
+    // socket.to(socket.id).to(toSocketId).emit('test', { newMessage, toSocketId });
   })
 
+  socket.on('try', async number => {
+    socket.emit('show number', (number))
+  });
+  
   socket.on('disconnect', () => {
-    console.log('Client disconnected');
+    const index = connectedUsers.findIndex(user => { console.log(user); return user.socketID === socket.id})
+    connectedUsers.splice(index, 1);
   });
 });
 
