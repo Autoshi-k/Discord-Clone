@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { SocketContext } from '../../context/socket';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,8 +52,6 @@ function Dashboard() {
       console.log(socket.id); 
 
       socket.on('success send new message', ({ newMessage }) => {
-        console.log('beckyyyy');
-        console.log(newMessage);
         dispatch(addNewMessage({ room: location, message: newMessage }))
       })
 

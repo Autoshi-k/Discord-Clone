@@ -4,17 +4,15 @@ const app = express();
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-import session from 'express-session';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { Server } from 'socket.io';
-import http, { createServer } from 'http';
+import { createServer } from 'http';
 
 // Import routes
 import { router as authRouter } from './routes/auth.js';
 import { router as channelsRouter } from './routes/channels.js';
 import { router as findUsersRouter } from './routes/users.js';
-import { connect } from 'http2';
 import Message from './models/Message.js';
 import PrivateRoom from './models/PrivateRooms.js';
 import Connected from './models/Connected.js';
