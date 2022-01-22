@@ -51,16 +51,10 @@ function Dashboard() {
     socket.on("connect", () => {
       console.log(socket.id); 
 
-      socket.on('show number', number => {
-        alert(number);
-      })
-    
-      socket.on('test', ({ newMessage, toSocketId }) => {
+      socket.on('success send new message', ({ newMessage }) => {
         console.log('beckyyyy');
         console.log(newMessage);
-        // console.log(toSocketId);
         dispatch(addNewMessage({ room: location, message: newMessage }))
-        // setNewMessages([...newMessagesRef.current, newMessage]);
       })
 
 

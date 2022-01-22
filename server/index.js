@@ -56,17 +56,13 @@ io.on("connection", async socket => {
   // can use connection to update user status
   const userRooms = await User.findOne({ id: socket.handshake.auth.userId }).select('displayName rooms');
   userRooms.rooms.private.forEach(room => socket.join(room._id.toString()))
-  console.log(userRooms.displayName);
-  userRooms.rooms.private.forEach(room => console.log(room._id.toString()));
-  console.log('end');
   socket.on('add private room', newRoom => {
     socket.join(newRoom);
   })
 
-  socket.on('try send new message', async ({ msg, to, reciver }) => {
-    // now to is an onj (roomId, userId)
+  socket.on('try send new message', async ({ msg, to }) => {
+    // to = roomId
     // to is privateRoom id , privateRoom include user id
-    let toSocketId;
     const newMessage = new Message({
       content: msg.content,
       sender: {
@@ -80,12 +76,10 @@ io.on("connection", async socket => {
       room.messages.push(newMessage);
       await room.save();
       await newMessage.save();
-      const userIdToSocketId = room.participants.find(participant => participant.id === reciver).id;
-      toSocketId = connectedUsers.find(user => user.userId === userIdToSocketId).socketId;
     } catch (err) {
       console.log(err);
     }
-    socket.to(to).emit('test', { newMessage, toSocketId });
+    socket.to(to).emit('success send new message', { newMessage });
   })
   
   socket.on('disconnect', () => {

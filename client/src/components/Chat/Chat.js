@@ -34,7 +34,7 @@ export function Chat() {
       content: message
     }
 
-    socket.emit('try send new message', { msg: msg, to: location.room.roomId, reciver: location.room.userId});
+    socket.emit('try send new message', { msg: msg, to: location.room.roomId });
     setMessage('');
   }
 
