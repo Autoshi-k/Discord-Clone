@@ -4,8 +4,6 @@ import leftArt from '../../assets/left.svg';
 import rightArt from '../../assets/right.svg';
 import './Home.css';
 
-
-
 const Home = () => {
 
   return (

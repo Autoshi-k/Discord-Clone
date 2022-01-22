@@ -1,15 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { SocketContext } from '../../context/socket';
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/user';
-import { useDispatch } from 'react-redux';
+import { addNewMessage } from '../../features/newMessages';
 
 // css
 import './ChannelsHome.css';
 import 'semantic-ui-css/semantic.min.css';
 import ServerBar from '../../components/ServerBar/ServerBar';
 import DirectMessages from '../../components/DirectMessages/DirectMessages';
+import { io } from 'socket.io-client';
+
+
+let socket; // io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
 
 function Dashboard() {
+  socket = io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
+
   const dispatch = useDispatch();
+  const location = useSelector(state => state.location.value);
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log(socket.id); 
+
+      socket.on('show number', number => {
+        alert(number);
+      })
+    
+      socket.on('test', ({ newMessage, toSocketId }) => {
+        console.log('beckyyyy');
+        console.log(newMessage);
+        // console.log(toSocketId);
+        dispatch(addNewMessage({ room: location, message: newMessage }))
+        // setNewMessages([...newMessagesRef.current, newMessage]);
+      })
+
+
+    });
+  }, [])
+
+
   console.log('dashboard');
   // getting the user information and changing the state/localstorage
   useEffect(() => {
@@ -35,23 +66,13 @@ function Dashboard() {
     })
   }, [])
 
-  // useEffect(() => {
-  //   socket.on('connection', () => {
-  //     console.log('connection have being made');
-  //   })
-
-  //   return () => {
-  //     socket.on('disconnect', () => {
-  //     console.log('user died');
-  //     })
-  //   }
-  // }, [])
-  
   return (
     <>
       <div className="dashboad">
-        <ServerBar />
-        <DirectMessages />
+        <SocketContext.Provider value={ socket }>
+          <ServerBar />
+          <DirectMessages />
+        </SocketContext.Provider>
       </div>
   </>
   )

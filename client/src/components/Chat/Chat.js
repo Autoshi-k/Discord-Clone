@@ -1,43 +1,25 @@
 import MessageContainer from '../MessageContainer/MessageContainer';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-import { io } from 'socket.io-client';
 import moment from 'moment';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import './Chat.css';
 import { useSelector } from 'react-redux';
-
-let socket;
+import { SocketContext } from '../../context/socket';
 
 export function Chat() {
   const user = useSelector(state => state.user.value);
   const location = useSelector(state => state.location.value);
+  const newMessages = useSelector(state => state.newMessages.value);
+  const socket = useContext(SocketContext);
+
   const [message, setMessage] = useState('');
-  const [newMessages, setNewMessages] = useState([]);
-  const newMessagesRef = useRef(newMessages);
+  // const [newMessages, setNewMessages] = useState([]);
+  // const newMessagesRef = useRef(newMessages);
   
-  useEffect(() => newMessagesRef.current = newMessages)
-  useEffect(() => {
-    console.log(JSON.parse(localStorage.getItem('user-data')).id);
-    socket = io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
-    socket.on("connect", () => {
-      console.log(socket.id); 
-
-      socket.on('show number', number => {
-        alert(number);
-      })
-    
-      socket.on('test', ({ newMessage, toSocketId }) => {
-        console.log('beckyyyy');
-        console.log(newMessage);
-        // console.log(toSocketId);
-        setNewMessages([...newMessagesRef.current, newMessage]);
-      })
-
-
-    });
-  }, [])
+  // useEffect(() => newMessagesRef.current = newMessages)
+  
   
   const changeMesasgeValue = (e) => {
     setMessage(e.target.value);
@@ -55,10 +37,7 @@ export function Chat() {
       type: 'Image',
       content: message
     }
-    
-    console.log(location.room);
-    console.log(location.room.roomId);
-    console.log(location.room.userId);
+
     socket.emit('try send new message', { msg: msg, to: location.room.roomId, reciver: location.room.userId});
     setMessage('');
   }
@@ -68,14 +47,16 @@ export function Chat() {
   return (
     <div className="chat-window">
       <div className="chat">
-        { newMessages.length ?
+        { newMessages.messages.length ? 
           
-          newMessages.map((message, index) => {
-            console.log(message);
-            const prevMessage = index ? newMessages[index - 1] : null;
+          newMessages.messages.map((messageObj, index) => {
+            const message = messageObj.message; 
+            console.log(index);
+            const prevMessage = index ? newMessages.messages[index - 1] : null;
+            console.log(prevMessage);
             // check who is the sender to determinate msg role (primary or secondary)
             const role = prevMessage ? 
-            prevMessage.sender.displayName === message.sender.displayName ?
+            prevMessage.message.sender.displayName === message.sender.displayName ?
             'secondary' : 'primary' 
             : 'primary';
 
