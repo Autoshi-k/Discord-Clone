@@ -77,16 +77,8 @@ io.on("connection", socket => {
     } catch (err) {
       console.log(err);
     }
-    console.log(connectedUsers);
-    console.log('thats me', socket.id);
     socket.broadcast.emit('test', { newMessage, toSocketId });
-    // socket.emit('test', { newMessage, toSocketId });
-    // socket.to(socket.id).to(toSocketId).emit('test', { newMessage, toSocketId });
   })
-
-  socket.on('try', async number => {
-    socket.emit('show number', (number))
-  });
   
   socket.on('disconnect', () => {
     const index = connectedUsers.findIndex(user => { console.log(user); return user.socketID === socket.id})
