@@ -38,8 +38,6 @@ export function Chat() {
     setMessage('');
   }
 
-  const tryMe = () => socket.emit('try', location.room.userId);
-
   return (
     <div className="chat-window">
       <div className="chat">
@@ -67,8 +65,6 @@ export function Chat() {
       null
       }
       </div>
-      <button onClick={ tryMe }>click here motherfucker</button>
-
       <div className="input-box" onKeyUp={ submitMessage }>
         <div className="add-media"><DeleteOutlinedIcon sx={{ fontSize: 30 }} /></div>
         <input 

@@ -20,27 +20,7 @@ function Dashboard() {
 
   const dispatch = useDispatch();
   const location = useSelector(state => state.location.value);
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log(socket.id); 
-
-      socket.on('show number', number => {
-        alert(number);
-      })
-    
-      socket.on('test', ({ newMessage, toSocketId }) => {
-        console.log('beckyyyy');
-        console.log(newMessage);
-        // console.log(toSocketId);
-        dispatch(addNewMessage({ room: location, message: newMessage }))
-        // setNewMessages([...newMessagesRef.current, newMessage]);
-      })
-
-
-    });
-  }, [])
-
-
+  
   console.log('dashboard');
   // getting the user information and changing the state/localstorage
   useEffect(() => {
@@ -64,7 +44,28 @@ function Dashboard() {
       localStorage.setItem('user-data', JSON.stringify({ id: objData.id, displayName: objData.displayName, tag: objData.tag }));
       localStorage.setItem('email', objData.email);
     })
-  }, [])
+  }, []);
+
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log(socket.id); 
+
+      socket.on('show number', number => {
+        alert(number);
+      })
+    
+      socket.on('test', ({ newMessage, toSocketId }) => {
+        console.log('beckyyyy');
+        console.log(newMessage);
+        // console.log(toSocketId);
+        dispatch(addNewMessage({ room: location, message: newMessage }))
+        // setNewMessages([...newMessagesRef.current, newMessage]);
+      })
+
+
+    });
+  }, []);
 
   return (
     <>

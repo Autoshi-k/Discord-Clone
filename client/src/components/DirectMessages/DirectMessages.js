@@ -10,10 +10,12 @@ import './DirectMessages.css'
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { addRoom } from '../../features/user';
+import { useContext } from "react";
+import { SocketContext } from "../../context/socket";
 
-function DirectMessages({ socket, newRoom }) {
+function DirectMessages() {
   const user = useSelector(state => state.user.value);
-
+  const socket = useContext(SocketContext);
   const dispatch = useDispatch();
 
   // adding a new conversation
@@ -42,6 +44,7 @@ function DirectMessages({ socket, newRoom }) {
     .then(data => {
       if (data.err) console.log(data.err);
       dispatch(addRoom(data.newRoom));
+      socket.emit('add private room', data.newRoom._id);
     })
   }
   return (

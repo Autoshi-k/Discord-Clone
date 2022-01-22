@@ -18,6 +18,7 @@ import { connect } from 'http2';
 import Message from './models/Message.js';
 import PrivateRoom from './models/PrivateRooms.js';
 import Connected from './models/Connected.js';
+import User from './models/User.js';
 
 dotenv.config();
 
@@ -45,13 +46,22 @@ const server = createServer(app);
 const io = new Server(server);
 
 let connectedUsers = [];
-io.on("connection", socket => {
+io.on("connection", async socket => {
 
   connectedUsers.push({
     socketId: socket.id,
     userId: socket.handshake.auth.userId
   })
+
   // can use connection to update user status
+  const userRooms = await User.findOne({ id: socket.handshake.auth.userId }).select('displayName rooms');
+  userRooms.rooms.private.forEach(room => socket.join(room._id.toString()))
+  console.log(userRooms.displayName);
+  userRooms.rooms.private.forEach(room => console.log(room._id.toString()));
+  console.log('end');
+  socket.on('add private room', newRoom => {
+    socket.join(newRoom);
+  })
 
   socket.on('try send new message', async ({ msg, to, reciver }) => {
     // now to is an onj (roomId, userId)
@@ -72,16 +82,14 @@ io.on("connection", socket => {
       await newMessage.save();
       const userIdToSocketId = room.participants.find(participant => participant.id === reciver).id;
       toSocketId = connectedUsers.find(user => user.userId === userIdToSocketId).socketId;
-      // socket.to(toSocketId).emit('success send new message', { newMessage, toSocketId });
-      // socket.emit('test', toSocketId);
     } catch (err) {
       console.log(err);
     }
-    socket.broadcast.emit('test', { newMessage, toSocketId });
+    socket.to(to).emit('test', { newMessage, toSocketId });
   })
   
   socket.on('disconnect', () => {
-    const index = connectedUsers.findIndex(user => { console.log(user); return user.socketID === socket.id})
+    const index = connectedUsers.findIndex(user => user.socketID === socket.id)
     connectedUsers.splice(index, 1);
   });
 });
