@@ -9,17 +9,13 @@ import { useSelector } from 'react-redux';
 import { SocketContext } from '../../context/socket';
 
 export function Chat() {
+  const socket = useContext(SocketContext);
+  // Redux store
   const user = useSelector(state => state.user.value);
   const location = useSelector(state => state.location.value);
   const newMessages = useSelector(state => state.newMessages.value);
-  const socket = useContext(SocketContext);
-
+  // new message input
   const [message, setMessage] = useState('');
-  // const [newMessages, setNewMessages] = useState([]);
-  // const newMessagesRef = useRef(newMessages);
-  
-  // useEffect(() => newMessagesRef.current = newMessages)
-  
   
   const changeMesasgeValue = (e) => {
     setMessage(e.target.value);
@@ -51,9 +47,7 @@ export function Chat() {
           
           newMessages.messages.map((messageObj, index) => {
             const message = messageObj.message; 
-            console.log(index);
             const prevMessage = index ? newMessages.messages[index - 1] : null;
-            console.log(prevMessage);
             // check who is the sender to determinate msg role (primary or secondary)
             const role = prevMessage ? 
             prevMessage.message.sender.displayName === message.sender.displayName ?
