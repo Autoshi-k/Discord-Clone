@@ -1,4 +1,3 @@
-import { sliderClasses } from "@mui/material";
 import { createSlice } from "@reduxjs/toolkit";
 
 export const newMessagesSlice = createSlice({

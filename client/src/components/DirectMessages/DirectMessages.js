@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addRoom } from '../../features/user';
 import { useContext } from "react";
 import { SocketContext } from "../../context/socket";
+import { Link, Route, Routes } from "react-router-dom";
 
 function DirectMessages() {
   const user = useSelector(state => state.user.value);
@@ -60,13 +61,20 @@ function DirectMessages() {
         { user.rooms.private.length ?
           user.rooms.private.map((room, index) => {
           const userToDisplay = room.participants[0].id === user.id ? room.participants[1] : room.participants[0];
-          return <ListItemUser key={ room._id } room={{ roomId: room._id, userId: userToDisplay.id }} name={userToDisplay.displayName } image={ userToDisplay.image } />
+          return (
+            // <Link to={ `/@me/${room._id}` }>
+              <ListItemUser key={ room._id } room={{ roomId: room._id, userId: userToDisplay.id }} name={userToDisplay.displayName } image={ userToDisplay.image } />
+            // </Link>
+          )
         })
         : <div style={{ flex: 1 }}></div>
         }
       </div>
     </Sidebar>
     <Chat />
+    {/* <Routes>
+      <Route path={'channels/@me/:roomId'} element={<Chat />} />
+    </Routes> */}
   </div>
   )
 }

@@ -4,6 +4,7 @@ import { SocketContext } from '../../context/socket';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/user';
 import { addNewMessage } from '../../features/newMessages';
+import { getChatHistory } from '../../features/oldMessages';
 
 // css
 import './ChannelsHome.css';
@@ -37,12 +38,13 @@ function Dashboard() {
         console.log(data.err); 
         return;
       };
-      const objData = data[0];
-      dispatch(login(objData));
+      console.log('hi',data.chatsHistory);
+      dispatch(login(data.user));
+      dispatch(getChatHistory(data.chatsHistory));
       // check if local storage match to the user who is currently logged in
-      if (objData.id === localStorage.getItem('user-data').id) return;
-      localStorage.setItem('user-data', JSON.stringify({ id: objData.id, displayName: objData.displayName, tag: objData.tag }));
-      localStorage.setItem('email', objData.email);
+      if (data.user.id === localStorage.getItem('user-data').id) return;
+      localStorage.setItem('user-data', JSON.stringify({ id: data.user.id, displayName: data.user.displayName, tag: data.user.tag }));
+      localStorage.setItem('email', data.user.email);
     })
   }, []);
 

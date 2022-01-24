@@ -14,8 +14,14 @@ export function Chat() {
   const user = useSelector(state => state.user.value);
   const location = useSelector(state => state.location.value);
   const newMessages = useSelector(state => state.newMessages.value);
+  const oldMessages = useSelector(state => state.oldMessages.value);
+
+  const historyChat = oldMessages.length ? oldMessages.find(message => message.roomId === location.room.roomId) : null;
   // new message input
   const [message, setMessage] = useState('');
+
+  
+  console.log(location.room.roomId);
   
   const changeMesasgeValue = (e) => {
     setMessage(e.target.value);
@@ -38,28 +44,63 @@ export function Chat() {
     setMessage('');
   }
 
+  const createMessage = (message, index, array) => {
+    console.log('prevmsg aka array',array);
+    console.log('msg',message);
+    // console.log(newMessages);
+    // console.log(oldMessages);
+    console.log('index', index);
+    const prevMessage = array ? array.sender.displayName : null;
+    // const test = index ? array : null;
+    // const prevMessage = test.messages;
+    // console.log(prevMessage);
+    // // check who is the sender to determinate msg role (primary or secondary)
+    const role = prevMessage ? 
+    prevMessage === message.sender.displayName ?
+    'secondary' : 'primary' 
+    : 'primary';
+
+    return <MessageContainer 
+              key={ Math.floor(Math.random() * 9999) * index }
+              role={role}
+              sender={message.sender.displayName} 
+              image={message.sender.image} 
+              sentAt={message.createdAt} 
+              content={message.content}
+              />
+            }
+            console.log(historyChat);
+
   return (
     <div className="chat-window">
       <div className="chat">
+
+        { 
+          historyChat ? 
+          historyChat.messages.map((message, index) => createMessage(message, index, index ? historyChat.messages[index-1] : null))
+          : null
+        }
+
         { newMessages.messages.length ? 
           
           newMessages.messages.map((messageObj, index) => {
             const message = messageObj.message; 
-            const prevMessage = index ? newMessages.messages[index - 1] : null;
-            // check who is the sender to determinate msg role (primary or secondary)
-            const role = prevMessage ? 
-            prevMessage.message.sender.displayName === message.sender.displayName ?
-            'secondary' : 'primary' 
-            : 'primary';
+            return createMessage(message, index, index ? newMessages.messages[index-1] : null);
+            // const prevMessage = index ? newMessages.messages[index - 1] : null;
+            // // check who is the sender to determinate msg role (primary or secondary)
+            // const role = prevMessage ? 
+            // prevMessage.message.sender.displayName === message.sender.displayName ?
+            // 'secondary' : 'primary' 
+            // : 'primary';
 
-            return <MessageContainer 
-                     key={ 500 - index }
-                     role={role}
-                     sender={message.sender.displayName} 
-                     image={message.sender.image} 
-                     sentAt={message.createdAt} 
-                     content={message.content}
-                   />
+            // return <MessageContainer 
+            //          key={ 500 - index }
+            //          role={role}
+            //          sender={message.sender.displayName} 
+            //          image={message.sender.image} 
+            //          sentAt={message.createdAt} 
+            //          content={message.content}
+            //        />
           })
       :
       null

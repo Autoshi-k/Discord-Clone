@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from 'react-router-dom';
+import { getChatHistory } from "../features/oldMessages";
 import { login } from '../features/user';
 
 const Login = () => {
@@ -29,12 +30,12 @@ const Login = () => {
         "Authorization": localStorage.getItem("auth-token")
       } })
       .then(res => res.json()))
-      .then(dataInArry => {
-        const data = dataInArry[0]; 
-        console.log(data);
-        dispatch(login(data));
-        localStorage.setItem('user-data', JSON.stringify({ id: data.id, displayName: data.displayName, tag: data.tag }));
-        localStorage.setItem('email', data.email);
+      .then(data => {
+        console.log(data.chatsHistory);
+        dispatch(login(data.user));
+        dispatch(getChatHistory(data.chatsHistory));
+        localStorage.setItem('user-data', JSON.stringify({ id: data.user.id, displayName: data.user.displayName, tag: data.user.tag }));
+        localStorage.setItem('email', data.user.email);
       })
       .catch(err => {
         // console.log(err)

@@ -8,7 +8,8 @@ import { Provider } from 'react-redux';
 import userReducer from './features/user';
 import roomsReducer from './features/rooms';
 import locationReducer from './features/location';
-import messageReducer from './features/newMessages'
+import newMessageReducer from './features/newMessages'
+import oldMessagesReducer from './features/oldMessages';
 
 // css
 import App from './App';
@@ -18,7 +19,8 @@ const store = configureStore({
     user: userReducer,
     rooms: roomsReducer,
     location: locationReducer,
-    newMessages: messageReducer
+    newMessages: newMessageReducer,
+    oldMessages: oldMessagesReducer
   }
 })
 
