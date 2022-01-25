@@ -14,8 +14,7 @@ import { router as authRouter } from './routes/auth.js';
 import { router as channelsRouter } from './routes/channels.js';
 import { router as findUsersRouter } from './routes/users.js';
 import Message from './models/Message.js';
-import PrivateRoom from './models/Room.js';
-import Connected from './models/Connected.js';
+import Room from './models/Room.js';
 import User from './models/User.js';
 
 dotenv.config();
@@ -48,12 +47,12 @@ io.on("connection", async socket => {
     userId: socket.handshake.auth.userId
   })
 
-  // can use connection to update user status
-  const userRooms = await User.findOne({ id: socket.handshake.auth.userId }).select('displayName rooms');
-  userRooms.rooms.private.forEach(room => socket.join(room._id.toString()))
-  socket.on('add private room', newRoom => {
-    socket.join(newRoom);
-  })
+  // // can use connection to update user status
+  // const userRooms = await User.findOne({ id: socket.handshake.auth.userId }).select('displayName rooms');
+  // userRooms.rooms.private.forEach(room => socket.join(room._id.toString()))
+  // socket.on('add private room', newRoom => {
+  //   socket.join(newRoom);
+  // })
 
   socket.on('try send new message', async ({ msg, to }) => {
     // to = roomId
