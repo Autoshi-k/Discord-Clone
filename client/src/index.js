@@ -10,6 +10,7 @@ import roomsReducer from './features/rooms';
 import locationReducer from './features/location';
 import newMessageReducer from './features/newMessages'
 import oldMessagesReducer from './features/oldMessages';
+import messagesReducer from './features/messages';
 
 // css
 import App from './App';
@@ -20,7 +21,8 @@ const store = configureStore({
     rooms: roomsReducer,
     location: locationReducer,
     newMessages: newMessageReducer,
-    oldMessages: oldMessagesReducer
+    oldMessages: oldMessagesReducer,
+    messages: messagesReducer
   }
 })
 
