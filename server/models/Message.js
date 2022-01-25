@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema({
-  content: String,
-  participantId: String
+  roomId: String,
+  participantId: String,
+  content: String
 }, { timestamps: true });
 
 const Message = new mongoose.model('Message', messageSchema);

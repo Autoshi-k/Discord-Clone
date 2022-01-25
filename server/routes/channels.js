@@ -24,11 +24,11 @@ const getMessages = async (participant) => {
 
 const getParticipants = async (room) => {
   const participantsInRoom = await Participant.find({ roomId: room.roomId });
-  return Promise.all(participantsInRoom.map(participant => getMessages(participant)))
+  return Promise.all(participantsInRoom.map(participant => {return { room: room.roomId, messages: getMessages(participant) }})) // return array
 }
 
 const getRoomsData = async (rooms) => {
-  return Promise.all(rooms.map(room => getParticipants(room)))
+  return Promise.all(rooms.map(room => getParticipants(room))) // return array
 }
 
 router.get('/', verify, async (req, res) => {
