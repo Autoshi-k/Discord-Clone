@@ -11,6 +11,7 @@
 
   .chat {
     flex: 1;
+    overflow-y: scroll;
   }
 
   .input-box {
@@ -18,7 +19,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 1em 1.8em;
+    margin: .5em 1em 1.8em;
     height: 3.5em;
     border-radius: .5em;
     // position: absolute;
