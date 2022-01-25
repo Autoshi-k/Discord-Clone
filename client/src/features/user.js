@@ -4,13 +4,9 @@ export const userSlice = createSlice({
   name: "user",
   initialState: { 
     value: {
+      id: '', 
       displayName: '',
       image: '',
-      rooms: {
-        private: [],
-        servers: []
-      },
-      friends: [],
       tag: 0,
       email: '',
       status: 0
@@ -32,6 +28,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { login, addRoom } = userSlice.actions;
+export const { login } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -38,12 +38,11 @@ function Dashboard() {
         console.log(data.err); 
         return;
       };
-      console.log('hi',data.chatsHistory);
+      console.log('hi',data);
       dispatch(login(data.user));
-      dispatch(getChatHistory(data.chatsHistory));
       // check if local storage match to the user who is currently logged in
-      if (data.user.id === localStorage.getItem('user-data').id) return;
-      localStorage.setItem('user-data', JSON.stringify({ id: data.user.id, displayName: data.user.displayName, tag: data.user.tag }));
+      if (data.user._id === localStorage.getItem('user-data').id) return;
+      localStorage.setItem('user-data', JSON.stringify({ id: data.user._id, displayName: data.user.displayName, tag: data.user.tag }));
       localStorage.setItem('email', data.user.email);
     })
   }, []);

@@ -9,44 +9,47 @@ import { ListItemUser } from "../ListItemUser/ListItemUser";
 import './DirectMessages.css'
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { addRoom } from '../../features/user';
+// import { addRoom } from '../../features/user';
 import { useContext } from "react";
 import { SocketContext } from "../../context/socket";
-import { Link, Route, Routes } from "react-router-dom";
+// import { Link, Route, Routes } from "react-router-dom";
 
 function DirectMessages() {
   const user = useSelector(state => state.user.value);
+  const messages = useSelector(state => state.messages.value);
+
   const socket = useContext(SocketContext);
   const dispatch = useDispatch();
 
   // adding a new conversation
   const addCoversation = () => {
-    const newConAdd = prompt('write your friend username & tag');
-    if (newConAdd === null) return;
-    // getting the promt and spliting it to username and tag
-    const mark = newConAdd.indexOf('#');
-    let displayName, tag;
-    if (mark === -1) {
-      displayName = newConAdd;
-      tag = null; 
-    } else {
-      displayName = newConAdd.slice(0, mark);
-      tag = newConAdd.slice(mark + 1);
-    }
-    fetch('/api/users/addConv', { 
-      method: 'POST', 
-      body: JSON.stringify({ displayName, tag }),
-      headers: {
-        "content-type": "application/json",
-        "Authorization": localStorage.getItem("auth-token")
-      }  
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.err) console.log(data.err);
-      dispatch(addRoom(data.newRoom));
-      socket.emit('add private room', data.newRoom._id);
-    })
+    console.log('hello brother')
+    // const newConAdd = prompt('write your friend username & tag');
+    // if (newConAdd === null) return;
+    // // getting the promt and spliting it to username and tag
+    // const mark = newConAdd.indexOf('#');
+    // let displayName, tag;
+    // if (mark === -1) {
+    //   displayName = newConAdd;
+    //   tag = null; 
+    // } else {
+    //   displayName = newConAdd.slice(0, mark);
+    //   tag = newConAdd.slice(mark + 1);
+    // }
+    // fetch('/api/users/addConv', { 
+    //   method: 'POST', 
+    //   body: JSON.stringify({ displayName, tag }),
+    //   headers: {
+    //     "content-type": "application/json",
+    //     "Authorization": localStorage.getItem("auth-token")
+    //   }  
+    // })
+    // .then(res => res.json())
+    // .then(data => {
+    //   if (data.err) console.log(data.err);
+    //   dispatch(addRoom(data.newRoom));
+    //   socket.emit('add private room', data.newRoom._id);
+    // })
   }
   return (
   <div className="direct-messages-window">
@@ -58,8 +61,8 @@ function DirectMessages() {
       </ListItem>
       <div className="users-list">
         <div className="sidebar-title" onClick={ () => addCoversation() }>direct messages</div>
-        { user.rooms.private.length ?
-          user.rooms.private.map((room, index) => {
+        { messages.length ?
+          messages.rooms.map((room, index) => {
           const userToDisplay = room.participants[0].id === user.id ? room.participants[1] : room.participants[0];
           return (
             // <Link to={ `/@me/${room._id}` }>
