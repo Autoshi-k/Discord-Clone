@@ -16,12 +16,14 @@ export function Chat() {
   const newMessages = useSelector(state => state.newMessages.value);
   const oldMessages = useSelector(state => state.oldMessages.value);
 
-  const historyChat = oldMessages.length ? oldMessages.find(message => message.roomId === location.room.roomId) : null;
+  const messagesInRoom = oldMessages.length ? oldMessages.find(message => message.roomId === location.room.roomId) : null;
+  console.log(messagesInRoom);
+  console.log(newMessages);
   // new message input
   const [message, setMessage] = useState('');
 
   
-  console.log(location.room.roomId);
+  // console  .log(location.room.roomId);
   
   const changeMesasgeValue = (e) => {
     setMessage(e.target.value);
@@ -45,11 +47,11 @@ export function Chat() {
   }
 
   const createMessage = (message, index, array) => {
-    console.log('prevmsg aka array',array);
-    console.log('msg',message);
+    // console.log('prevmsg aka array',array);
+    // console.log('msg',message);
     // console.log(newMessages);
     // console.log(oldMessages);
-    console.log('index', index);
+    // console.log('index', index);
     const prevMessage = array ? array.sender.displayName : null;
     // const test = index ? array : null;
     // const prevMessage = test.messages;
@@ -69,15 +71,15 @@ export function Chat() {
               content={message.content}
               />
             }
-            console.log(historyChat);
+
 
   return (
     <div className="chat-window">
       <div className="chat">
 
         { 
-          historyChat ? 
-          historyChat.messages.map((message, index) => createMessage(message, index, index ? historyChat.messages[index-1] : null))
+          messagesInRoom ? 
+          messagesInRoom.messages.map((message, index) => createMessage(message, index, index ? messagesInRoom.messages[index-1] : null))
           : null
         }
 

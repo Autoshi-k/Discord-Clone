@@ -54,7 +54,7 @@ function Dashboard() {
       console.log(socket.id); 
 
       socket.on('success send new message', ({ newMessage }) => {
-        dispatch(addNewMessage({ room: location, message: newMessage }))
+        dispatch(addNewMessage({ room: location.room.roomId, message: newMessage }))
       })
 
 

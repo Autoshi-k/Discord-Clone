@@ -34,9 +34,6 @@ app.use('/api/channels', channelsRouter);
 app.use('/api/users', findUsersRouter);
 
 
-app.get('/', (req, res) => {
-  res.send('test test')
-})
 
 
 // Socket IO
