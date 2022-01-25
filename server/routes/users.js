@@ -1,6 +1,6 @@
 import express from 'express';
 import { auth as verify } from '../helper/tokenVerify.js';
-import PrivateRoom from '../models/PrivateRooms.js';
+import PrivateRoom from '../models/Room.js';
 import User from '../models/User.js';
 
 export const router = express.Router();

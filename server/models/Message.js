@@ -2,20 +2,7 @@ import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema({
   content: String,
-  sender: {
-    id: {
-      type: String,
-      required: true,
-    },
-    displayName: {
-      type: String,
-      required: true,
-    },
-    image: {  
-      type: String,
-      required: true,
-    }
-  }
+  participantId: String
 }, { timestamps: true });
 
 const Message = new mongoose.model('Message', messageSchema);

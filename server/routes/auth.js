@@ -1,7 +1,6 @@
 import express from 'express';
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
-import { v4 as uuidv4 } from 'uuid';
 import jwt from 'jsonwebtoken';
 
 export const router = express.Router();
@@ -22,7 +21,6 @@ router.post('/register', async (req, res) => {
   
   // create new user & password
   const user = new User({
-    id: uuidv4(),
     displayName: req.body.displayName,
     email: req.body.email,
     tag: Math.floor(Math.random() * (9999 - 1000) + 1000),
@@ -61,7 +59,7 @@ router.post('/login', async (req, res) => {
   // if (!validPass) return res.status(400).send('email or password is wrong');
   
   // Create and assign a token
-  const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET)
+  const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET)
   res.header('auth-token', token).json(token);
   console.log('3');
   

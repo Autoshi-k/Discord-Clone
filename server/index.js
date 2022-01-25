@@ -14,7 +14,7 @@ import { router as authRouter } from './routes/auth.js';
 import { router as channelsRouter } from './routes/channels.js';
 import { router as findUsersRouter } from './routes/users.js';
 import Message from './models/Message.js';
-import PrivateRoom from './models/PrivateRooms.js';
+import PrivateRoom from './models/Room.js';
 import Connected from './models/Connected.js';
 import User from './models/User.js';
 

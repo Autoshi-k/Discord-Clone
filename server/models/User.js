@@ -1,11 +1,6 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    unique: true,
-    required: true,
-  },
   displayName: {
     type: String,
     required: true,
@@ -35,17 +30,9 @@ const userSchema = new mongoose.Schema({
     maxLength : 255
   }, 
   tag: {
-    type: String,
+    type: Number,
     required: true
-  },
-  status: Boolean,
-  rooms: {
-    private: Array,
-    servers: Array
-  },
-  friends: Array,
-  // prevent _id - have an error !fix
-  // _id: false
+  }
 }, { timestamps: true })
 
 const User = new mongoose.model('User', userSchema);
