@@ -5,23 +5,25 @@ import './ListItemUser.css';
 import { useDispatch } from "react-redux";
 import { changeLocation } from '../../features/location';
 
-export function ListItemUser({ room, name, image }) {
 
+export function ListItemUser({ room, name, image }) {
+  const defaultAvatar = 'https://consequence.net/wp-content/uploads/2020/06/becky-kevin-james.jpg?quality=80';
   const dispatch = useDispatch();
   // when ill have servers ill need to make a condition
-  console.log(room);
+  // console.log(room);
   // room include roomID, userID
   const changeStateLocation = () => {
     console.log('becky');
-    dispatch(changeLocation({ lobby: 'private-messages', room }))
+    // dispatch(changeLocation({ lobby: 'private-messages', room }))
   };
 
   return (
     <div className="list-item-user" onClick={ () => changeStateLocation() }>
       <Avatar sx={{ height: 32, width: 32 }}>
-        <img src={ image } alt="discord" height="40" />
+        <img src={ image ? image : defaultAvatar } alt="discord" height="40" />
       </Avatar>
-      <div className="user-name">{ name }</div>
+      {/* <div className="user-name">{ name }hii</div> */}
+      <div className="user-name">hii</div>
     </div>
   )
 }

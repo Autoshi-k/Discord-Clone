@@ -12,7 +12,7 @@ export const router = express.Router();
 
 
 const getMessages = async (participant) => {
-  const thisParticipant = await findById(participant.userId).select('_id displayName image');
+  const thisParticipant = await Participant.findById(participant.userId).select('_id displayName image');
   const messagesByParticipant = await Message.find({participantId: participant._id}).sort({ _id: -1 }).limit(30);
   // messagesByParticipant: [{participantId, content, timestamps}, {participantId, content, timestamps}]
   // thisParticipant: [{_id, displayName, image}]
