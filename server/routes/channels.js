@@ -11,31 +11,34 @@ export const router = express.Router();
 // getting user information is the only purpose 
 
 
-const getMessages = async (participant) => {
-  const thisParticipant = await Participant.findById(participant.userId).select('_id displayName image');
+const getMessages = async (objRooms, roomId, participant) => {
+  const thisParticipant = await User.findById(participant.userId).select('_id displayName image');
   const messagesByParticipant = await Message.find({participantId: participant._id}).sort({ _id: -1 }).limit(30);
-  // messagesByParticipant: [{participantId, content, timestamps}, {participantId, content, timestamps}]
-  // thisParticipant: [{_id, displayName, image}]
-  return {
-    participant: thisParticipant,
-    messages: messagesByParticipant
-  }
+  
+  objRooms[roomId].participants[participant._id.toString()] = { displayName: thisParticipant.displayName, imgae: thisParticipant.image };
+  objRooms[roomId].messages.push(...messagesByParticipant);
 }
 
-const getParticipants = async (room) => {
-  const participantsInRoom = await Participant.find({ roomId: room.roomId });
-  return Promise.all(participantsInRoom.map(participant => {return { room: room.roomId, messages: getMessages(participant) }})) // return array
+const getParticipants = async (objRooms, room) => {
+  objRooms[room.roomId] = {
+    participants: {},
+    messages: []
+  };
+  const participantsInRoom = await Participant.find({ roomId: room.roomId }).select('userId');
+  await Promise.all(participantsInRoom.map(participant => getMessages(objRooms, room.roomId, participant)), err => console.log(err)) // return array
 }
 
-const getRoomsData = async (rooms) => {
-  return Promise.all(rooms.map(room => getParticipants(room))) // return array
+const getRoomsData = async (objRooms, rooms) => {
+  await Promise.all(rooms.map(room => getParticipants(objRooms, room)), err => console.log(err)) // return array
 }
 
 router.get('/', verify, async (req, res) => {
-  console.log(req.user);
+  // array to object 
+  // only one messages (not an array again)
   const user = await User.findById(req.user.id).select('-password -updatedAt -createdAt -__v');
-  const rooms = await Participant.find({ userId: user._id });
-  const roomsContainer = await getRoomsData(rooms);
-
-  res.send({ user, roomsContainer});
+  const rooms = await Participant.find({ userId: user._id }); // array
+  let objRooms = {};
+  await getRoomsData(objRooms, rooms);
+  console.log('objRooms', objRooms);
+  res.send({ user, objRooms });
 })
