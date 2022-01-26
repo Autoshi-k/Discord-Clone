@@ -13,12 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 // import { addRoom } from '../../features/user';
 import { useContext } from "react";
 import { SocketContext } from "../../context/socket";
-import { newRoom } from "../../features/messages";
+import { newRoom } from "../../features/rooms";
 // import { Link, Route, Routes } from "react-router-dom";
 
 function DirectMessages() {
   const user = useSelector(state => state.user.value);
-  const messages = useSelector(state => state.messages.value);
+  const rooms = useSelector(state => state.rooms.value);
 
   const socket = useContext(SocketContext);
   const dispatch = useDispatch();
@@ -57,8 +57,8 @@ function DirectMessages() {
     })
   }
 
-  console.log(messages.rooms.length);
-  console.log(messages.rooms);  
+  console.log(Object.keys(rooms));
+  console.log(rooms);  
   return (
   <div className="direct-messages-window">
     <Sidebar> 
@@ -69,12 +69,17 @@ function DirectMessages() {
       </ListItem>
       <div className="users-list">
         <div className="sidebar-title" onClick={ () => addCoversation() }>direct messages</div>
-        { messages.rooms.length ?
-          messages.rooms.map((room, index) => (<ListItemUser 
-                                                key={index} 
-                                                room={room.roomId} 
-                                                name='yossi'
-                                              />))
+        { Object.keys(rooms).length ?
+          Object.keys(rooms).map((key, index) => {
+            const otherParticipantId = Object.keys(rooms[key].participants).filter(participant => rooms[key].participants[participant]._id !== user._id) // will change later in case of multichat
+            const toDisplay = rooms[key].participants[otherParticipantId];
+            return <ListItemUser 
+                    key={index} 
+                    room={key} 
+                    displayName={toDisplay.displayName}
+                    image={toDisplay.image}
+                  />
+              })
         : <div style={{ flex: 1 }}></div>
         }
       </div>

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { changeLocation } from '../../features/location';
 
 
-export function ListItemUser({ room, name, image }) {
+export function ListItemUser({ room, displayName, image }) {
   const defaultAvatar = 'https://consequence.net/wp-content/uploads/2020/06/becky-kevin-james.jpg?quality=80';
   const dispatch = useDispatch();
   // when ill have servers ill need to make a condition
@@ -14,7 +14,8 @@ export function ListItemUser({ room, name, image }) {
   // room include roomID, userID
   const changeStateLocation = () => {
     console.log('becky');
-    // dispatch(changeLocation({ lobby: 'private-messages', room }))
+    console.log('room', room);
+    dispatch(changeLocation({ lobby: 'private-messages', room }))
   };
 
   return (
@@ -23,7 +24,7 @@ export function ListItemUser({ room, name, image }) {
         <img src={ image ? image : defaultAvatar } alt="discord" height="40" />
       </Avatar>
       {/* <div className="user-name">{ name }hii</div> */}
-      <div className="user-name">hii</div>
+      <div className="user-name">{displayName}</div>
     </div>
   )
 }

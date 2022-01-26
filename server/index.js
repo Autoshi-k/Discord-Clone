@@ -14,8 +14,6 @@ import { router as authRouter } from './routes/auth.js';
 import { router as channelsRouter } from './routes/channels.js';
 import { router as findUsersRouter } from './routes/users.js';
 import Message from './models/Message.js';
-import Room from './models/Room.js';
-import User from './models/User.js';
 import Participant from './models/Participant.js';
 
 dotenv.config();
@@ -56,21 +54,16 @@ io.on("connection", async socket => {
     socket.join(newRoomId);
   })
 
-  socket.on('try send new message', async ({ msg, to }) => {
+  socket.on('try send new message', async ({ message, to }) => {
     // to = roomId
     // to is privateRoom id , privateRoom include user id
+    console.log(message);
+    const participantId = await Participant.findOne({ userId: socket.handshake.auth.userId, roomId: to }).select('_id');
     const newMessage = new Message({
-      content: msg.content,
-      sender: {
-        id: msg.senderId,
-        displayName: msg.senderDisplayName,
-        image: msg.senderImage,
-      }
-    });
+      participantId: participantId._id.toString(),
+      content: message
+      });
     try {
-      const room = await PrivateRoom.findOne({ _id: to});
-      room.messages.push(newMessage);
-      await room.save();
       await newMessage.save();
     } catch (err) {
       console.log(err);

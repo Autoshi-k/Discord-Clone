@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SocketContext } from '../../context/socket';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
+import { current } from '@reduxjs/toolkit';
 import { login } from '../../features/user';
-import { addNewMessage } from '../../features/newMessages';
-import { getChatHistory } from '../../features/oldMessages';
 
 // css
 import './ChannelsHome.css';
@@ -12,6 +11,7 @@ import 'semantic-ui-css/semantic.min.css';
 import ServerBar from '../../components/ServerBar/ServerBar';
 import DirectMessages from '../../components/DirectMessages/DirectMessages';
 import { io } from 'socket.io-client';
+import { fetchOldRooms } from '../../features/rooms';
 
 
 let socket; // io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
@@ -21,8 +21,13 @@ function Dashboard() {
 
   const dispatch = useDispatch();
   const location = useSelector(state => state.location.value);
-  
-  console.log('dashboard');
+  const [thisLocation, setThisLocation] = useState(location);
+
+  // useEffect(() => setThisLocation(current.thisLocation));
+
+  console.log(location);
+  console.log(location.room);
+  console.log(location.lobby);
   // getting the user information and changing the state/localstorage
   useEffect(() => {
     fetch('/api/channels', {
@@ -40,6 +45,9 @@ function Dashboard() {
       };
       console.log('hi',data);
       dispatch(login(data.user));
+      dispatch(fetchOldRooms(data.objRooms));
+      // dispatch(login(data.user));
+
       // check if local storage match to the user who is currently logged in
       if (data.user._id === localStorage.getItem('user-data').id) return;
       localStorage.setItem('user-data', JSON.stringify({ id: data.user._id, displayName: data.user.displayName, tag: data.user.tag }));
@@ -51,9 +59,11 @@ function Dashboard() {
   useEffect(() => {
     socket.on("connect", () => {
       console.log(socket.id); 
-
+      
       socket.on('success send new message', ({ newMessage }) => {
-        dispatch(addNewMessage({ room: location.room.roomId, message: newMessage }))
+        console.log({ roomId: location.room, message: newMessage });
+        console.log(current.location);
+        // dispatch(addNewMessage({ roomId: location.room, message: newMessage }))
       })
 
 

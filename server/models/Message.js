@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema({
-  roomId: String,
   participantId: String,
   content: String
 }, { timestamps: true });

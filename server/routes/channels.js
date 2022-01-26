@@ -14,8 +14,8 @@ export const router = express.Router();
 const getMessages = async (objRooms, roomId, participant) => {
   const thisParticipant = await User.findById(participant.userId).select('_id displayName image');
   const messagesByParticipant = await Message.find({participantId: participant._id}).sort({ _id: -1 }).limit(30);
-  
-  objRooms[roomId].participants[participant._id.toString()] = { displayName: thisParticipant.displayName, imgae: thisParticipant.image };
+
+  objRooms[roomId].participants[participant._id.toString()] = { _id: thisParticipant._id, displayName: thisParticipant.displayName, imgae: thisParticipant.image };
   objRooms[roomId].messages.push(...messagesByParticipant);
 }
 
