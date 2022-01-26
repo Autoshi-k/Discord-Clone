@@ -1,4 +1,4 @@
-import { Avatar, ListItemText } from "@mui/material";
+import { Avatar } from "@mui/material";
 import './ListItemUser.css';
 
 // Redux
@@ -13,9 +13,7 @@ export function ListItemUser({ room, displayName, image }) {
   // console.log(room);
   // room include roomID, userID
   const changeStateLocation = () => {
-    console.log('becky');
-    console.log('room', room);
-    dispatch(changeLocation({ lobby: 'private-messages', room }))
+    dispatch(changeLocation({ lobby: 'direct-messages', room }))
   };
 
   return (
@@ -23,7 +21,6 @@ export function ListItemUser({ room, displayName, image }) {
       <Avatar sx={{ height: 32, width: 32 }}>
         <img src={ image ? image : defaultAvatar } alt="discord" height="40" />
       </Avatar>
-      {/* <div className="user-name">{ name }hii</div> */}
       <div className="user-name">{displayName}</div>
     </div>
   )

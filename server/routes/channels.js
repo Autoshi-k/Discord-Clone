@@ -10,7 +10,6 @@ export const router = express.Router();
 // is the first stop after logging in
 // getting user information is the only purpose 
 
-
 const getMessages = async (objRooms, roomId, participant) => {
   const thisParticipant = await User.findById(participant.userId).select('_id displayName image');
   const messagesByParticipant = await Message.find({participantId: participant._id}).sort({ _id: -1 }).limit(30);
@@ -39,6 +38,5 @@ router.get('/', verify, async (req, res) => {
   const rooms = await Participant.find({ userId: user._id }); // array
   let objRooms = {};
   await getRoomsData(objRooms, rooms);
-  console.log('objRooms', objRooms);
   res.send({ user, objRooms });
 })

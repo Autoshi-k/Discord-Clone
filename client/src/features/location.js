@@ -4,7 +4,7 @@ export const locationSlice = createSlice({
   name: 'location',
   initialState: {
     value: {
-      lobby: 'private-messages',
+      lobby: 'direct-messages',
       room: ''
     }
   },
