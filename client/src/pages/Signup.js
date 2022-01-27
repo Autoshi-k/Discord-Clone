@@ -28,7 +28,7 @@ const Signup = () => {
         <label to='password'>password</label>
         <input type="password" name="password" placeholder="" />
         <input className='submit' type="submit" value="sign up" />
-        <div className="redirect"><Link to='/signup'>Already have an account?</Link></div>
+        <div className="redirect"><Link to='/login'>Already have an account?</Link></div>
       </form>
     </div>
   )
