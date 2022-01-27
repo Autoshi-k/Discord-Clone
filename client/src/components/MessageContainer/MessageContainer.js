@@ -2,10 +2,10 @@ import './MessageContainer.css';
 import { Comment } from 'semantic-ui-react'
 import { ListItem, Avatar, ListItemText, Typography } from '@mui/material';
 
-function MessageContainer({ role, sender, image, sentAt, content }) {
+function MessageContainer({ type, sender, image, sentAt, content }) {
   return ( 
     <>    
-    { role === 'primary' ? 
+    { type === 'primary' ? 
       <div className="message">
         <div className="message-container">
           <div className="avatar">
