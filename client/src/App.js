@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './style.css';
 import 'semantic-ui-css/semantic.min.css';
 import { Routes, Route } from "react-router-dom";
 
@@ -19,7 +20,6 @@ function App() {
           <Route path="/channels" element={<Dashboard />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {/* <Route path='channels/@me/:roomId' element={<Chat />} /> */}
         </Routes>
       </div>
   );

@@ -3,15 +3,12 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import { useContext, useEffect, useState } from 'react';
 
-import './Chat.css';
 import { useSelector } from 'react-redux';
 import { SocketContext } from '../../context/socket';
-import { current } from '@reduxjs/toolkit';
 
 export function Chat() {
   const socket = useContext(SocketContext);
   // Redux store
-  const user = useSelector(state => state.user.value);
   const location = useSelector(state => state.location.value);
   const rooms = useSelector(state => state.rooms.value);
   const [currentRoom, setCurrentRoom] = useState(null); // will change later (in case there are no chats at all - what will i show)

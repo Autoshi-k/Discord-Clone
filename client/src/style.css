@@ -1,2 +1,314 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Roboto:wght@400;500;700&display=swap");
+.chat-window {
+  height: 100vh;
+  background-color: #36393F;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chat-window .chat {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-y: scroll;
+}
+
+.chat-window .input-box {
+  background-color: #40444B;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: .5em 1em 1.8em;
+  height: 3.5em;
+  border-radius: .5em;
+}
+
+.chat-window .input-box .add-media {
+  padding-left: 1em;
+  cursor: pointer;
+}
+
+.chat-window .input-box input {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  line-height: .8em;
+}
+
+.chat-window .input-box .stickers-and-more {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 8em;
+  margin-right: 1em;
+  -webkit-column-gap: .2em;
+          column-gap: .2em;
+}
+
+.chat-header {
+  height: 3.3rem;
+}
+
+.direct-messages-window {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.direct-messages-window .users-list {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.direct-messages-window .sidebar-title {
+  text-transform: uppercase;
+  font-size: .9em;
+  font-weight: 500;
+  letter-spacing: .05em;
+  color: #8E9297;
+  text-align: left;
+  padding-left: .5rem;
+  margin-bottom: .5rem;
+  cursor: default;
+}
+
+.direct-messages-window .sidebar-title:hover {
+  color: white;
+}
+
+.list-item-user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: .6em .5em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  border-radius: .4rem;
+  cursor: pointer;
+  color: #D1DDDE;
+  font-size: .76em;
+}
+
+.list-item-user .user-name {
+  font-size: 1.5em;
+  padding-left: .5em;
+  font-weight: 500;
+}
+
+.list-item-user:hover {
+  background-color: #40444b;
+}
+
+.message .message-container {
+  padding: .3em .5em;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 4.3em auto;
+      grid-template-columns: 4.3em auto;
+}
+
+.message .message-sub-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: left;
+}
+
+.message .avatar {
+  margin: 1.475em auto 0;
+}
+
+.message span {
+  font-size: 1.15rem;
+  margin-left: .5rem;
+}
+
+.message .message-container-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.message .username {
+  font-size: 1.4rem;
+  display: inline-block;
+  color: #DEEBE2;
+  padding-bottom: .3em;
+  margin-top: 1em;
+}
+
+.message .date {
+  font-size: .9rem;
+  color: #D1DDDE;
+}
+
+.message-content {
+  margin: 0;
+  color: #D1DDDE;
+  text-align: left;
+}
+
+.message:hover, .secondary:hover {
+  background-color: #32353B;
+}
+
+.visbale-hover {
+  opacity: 0;
+}
+
+.message:hover .visbale-hover {
+  opacity: 1;
+}
+
+.server-bar {
+  height: 100vh;
+  min-width: 5.2em;
+  width: 5.2em;
+  background-color: #202225;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.server-icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.server-state {
+  display: none;
+  background-color: white;
+  height: 10%;
+  width: .2em;
+}
+
+.server-icon {
+  margin-top: .5em;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  overflow: hidden;
+  border-radius: 2em;
+}
+
+.server-icon img {
+  width: 30px;
+}
+
+.server-icon:hover {
+  border-radius: .7em;
+}
+
+.server-icon:hover .server-state {
+  display: inline-block;
+}
+
+.server-icon.active {
+  border-radius: .7em;
+}
+
+.sidebar {
+  width: 17em;
+  padding: 0 .7em;
+  height: 100vh;
+  background-color: #2F3136;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.sidebar input {
+  background-color: #202225;
+  color: #D1DDDE;
+  border: none;
+  border-radius: .4em;
+  font-size: .9em;
+  height: 2.1rem;
+  padding: .6em;
+  width: 100%;
+  margin: .6rem 0;
+}
+
+.sidebar-user-information {
+  height: 3.5em;
+  background-color: #292B2F;
+  margin: 0 -.7em;
+  padding: 0.7em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sidebar-user-information .user-information {
+  text-align: left;
+  color: #DEEBE2;
+  margin-left: .5em;
+}
+
+.sidebar-user-information .display-name {
+  font-weight: 600;
+}
+
+.sidebar-user-information .mini-sub {
+  line-height: .8em;
+  font-size: .8rem;
+}
 /*# sourceMappingURL=style.css.map */

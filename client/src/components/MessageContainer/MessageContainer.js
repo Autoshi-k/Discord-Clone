@@ -1,4 +1,3 @@
-import './MessageContainer.css';
 import { Comment } from 'semantic-ui-react'
 import { ListItem, Avatar, ListItemText, Typography } from '@mui/material';
 

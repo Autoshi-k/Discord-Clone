@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { ServerIcon } from '../ServerIcon/ServerIcon';
 import Divider from '@mui/material/Divider';
 
-import './ServerBar.css';
-
 export default function ServerBar() {
   const [chatRoom, setChatRoom] = useState('direct-messages');
   const handleServerClick = (e) => {

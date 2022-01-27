@@ -21,3 +21,14 @@ $text: #D1DDDE;
 $chat-name-display: #DEEBE2;
 $chat-text-icons: #B9BBBE;
 $sidebar-text-icons: #8E9297;
+
+
+@import './components/Chat/Chat.scss';
+@import './components/ChatHeader/ChatHeader.scss';
+@import './components/DirectMessages/DirectMessages.scss';
+@import './components/ListItemUser/ListItemUser.scss';
+@import './components/MessageContainer/MessageContainer.scss';
+@import './components/ServerBar/ServerBar.scss';
+@import './components/ServerIcon/ServerIcon.scss';
+@import './components/Sidebar/Sidebar.scss';
+@import './components/SidebarUserInfo/SidebarUserInfo.scss';

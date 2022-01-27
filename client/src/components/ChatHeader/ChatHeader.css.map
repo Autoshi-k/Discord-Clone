@@ -1,9 +1,8 @@
 {
     "version": 3,
-    "mappings": "ACAA,OAAO,CAAC,8HAAI;ADEZ,AAAA,YAAY,CAAC;EACX,MAAM,EAAE,MAAM;CACf",
+    "mappings": "AAAA,AAAA,YAAY,CAAC;EACX,MAAM,EAAE,MAAM;CACf",
     "sources": [
-        "ChatHeader.scss",
-        "../../style.scss"
+        "ChatHeader.scss"
     ],
     "names": [],
     "file": "ChatHeader.css"

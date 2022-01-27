@@ -7,7 +7,6 @@ import { Chat } from "../Chat/Chat";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { ListItemUser } from "../ListItemUser/ListItemUser";
 
-import './DirectMessages.css'
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 // import { addRoom } from '../../features/user';
