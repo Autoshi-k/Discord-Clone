@@ -66,9 +66,8 @@ io.on("connection", async socket => {
       });
     try {
       await newMessage.save();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) { console.log(err) }
+    
     socket.to(to).emit('success send new message', { roomId: to, newMessage });
   })
   

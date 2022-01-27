@@ -25,7 +25,6 @@ function DirectMessages() {
 
   // adding a new conversation
   const addCoversation = () => {
-    console.log('hello brother')
     const newConAdd = prompt('write your friend username & tag');
     if (newConAdd === null) return;
     // getting the promt and spliting it to username and tag
@@ -49,16 +48,11 @@ function DirectMessages() {
     .then(res => res.json())
     .then(data => {
       if (data.err) console.log(data.err);
-      // data newroom = id
-      // { roomId : newRoom, messages: []}
-      console.log(data);
       dispatch(newRoom(data));
       socket.emit('add private room', data);
     })
   }
-
-  console.log(Object.keys(rooms));
-  console.log(rooms);  
+ 
   return (
   <div className="direct-messages-window">
     <Sidebar> 
@@ -85,9 +79,6 @@ function DirectMessages() {
       </div>
     </Sidebar>
     <Chat />
-    {/* <Routes>
-      <Route path={'channels/@me/:roomId'} element={<Chat />} />
-    </Routes> */}
   </div>
   )
 }

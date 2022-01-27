@@ -9,7 +9,6 @@ export default function ServerBar() {
   const handleServerClick = (e) => {
     setChatRoom(e);
   }
-  console.log(chatRoom);
   return (
     <div className="server-bar">
       <ServerIcon iconStyle="rounded" isActive={chatRoom === 'direct-messages' ? "active" : null} id="direct-messages" handleServerClick={handleServerClick} />

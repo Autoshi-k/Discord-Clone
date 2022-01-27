@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from 'react-router-dom';
-import { getChatHistory } from "../features/oldMessages";
+import { fetchOldRooms } from "../features/rooms";
 import { login } from '../features/user';
 
 const Login = () => {
@@ -31,21 +31,15 @@ const Login = () => {
       } })
       .then(res => res.json()))
       .then(data => {
-        console.log(data);
         dispatch(login(data.user));
-        // dispatch(getChatHistory(data.chatsHistory));
+        dispatch(fetchOldRooms(data.objRooms));
         localStorage.setItem('user-data', JSON.stringify({ id: data.user._id, displayName: data.user.displayName, tag: data.user.tag }));
         localStorage.setItem('email', data.user.email);
       })
       .catch(err => {
-        // console.log(err)
-        // if (err.status === 400) alert('Email or password is wrong');
-        // alert(res.err);
+        console.log(err)
       }))
       .catch(err => console.log(err))
-    // if (res.status === 200) {
-    //   setRedirect(true);
-    // })
   }
   return (
     <div>
