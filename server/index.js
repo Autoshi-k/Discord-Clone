@@ -58,7 +58,6 @@ io.on("connection", async socket => {
   socket.on('try send new message', async ({ message, to }) => {
     // to = roomId
     // to is privateRoom id , privateRoom include user id
-    console.log(message);
     const participantId = await Participant.findOne({ userId: socket.handshake.auth.userId, roomId: to }).select('_id');
     const newMessage = new Message({
       participantId: participantId._id.toString(),
@@ -67,7 +66,7 @@ io.on("connection", async socket => {
     try {
       await newMessage.save();
     } catch (err) { console.log(err) }
-    
+
     socket.to(to).emit('success send new message', { roomId: to, newMessage });
   })
   
