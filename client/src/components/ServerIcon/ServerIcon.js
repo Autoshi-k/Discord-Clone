@@ -1,8 +1,6 @@
 import discordImage from '../../discord-image.png';
 import Avatar from '@mui/material/Avatar';
 
-import './ServerIcon.css';  
-
 export function ServerIcon({ iconStyle, isActive, id, handleServerClick }) {
   
   return (

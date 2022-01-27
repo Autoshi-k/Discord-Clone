@@ -1,4 +1,3 @@
-import './Sidebar.css';
 import SidebarUserInfo from "../SidebarUserInfo/SidebarUserInfo";
 
 export function Sidebar({ children }) {

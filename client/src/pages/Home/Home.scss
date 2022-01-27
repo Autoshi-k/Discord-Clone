@@ -1,11 +1,64 @@
-@import '../style.scss';
-
 .home {
   position: relative;
 
   .cover-text {
+    z-index: 2;
     position: absolute;
-    // z-index: 1;
+    top:40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    h1 {
+      font-family: 'Luckiest Guy', cursive;
+      font-weight: 700;
+      font-size: 7rem;
+      letter-spacing: .3rem;
+      color: white;
+    }
+    p {
+      font-size: 1.4rem;
+      color: white;
+      line-height: 2em;
+      font-weight: 400;
+      width: 42vw;
+      min-width: 600px;
+      margin: 0 auto;
+    }
+
+    .home-button {
+      font-size: 1.4rem;
+      width: 15em;
+      height: 3em;
+      border-radius: 2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    } 
+    .home-button:hover {
+      filter: drop-shadow(0 .8em 1em #3B48CC);
+    }
+    .login {
+      background-color: #23272A;
+      color:white;
+    }
+    .login:hover {
+      background-color: #36393F;
+    }
+
+    .register {
+      background-color: white;
+      color: #23272A;
+    }
+    .register:hover {
+      color: #5865F3;
+    }
+  }
+
+  .home-buttons-container {
+    display: flex;
+    margin: 2em auto 0;
+    width: 630px;
+    justify-content: space-between;
   }
 
   .cover-background {

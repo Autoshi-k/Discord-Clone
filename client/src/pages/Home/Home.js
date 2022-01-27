@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import clouds from '../../assets/clouds.svg';
 import leftArt from '../../assets/left.svg';
 import rightArt from '../../assets/right.svg';
-import './Home.css';
 
+import './Home.css';
 const Home = () => {
 
   return (
@@ -15,9 +15,10 @@ const Home = () => {
           Where just you and a handful of friends can spend time together. 
           A place that makes it easy to talk every day and hang out more often.
         </p>
-        <Link to="/login">Login</Link>
-        <br />
-        <Link to="/signup">signup</Link>
+        <div className='home-buttons-container'>
+          <Link to="/signup"><div className='home-button register'>join discord now</div></Link>
+          <Link to="/login"><div className='home-button login'>already have a user?</div></Link>
+        </div>
 
       </div>
       <div aria-hidden="true" className="cover-background">

@@ -1,5 +1,4 @@
 import { Avatar } from "@mui/material";
-import './ListItemUser.css';
 
 // Redux
 import { useDispatch } from "react-redux";

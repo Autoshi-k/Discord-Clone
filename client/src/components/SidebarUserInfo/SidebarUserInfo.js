@@ -1,7 +1,5 @@
 import { Avatar } from '@mui/material';
 
-import './SidebarUserInfo.css';
-
 const SidebarUserInfo = () => {
 
   const userInformation = JSON.parse(localStorage.getItem('user-data')); 
