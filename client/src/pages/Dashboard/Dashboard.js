@@ -60,8 +60,8 @@ function Dashboard() {
     socket.on("connect", () => {
       console.log(socket.id); 
       
-      socket.on('success send new message', ({ newMessage }) => {
-        console.log({ roomId: location.room, message: newMessage });
+      socket.on('success send new message', ({ roomId, newMessage }) => {
+        console.log({ roomId, message: newMessage });
         console.log(current.location);
         // dispatch(addNewMessage({ roomId: location.room, message: newMessage }))
       })

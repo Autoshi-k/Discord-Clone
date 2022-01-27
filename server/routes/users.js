@@ -19,22 +19,18 @@ router.get('/', verify, async (req, res) => {
 })
 
 router.post('/addConv', verify, async (req, res) => {
-  // user who made the request
-  // const user = await User.findOne({ id: req.user.id });
   const { displayName, tag } = req.body;
   
-  console.log('me', req.user.id, 'other', displayName);
-  // user to add to { rooms: private }
-  const addUser = await User.findOne({ displayName: displayName });
+  const user = await User.findById(req.user.id).select('_id displayName image');
+  const addUser = await User.findOne({ displayName: displayName }).select('_id displayName image');
   if (!addUser) return res.send({ err: 'user doesnt exist' });
   
   // creating new room
-  let newRoom;
+  const newRoom = new Room({ host: req.user.id });
+  const participantHost = new Participant({ roomId: newRoom._id, userId: user._id });
+  const participantAdd = new Participant({ roomId: newRoom._id, userId: addUser._id });
   try {
-    newRoom = new Room({ host: req.user.id });
     // creating new participants
-    const participantHost = new Participant({ roomId: newRoom._id, userId: req.user.id });
-    const participantAdd = new Participant({ roomId: newRoom._id, userId: addUser._id });
     await newRoom.save();
     await participantHost.save();
     await participantAdd.save();
@@ -47,8 +43,14 @@ router.post('/addConv', verify, async (req, res) => {
   // update new converstion -- need to check if id alreay exist
   // or if its the same as user id (user adding himself)
   // ALSO need to add conversation in the other user !IMPORTANT
-  // user.conversations.push({ id: addUser.id, displayName: addUser.displayName, tag: addUser.tag });
-  // await user.save();
-  console.log(newRoom)
-  res.status(200).send(newRoom._id);
+  
+  // creating new room to add the store at the client side
+  const room = {
+    participants: {},
+    messages: []
+  }
+  room.participants[participantHost._id.toString()] = user;
+  room.participants[participantAdd._id.toString()] = addUser;
+
+  res.status(200).send({ roomId: newRoom._id, room });
 })

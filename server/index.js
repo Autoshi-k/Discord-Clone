@@ -33,7 +33,6 @@ app.use('/api/users', findUsersRouter);
 
 
 
-
 // Socket IO
 const server = createServer(app);
 const io = new Server(server);
@@ -52,6 +51,8 @@ io.on("connection", async socket => {
   rooms.forEach(room => socket.join(room.roomId)) // maybe ill need .toString()
   socket.on('add private room', newRoomId => {
     socket.join(newRoomId);
+    
+    socket.to(socket.id).emit('add room to store', )
   })
 
   socket.on('try send new message', async ({ message, to }) => {
@@ -68,7 +69,7 @@ io.on("connection", async socket => {
     } catch (err) {
       console.log(err);
     }
-    socket.to(to).emit('success send new message', { newMessage });
+    socket.to(to).emit('success send new message', { roomId: to, newMessage });
   })
   
   socket.on('disconnect', () => {

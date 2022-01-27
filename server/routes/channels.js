@@ -11,6 +11,7 @@ export const router = express.Router();
 // getting user information is the only purpose 
 
 const getMessages = async (objRooms, roomId, participant) => {
+  // update information in that sub-object
   const thisParticipant = await User.findById(participant.userId).select('_id displayName image');
   const messagesByParticipant = await Message.find({participantId: participant._id}).sort({ _id: -1 }).limit(30);
 
@@ -19,6 +20,7 @@ const getMessages = async (objRooms, roomId, participant) => {
 }
 
 const getParticipants = async (objRooms, room) => {
+  // set sub-object
   objRooms[room.roomId] = {
     participants: {},
     messages: []
@@ -32,10 +34,10 @@ const getRoomsData = async (objRooms, rooms) => {
 }
 
 router.get('/', verify, async (req, res) => {
-  // array to object 
-  // only one messages (not an array again)
   const user = await User.findById(req.user.id).select('-password -updatedAt -createdAt -__v');
   const rooms = await Participant.find({ userId: user._id }); // array
+  // create an object with sub-objects of roomId's
+  // any roomId has sub-sub-object with participants and an array for all messages
   let objRooms = {};
   await getRoomsData(objRooms, rooms);
   res.send({ user, objRooms });

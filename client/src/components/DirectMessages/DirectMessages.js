@@ -52,7 +52,7 @@ function DirectMessages() {
       // data newroom = id
       // { roomId : newRoom, messages: []}
       console.log(data);
-      dispatch(newRoom({ roomId : data, messages: []}));
+      dispatch(newRoom(data));
       socket.emit('add private room', data);
     })
   }
