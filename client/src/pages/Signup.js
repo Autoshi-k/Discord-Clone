@@ -1,5 +1,7 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
+import './login.css';
 
 const Signup = () => {
 
@@ -16,12 +18,17 @@ const Signup = () => {
     })
   }
   return (
-    <div>
+    <div className="page">
       <form onSubmit={handleSubmit} ref={signupForm} >
-        <input type="text" name="displayName" placeholder="username" />
-        <input type="text" name="email" placeholder="email" />
-        <input type="password" name="password" placeholder="password" />
-        <input type="submit" value="sign up" />
+        <h2>create an account</h2>
+        <label to='email'>email</label>
+        <input type="text" name="email" placeholder="" />
+        <label to='displayName'>username</label>
+        <input type="text" name="displayName" placeholder="" />
+        <label to='password'>password</label>
+        <input type="password" name="password" placeholder="" />
+        <input className='submit' type="submit" value="sign up" />
+        <div className="redirect"><Link to='/signup'>Already have an account?</Link></div>
       </form>
     </div>
   )

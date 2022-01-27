@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { fetchOldRooms } from "../features/rooms";
 import { login } from '../features/user';
 
+import './login.css';
 const Login = () => {
   const user = useSelector(state => state.user.value);
   const dispatch = useDispatch();
@@ -42,13 +43,18 @@ const Login = () => {
       .catch(err => console.log(err))
   }
   return (
-    <div>
+    <div className="page">
       { rediret && <Navigate to="/channels" /> }
       <form onSubmit={ handleSubmit } ref={loginForm} action="/api/user/login" method="POST">
-        <input type="text" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="passowrd" />
-        <input type="submit" value="login" />
+        <h2>welcome back!</h2>
+        <h3>We're so excited to see you again!</h3>
+        <label to='email'>email</label>
+        <input type="text" name="email" placeholder="" />
+        <label to='password'>password</label>
+        <input type="password" name="password" placeholder="" />
+        <input className='submit' type="submit" value="login" />
         <button onClick={ () => setRedirect(true) }>go to channels</button>
+        <div className="redirect">need an account? <Link to='/signup'>Resigster</Link></div>
       </form>
     </div>
   )
