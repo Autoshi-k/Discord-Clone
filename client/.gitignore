@@ -24,4 +24,4 @@ yarn-error.log*
 
 
 # Sass
-.css.map
+*.css.map
