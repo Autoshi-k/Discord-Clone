@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 
-import './login.css';
+// import './login.css';
+import PageForms from "./PageForms";
 
 const Signup = () => {
 
@@ -18,7 +19,7 @@ const Signup = () => {
     })
   }
   return (
-    <div className="page">
+    <PageForms>
       <form onSubmit={handleSubmit} ref={signupForm} >
         <h2>create an account</h2>
         <label to='email'>email</label>
@@ -30,7 +31,7 @@ const Signup = () => {
         <input className='submit' type="submit" value="sign up" />
         <div className="redirect"><Link to='/login'>Already have an account?</Link></div>
       </form>
-    </div>
+    </PageForms>
   )
 }
 

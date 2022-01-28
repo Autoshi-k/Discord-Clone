@@ -5,6 +5,7 @@
   width: 100vw;
   height: 100vh;
   background-color: #5865F2;
+  overflow: hidden;
 
   form {
     position: absolute;
@@ -49,7 +50,6 @@
     }
 
     .submit {
-      // height: 3.4em;
       background-color: #5865F2;
       border: none;
       color: white;
@@ -58,7 +58,7 @@
       text-transform: capitalize;
       margin-top: 1em;
     }
-    
+
     .submit:hover {
       background-color: #4752C4;
     }
@@ -71,4 +71,13 @@
       padding-top: .5em;
     }
   }
+
+  .cover-background {
+    // need to fix the cover    
+    img {
+      object-fit: cover;
+    }
+
+  }
+
 }

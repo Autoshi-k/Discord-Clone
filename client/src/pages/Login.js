@@ -4,7 +4,8 @@ import { Link, Navigate } from 'react-router-dom';
 import { fetchOldRooms } from "../features/rooms";
 import { login } from '../features/user';
 
-import './login.css';
+// import './login.css';
+import PageForms from "./PageForms";
 const Login = () => {
   const user = useSelector(state => state.user.value);
   const dispatch = useDispatch();
@@ -43,20 +44,20 @@ const Login = () => {
       .catch(err => console.log(err))
   }
   return (
-    <div className="page">
-      { rediret && <Navigate to="/channels" /> }
-      <form onSubmit={ handleSubmit } ref={loginForm} action="/api/user/login" method="POST">
-        <h2>welcome back!</h2>
-        <h3>We're so excited to see you again!</h3>
-        <label to='email'>email</label>
-        <input type="text" name="email" placeholder="" />
-        <label to='password'>password</label>
-        <input type="password" name="password" placeholder="" />
-        <input className='submit' type="submit" value="login" />
-        <button onClick={ () => setRedirect(true) }>go to channels</button>
-        <div className="redirect">need an account? <Link to='/signup'>Resigster</Link></div>
-      </form>
-    </div>
+      <PageForms>
+        { rediret && <Navigate to="/channels" /> }
+        <form onSubmit={ handleSubmit } ref={loginForm} action="/api/user/login" method="POST">
+          <h2>welcome back!</h2>
+          <h3>We're so excited to see you again!</h3>
+          <label to='email'>email</label>
+          <input type="text" name="email" placeholder="" />
+          <label to='password'>password</label>
+          <input type="password" name="password" placeholder="" />
+          <input className='submit' type="submit" value="login" />
+          <button onClick={ () => setRedirect(true) }>go to channels</button>
+          <div className="redirect">need an account? <Link to='/register'>Resigster</Link></div>
+        </form>
+    </PageForms>
   )
 }
 

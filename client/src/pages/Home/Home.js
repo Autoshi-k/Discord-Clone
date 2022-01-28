@@ -16,7 +16,7 @@ const Home = () => {
           A place that makes it easy to talk every day and hang out more often.
         </p>
         <div className='home-buttons-container'>
-          <Link to="/signup"><div className='home-button register'>join discord now</div></Link>
+          <Link to="/register"><div className='home-button register'>join discord now</div></Link>
           <Link to="/login"><div className='home-button login'>already have a user?</div></Link>
         </div>
 
