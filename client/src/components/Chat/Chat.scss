@@ -10,6 +10,8 @@
   .chat {
     flex: 1;
     overflow-y: scroll;
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y proximity;
   }
 
   .input-box {

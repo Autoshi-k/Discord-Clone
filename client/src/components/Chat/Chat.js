@@ -15,6 +15,7 @@ export function Chat() {
   
   useEffect(() => {
     if (location.room === '') return;
+    console.log(rooms[location.room]);  
     setCurrentRoom(rooms[location.room]);
   }, [location, rooms])
 
@@ -29,7 +30,7 @@ export function Chat() {
     socket.emit('try send new message', { message, to: location.room });
     setMessage('');
   }
-
+  
   const determinateType = (message, index) => {
     // check who is the sender to determinate msg type (primary or secondary)
     if (index) {
@@ -37,11 +38,13 @@ export function Chat() {
       return message.participantId === prevMessage.participantId ? 'secondary' : 'primary';
     } else return 'primary'
   }
-
+  
+  console.log(currentRoom);
+  console.log(currentRoom?.messages);
   const createMessage = (message, index) => {
     const type = determinateType(message, index);
     return <MessageContainer 
-              key={ Math.floor(Math.random() * 9999) * index }
+              key={ Math.floor(Math.random() * 9999) * (index + 1) }
               type={type}
               sender={ currentRoom.participants[message.participantId].displayName }
               image={ currentRoom.participants[message.participantId].image } 

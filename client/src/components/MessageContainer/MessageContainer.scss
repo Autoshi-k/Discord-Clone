@@ -60,3 +60,7 @@
 .message:hover .visbale-hover {
   opacity: 1;
 }
+
+.message:last-child {
+  scroll-snap-align: end;
+}
