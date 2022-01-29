@@ -178,6 +178,18 @@
 
 .chat-header {
   height: 3.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.chat-header .room-name {
+  color: #DEEBE2;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .chat-window {
@@ -200,6 +212,9 @@
       -ms-flex: 1;
           flex: 1;
   overflow-y: scroll;
+  overscroll-behavior-y: contain;
+  -ms-scroll-snap-type: y proximity;
+      scroll-snap-type: y proximity;
 }
 
 .chat-window .input-box {
@@ -283,7 +298,7 @@
 }
 
 .message .username {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   display: inline-block;
   color: #DEEBE2;
   padding-bottom: .3em;
@@ -292,7 +307,7 @@
 
 .message .date {
   font-size: .9rem;
-  color: #D1DDDE;
+  color: #B9BBBE;
 }
 
 .message-content {
@@ -311,5 +326,9 @@
 
 .message:hover .visbale-hover {
   opacity: 1;
+}
+
+.message:last-child {
+  scroll-snap-align: end;
 }
 /*# sourceMappingURL=style.css.map */

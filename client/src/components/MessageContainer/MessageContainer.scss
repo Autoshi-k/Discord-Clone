@@ -2,10 +2,8 @@
   
   .message-container {
     padding: .3em .5em;
-    // background-color: blue;
     display: grid;
     grid-template-columns: 4.3em auto;
-    // padding: .1em;
   }
 
   .message-sub-container {
@@ -15,7 +13,6 @@
   }
 
   .avatar {
-    // background-color: yellow;
     margin: 1.475em auto 0;
   }
   
@@ -30,7 +27,7 @@
   }
     
   .username {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     display: inline-block;
     color: $chat-name-display;
     padding-bottom: .3em;
@@ -39,7 +36,7 @@
   
   .date {
     font-size: .9rem;
-    color: $text;
+    color: $chat-text-icons;
   }
 }
 

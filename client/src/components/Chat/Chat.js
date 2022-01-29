@@ -6,6 +6,8 @@ import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { SocketContext } from '../../context/socket';
 
+import ChatHeader from '../ChatHeader/ChatHeader';
+
 export function Chat() {
   const socket = useContext(SocketContext);
   // Redux store
@@ -15,7 +17,6 @@ export function Chat() {
   
   useEffect(() => {
     if (location.room === '') return;
-    console.log(rooms[location.room]);  
     setCurrentRoom(rooms[location.room]);
   }, [location, rooms])
 
@@ -39,8 +40,6 @@ export function Chat() {
     } else return 'primary'
   }
   
-  console.log(currentRoom);
-  console.log(currentRoom?.messages);
   const createMessage = (message, index) => {
     const type = determinateType(message, index);
     return <MessageContainer 
@@ -55,6 +54,7 @@ export function Chat() {
 
   return (
     <div className="chat-window">
+      <ChatHeader />
       <div className="chat">
 
         { 

@@ -18,7 +18,7 @@ const getParticipantInformation = async (objRooms, roomId, participant) => {
   objRooms[roomId].participants[participant._id.toString()] = { 
     _id: thisParticipant._id, 
     displayName: thisParticipant.displayName, 
-    imgae: thisParticipant.image 
+    image: thisParticipant.image 
   };
 }
 
