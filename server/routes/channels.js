@@ -14,16 +14,12 @@ const getParticipantInformation = async (objRooms, roomId, participant) => {
   // update information in that sub-object
   const thisParticipant = await User.findById(participant.userId)
                                     .select('_id displayName image');
-  // const messagesByParticipant = await Message.find({participantId: participant._id})
-  //                                            .sort({ _id: -1 })
-  //                                            .limit(30);
-  
+
   objRooms[roomId].participants[participant._id.toString()] = { 
     _id: thisParticipant._id, 
     displayName: thisParticipant.displayName, 
     imgae: thisParticipant.image 
   };
-  // objRooms[roomId].messages.push(...messagesByParticipant);
 }
 
 const getParticipants = async (objRooms, room) => {
@@ -39,14 +35,11 @@ const getParticipants = async (objRooms, room) => {
     messages: messagesByParticipants
   };
 
-  await Promise.all(participantsInRoom.map(participant => getParticipantInformation(objRooms, room.roomId, participant)), err => console.log(err)) // return array
-  
-  // const messagesByParticipants = await Message.find({participantId: [...participantsInRoom._id]}).sort({ _id: -1 }).limit(30);
-  // console.log(messagesByParticipants);
+  await Promise.all(participantsInRoom.map(participant => getParticipantInformation(objRooms, room.roomId, participant)), err => console.log(err))
 }
 
 const getRoomsData = async (objRooms, rooms) => {
-  await Promise.all(rooms.map(room => getParticipants(objRooms, room)), err => console.log(err)) // return array
+  await Promise.all(rooms.map(room => getParticipants(objRooms, room)), err => console.log(err))
 }
 
 router.get('/', verify, async (req, res) => {
