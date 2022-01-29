@@ -190,6 +190,11 @@
   color: #DEEBE2;
   font-size: 1.2rem;
   font-weight: 600;
+  margin: 0 .5em;
+}
+
+.chat-header .chat-header-at-icon {
+  padding-left: 1em;
 }
 
 .chat-window {
@@ -234,8 +239,9 @@
 }
 
 .chat-window .input-box .add-media {
-  padding-left: 1em;
+  padding: 0 1em;
   cursor: pointer;
+  color: #B9BBBE;
 }
 
 .chat-window .input-box input {
@@ -253,7 +259,11 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 8em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #B9BBBE;
+  width: 9em;
   margin-right: 1em;
   -webkit-column-gap: .2em;
           column-gap: .2em;

@@ -7,5 +7,10 @@
     color: $chat-name-display;
     font-size: 1.2rem;
     font-weight: 600;
+    margin: 0 .5em;
+  }
+
+  .chat-header-at-icon {
+    padding-left: 1em;
   }
 }

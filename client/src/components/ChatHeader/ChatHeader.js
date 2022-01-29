@@ -1,8 +1,9 @@
 // import './ChatHeader.css';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { Divider } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import StatusIcon from '../../Utilities/StatusIcon';
 
 
 function ChatHeader() {
@@ -11,20 +12,22 @@ function ChatHeader() {
   const location = useSelector(state => state.location.value);
 
   const [userToDisplay, setUserToDisplay] = useState(null);
-  console.log('location', location)
-  console.log('rooms[location.room]', rooms[location.room]);
   useEffect(() => {
     if (!location.room) return;
-    const test =  Object.keys(rooms[location.room].participants).filter(participant => rooms[location.room].participants[participant]._id !== user._id)
+    const currentRoom = rooms[location.room]
+    const test =  Object.keys(currentRoom.participants).filter(participant => currentRoom.participants[participant]._id !== user._id)
     setUserToDisplay(rooms[location.room].participants[test]);
-
   }, [rooms, location])
+  console.log(userToDisplay);
   return (
     <>
       <div className="chat-header">
-        <DeleteOutlinedIcon sx={{ fontSize: 30, width: '2rem' }} />
+        <div aria-hidden="true" className="chat-header-at-icon"><AlternateEmailIcon sx={{ fontSize: 30, color: '#B9BBBE', width: '2rem' }} /></div>
         <div className='room-name'>{ userToDisplay ? userToDisplay.displayName : '' }</div>
-        <div>O</div>
+        <StatusIcon
+          currentStatus={ userToDisplay?.currentStatus }
+          alt={ 'status-' }
+        />
       </div>
       <Divider />
     </>

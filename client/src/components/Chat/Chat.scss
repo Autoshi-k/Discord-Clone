@@ -26,10 +26,11 @@
 
 
     .add-media {
-      padding-left: 1em;
+      padding: 0 1em;
       cursor: pointer;
+      color: $chat-text-icons;
     }
-
+    
     input {
       width: 100%;
       height: 100%;
@@ -37,11 +38,13 @@
       border: none;
       line-height: .8em;
     }
-
+    
     .stickers-and-more {
       display: flex;
       justify-content: space-between;
-      width: 8em;
+      align-items: center;
+      color: $chat-text-icons;
+      width: 9em;
       margin-right: 1em;
       column-gap: .2em;
     }

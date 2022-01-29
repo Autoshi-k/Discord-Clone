@@ -1,11 +1,12 @@
 import MessageContainer from '../MessageContainer/MessageContainer';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import EmojiEmotionsRoundedIcon from '@mui/icons-material/EmojiEmotionsRounded';
 import { useContext, useEffect, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { SocketContext } from '../../context/socket';
-
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AssistantIcon from '@mui/icons-material/Assistant';
+import GifBoxRoundedIcon from '@mui/icons-material/GifBoxRounded';
 import ChatHeader from '../ChatHeader/ChatHeader';
 
 export function Chat() {
@@ -65,7 +66,7 @@ export function Chat() {
 
       </div>
       <div className="input-box" onKeyUp={ submitMessage }>
-        <div className="add-media"><DeleteOutlinedIcon sx={{ fontSize: 30 }} /></div>
+        <div className="add-media"><AddCircleIcon sx={{ fontSize: 30 }} /></div>
         <input 
           type="text"  
           placeholder="say something nice"
@@ -73,9 +74,9 @@ export function Chat() {
           onChange={changeMesasgeValue}  
         />
         <div className="stickers-and-more">
-          <SentimentVerySatisfiedIcon sx={{ fontSize: 30 }}/> 
-          <DeleteOutlinedIcon sx={{ fontSize: 30 }} /> 
-          <DeleteOutlinedIcon sx={{ fontSize: 30 }} />
+          <GifBoxRoundedIcon sx={{ fontSize: 30 }} />
+          <AssistantIcon sx={{ fontSize: 25 }} /> 
+          <EmojiEmotionsRoundedIcon sx={{ fontSize: 30 }}/> 
         </div>
       </div>
     </div>

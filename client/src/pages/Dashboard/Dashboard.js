@@ -62,7 +62,6 @@ function Dashboard() {
 
     });
   }, []);
-  console.log(location);
 
   return (
     <>
