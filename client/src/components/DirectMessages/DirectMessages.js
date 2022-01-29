@@ -71,6 +71,7 @@ function DirectMessages() {
                     room={key} 
                     displayName={toDisplay.displayName}
                     image={toDisplay.image}
+                    currentStatus={toDisplay.currentStatus}
                   />
               })
         : <div style={{ flex: 1 }}></div>

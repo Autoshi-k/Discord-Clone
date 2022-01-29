@@ -16,18 +16,14 @@ export const userSlice = createSlice({
     login: (state, action) => {
       state.value = action.payload;
     },
-    addRoom: (state, action) => {
-      state.value = {
-        ...state.value,
-        rooms: {
-          ...state.value.rooms,
-          private: [...state.value.rooms.private, action.payload]
-        }
-      }
-    }
+    updateUserStatus: (state, action) => {
+      const newValue = {...state.value};
+      newValue.status = action.payload;
+      state.value = newValue;
+    } 
   }
 })
 
-export const { login } = userSlice.actions;
+export const { login, updateUserStatus } = userSlice.actions;
 
 export default userSlice.reducer;

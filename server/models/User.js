@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     required: false,
     default: 'https://support.discord.com/hc/user_images/l12c7vKVRCd-XLIdDkLUDg.png'
   },
-  status: {
+  currentStatus: {
     type: Number,
     min: 0,
     max: 5,

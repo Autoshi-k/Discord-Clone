@@ -15,6 +15,7 @@ import { router as channelsRouter } from './routes/channels.js';
 import { router as findUsersRouter } from './routes/users.js';
 import Message from './models/Message.js';
 import Participant from './models/Participant.js';
+import User from './models/User.js';
 
 dotenv.config();
 
@@ -53,6 +54,18 @@ io.on("connection", async socket => {
     socket.join(newRoomId);
     
     socket.to(socket.id).emit('add room to store', )
+  })
+
+  socket.on('change my status', async statusNumber => {
+    const user = await User.findById(socket.handshake.auth.userId);
+    user.status = statusNumber;
+    await user.save();
+
+    // find all user's rooms to send them status update
+    let arrayWithObjects = await Participant.find({ userId: user._id })
+                                 .select('roomId')
+    const rooms = arrayWithObjects.map(room => room.roomId);
+    socket.to(rooms).emit('user changed status', { userId: user._id, newStatus: statusNumber })
   })
 
   socket.on('try send new message', async ({ message, to }) => {

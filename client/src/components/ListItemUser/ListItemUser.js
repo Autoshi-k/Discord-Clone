@@ -19,7 +19,7 @@ const SmallAvatar = styled(Avatar)(() => ({
 }));
 
 
-export function ListItemUser({ room, displayName, image }) {
+export function ListItemUser({ room, displayName, image, currentStatus }) {
   const defaultAvatar = 'https://consequence.net/wp-content/uploads/2020/06/becky-kevin-james.jpg?quality=80';
   const dispatch = useDispatch();
   // when ill have servers ill need to make a condition
@@ -36,7 +36,7 @@ export function ListItemUser({ room, displayName, image }) {
         overlap="circular"
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         badgeContent={
-          <SmallAvatar alt="Remy Sharp" src={idle} height="10" />
+          <SmallAvatar alt="Remy Sharp" src={currentStatus ? online : idle} height="10" />
         }
       >
         <Avatar sx={{ height: 32, width: 32 }}>

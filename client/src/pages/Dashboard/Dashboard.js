@@ -10,7 +10,7 @@ import 'semantic-ui-css/semantic.min.css';
 import ServerBar from '../../components/ServerBar/ServerBar';
 import DirectMessages from '../../components/DirectMessages/DirectMessages';
 import { io } from 'socket.io-client';
-import { addNewMessage, fetchOldRooms } from '../../features/rooms';
+import { addNewMessage, fetchOldRooms, updateStatus } from '../../features/rooms';
 
 
 let socket; // io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
@@ -52,12 +52,14 @@ function Dashboard() {
     socket.on("connect", () => {
       
       socket.on('success send new message', ({ roomId, newMessage }) => {
-        console.log({ roomId, message: newMessage });
         const newMessageObj = { roomId, message: newMessage };
         dispatch(addNewMessage(newMessageObj))
       })
       
-      
+      socket.on('user changed status', ({ userId, newStatus }) => {
+        dispatch(updateStatus({ userId, newStatus }))
+      })
+
     });
   }, []);
   console.log(location);

@@ -13,12 +13,13 @@ export const router = express.Router();
 const getParticipantInformation = async (objRooms, roomId, participant) => {
   // update information in that sub-object
   const thisParticipant = await User.findById(participant.userId)
-                                    .select('_id displayName image');
+                                    .select('_id displayName image currentStatus');
 
   objRooms[roomId].participants[participant._id.toString()] = { 
     _id: thisParticipant._id, 
     displayName: thisParticipant.displayName, 
-    image: thisParticipant.image 
+    image: thisParticipant.image,
+    currentStatus: thisParticipant.currentStatus
   };
 }
 

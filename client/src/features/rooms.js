@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 export const roomsSlice = createSlice({
   name: 'rooms',
@@ -18,17 +18,34 @@ export const roomsSlice = createSlice({
     deleteRoom: (state, action) => {
       
     }, 
+    updateStatus: (state, action) => {
+      const wantedId = action.payload.userId;
+      let newValue = {...state.value}
+      const roomIds = Object.keys(state.value).map(key => key);
+      let participantsId = []
+      roomIds.forEach(roomId => Object.keys(state.value[roomId].participants).map(participantId => {
+        
+        // if (current(state.value)[roomId].participants[participantId]._id === wantedId) participantsId.push(participantId)
+        if (current(state.value)[roomId].participants[participantId]._id === wantedId) {
+          newValue[roomId].participants[participantId].currentStatus = action.payload.newStatus;
+        }
+      }
+      ));
+      
+      console.log(participantsId);
+          // if (current(state.value)[key].participants[participantsKey]._id === wantedId) 
+      state.value = newValue;
+    },
     addNewMessage: (state, action) => {
       let newValue = {...state.value};
       let newMessageArray = [...state.value[action.payload.roomId].messages];
       newMessageArray.push(action.payload.message);
       newValue[action.payload.roomId] = {...state.value[action.payload.roomId], messages: newMessageArray }
       state.value = newValue;
-      
     }
   }
 })
 
-export const { fetchOldRooms, addNewMessage, newRoom, deleteRoom } = roomsSlice.actions;
+export const { fetchOldRooms, updateStatus, addNewMessage, newRoom, deleteRoom } = roomsSlice.actions;
 
 export default roomsSlice.reducer;
