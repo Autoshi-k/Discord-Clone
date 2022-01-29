@@ -24,8 +24,8 @@ const SidebarUserInfo = () => {
   const user = useSelector(state => state.user.value);
 
   const changeStatus = () => {
-    dispatch(updateUserStatus(user.status ? 0 : 1));
-    socket.emit('change my status', user.status ? 0 : 1)
+    dispatch(updateUserStatus(user.currentStatus ? 0 : 1));
+    socket.emit('change my status', user.currentStatus ? 0 : 1)
   }
 
   return (
@@ -36,7 +36,7 @@ const SidebarUserInfo = () => {
           overlap="circular"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           badgeContent={
-            <SmallAvatar alt="Remy Sharp" src={ user.status ? online : idle } height="10" />
+            <SmallAvatar alt="Remy Sharp" src={ user.currentStatus ? online : idle } height="10" />
           }
           >
             <Avatar sx={{ height: 32, width: 32 }}>

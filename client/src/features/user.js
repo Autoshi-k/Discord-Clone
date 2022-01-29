@@ -18,7 +18,7 @@ export const userSlice = createSlice({
     },
     updateUserStatus: (state, action) => {
       const newValue = {...state.value};
-      newValue.status = action.payload;
+      newValue.currentStatus = action.payload;
       state.value = newValue;
     } 
   }

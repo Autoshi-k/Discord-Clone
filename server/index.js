@@ -40,11 +40,15 @@ const io = new Server(server);
 
 let connectedUsers = [];
 io.on("connection", async socket => {
-
+  
+ 
   connectedUsers.push({
     socketId: socket.id,
     userId: socket.handshake.auth.userId
   })
+  // first thing make sure user status is online
+  // user.currentStatus = statusNumber;
+    // await user.save();
 
   // // can use connection to update user status
   // const userRooms = await User.findOne({ id: socket.handshake.auth.userId }).select('displayName rooms');
@@ -52,13 +56,12 @@ io.on("connection", async socket => {
   rooms.forEach(room => socket.join(room.roomId)) // maybe ill need .toString()
   socket.on('add private room', newRoomId => {
     socket.join(newRoomId);
-    
     socket.to(socket.id).emit('add room to store', )
   })
 
   socket.on('change my status', async statusNumber => {
     const user = await User.findById(socket.handshake.auth.userId);
-    user.status = statusNumber;
+    user.currentStatus = statusNumber;
     await user.save();
 
     // find all user's rooms to send them status update
