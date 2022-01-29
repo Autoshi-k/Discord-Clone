@@ -36,7 +36,6 @@ function Dashboard() {
         console.log(data.err); 
         return;
       };
-      console.log('hi',data);
       dispatch(login(data.user));
       dispatch(fetchOldRooms(data.objRooms));
 

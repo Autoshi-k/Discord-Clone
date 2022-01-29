@@ -46,6 +46,8 @@ io.on("connection", async socket => {
     socketId: socket.id,
     userId: socket.handshake.auth.userId
   })
+  
+  socket.to(rooms).emit('user changed status', { userId: user._id, newStatus: 1 })
   // first thing make sure user status is online
   // user.currentStatus = statusNumber;
     // await user.save();

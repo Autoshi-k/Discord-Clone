@@ -18,7 +18,7 @@ function ChatHeader() {
     const test =  Object.keys(currentRoom.participants).filter(participant => currentRoom.participants[participant]._id !== user._id)
     setUserToDisplay(rooms[location.room].participants[test]);
   }, [rooms, location])
-  console.log(userToDisplay);
+
   return (
     <>
       <div className="chat-header">

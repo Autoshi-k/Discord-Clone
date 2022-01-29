@@ -25,7 +25,6 @@ const StatusIcon = ({badge, currentStatus, image, alt}) => {
         overlap="circular"
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         badgeContent={
-          // <SmallAvatar alt="Remy Sharp" src={ currentStatus ? online : idle } height="10" />
           <SmallAvatar alt="Remy Sharp" src={ mapStatus[currentStatus] } height="10" />
         }
       >

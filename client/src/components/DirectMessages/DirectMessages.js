@@ -1,5 +1,5 @@
-import { Divider, ListItem } from "@mui/material";
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import { Divider, ListItem, ListItemText } from "@mui/material";
+import GroupsIcon from '@mui/icons-material/Groups';
 
 
 // Components
@@ -13,11 +13,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { SocketContext } from "../../context/socket";
 import { newRoom } from "../../features/rooms";
+import { changeLocation } from "../../features/location";
 // import { Link, Route, Routes } from "react-router-dom";
 
 function DirectMessages() {
   const user = useSelector(state => state.user.value);
   const rooms = useSelector(state => state.rooms.value);
+  const location = useSelector(state => state.location.value);
 
   const socket = useContext(SocketContext);
   const dispatch = useDispatch();
@@ -57,9 +59,10 @@ function DirectMessages() {
     <Sidebar> 
       <input type="text" placeholder="search or start a chat"/>
       <Divider />
-      <ListItem>
-        <DeleteOutlinedIcon /> <div>Friends</div>
-      </ListItem>
+        <div className="list-item-user direct-to-friends-window" onClick={ () => dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends' })) }>
+          <GroupsIcon fontSize='large'/> 
+          <div>Friends</div>
+        </div>
       <div className="users-list">
         <div className="sidebar-title" onClick={ () => addCoversation() }>direct messages</div>
         { Object.keys(rooms).length ?
@@ -78,7 +81,12 @@ function DirectMessages() {
         }
       </div>
     </Sidebar>
-    <Chat />
+    {
+      location.room === 'friends' ?
+      <div>friends window here</div>
+      :
+      <Chat />
+    }
   </div>
   )
 }

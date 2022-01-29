@@ -13,10 +13,10 @@
   .user-name {
     font-size: 1.5em;
     padding-left: .5em;
-    font-weight: 500;
   }
 }
 
 .list-item-user:hover {
   background-color: $lightest-grey;
+  font-weight: 500;
 }
