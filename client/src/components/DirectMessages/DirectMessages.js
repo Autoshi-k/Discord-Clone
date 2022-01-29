@@ -6,6 +6,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import { Chat } from "../Chat/Chat";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { ListItemUser } from "../ListItemUser/ListItemUser";
+import FriendsWindow from '../FriendsWindow/FriendsWindow';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -83,7 +84,7 @@ function DirectMessages() {
     </Sidebar>
     {
       location.room === 'friends' ?
-      <div>friends window here</div>
+      <FriendsWindow />
       :
       <Chat />
     }

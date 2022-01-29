@@ -7,7 +7,7 @@ import { SocketContext } from '../../context/socket';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AssistantIcon from '@mui/icons-material/Assistant';
 import GifBoxRoundedIcon from '@mui/icons-material/GifBoxRounded';
-import ChatHeader from '../ChatHeader/ChatHeader';
+import PageHeader from '../PageHeader/PageHeader';
 
 export function Chat() {
   const socket = useContext(SocketContext);
@@ -55,7 +55,7 @@ export function Chat() {
 
   return (
     <div className="chat-window">
-      <ChatHeader />
+      <PageHeader />
       <div className="chat">
 
         { 
