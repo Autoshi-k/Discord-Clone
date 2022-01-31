@@ -16,26 +16,7 @@
 }
 
 .direct-messages-window .direct-to-friends-window {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
-  height: 4em;
-  -webkit-column-gap: 1em;
-          column-gap: 1em;
-  color: #8E9297;
   margin: 1em 0;
-}
-
-.direct-messages-window .direct-to-friends-window div {
-  font-size: 1.5em;
-}
-
-.direct-messages-window .direct-to-friends-window:hover {
-  background-color: #40444b;
 }
 
 .direct-messages-window .sidebar-title {
@@ -164,11 +145,18 @@
 .list-item-user .user-name {
   font-size: 1.5em;
   padding-left: .5em;
+  font-weight: 400;
 }
 
 .list-item-user:hover {
+  background-color: #34373c;
+  font-weight: 700;
+}
+
+.list-item-user.active {
   background-color: #40444b;
-  font-weight: 500;
+  font-weight: 700;
+  background-color: green;
 }
 
 .sidebar-user-information {
@@ -218,6 +206,13 @@
 
 .chat-header .chat-header-at-icon {
   padding-left: 1em;
+}
+
+.friends-window {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background-color: violet;
 }
 
 .chat-window {

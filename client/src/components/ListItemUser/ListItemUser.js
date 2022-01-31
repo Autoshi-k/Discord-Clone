@@ -1,12 +1,15 @@
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeLocation } from '../../features/location';
-
 import StatusIcon from "../../Utilities/StatusIcon";
+
+import GroupsIcon from '@mui/icons-material/Groups';
+
 // import Stack from '@mui/material/Stack';
 
-export function ListItemUser({ room, displayName, image, currentStatus }) {
-  const defaultAvatar = 'https://consequence.net/wp-content/uploads/2020/06/becky-kevin-james.jpg?quality=80';
+export function ListItemUser({ room, roomName, image, currentStatus }) {
+  
+  const location = useSelector(state => state.location.value);
   const dispatch = useDispatch();
   // when ill have servers ill need to make a condition
   // room include roomID, userID
@@ -17,14 +20,19 @@ export function ListItemUser({ room, displayName, image, currentStatus }) {
 
   
   return (
-    <div className="list-item-user" onClick={ () => changeStateLocation() }>
-      <StatusIcon 
+    <div className={`list-item-user ${location.room === room ? 'active' : ''}`} onClick={ () => changeStateLocation() }>
+      {
+        room === 'friends' ?
+        <GroupsIcon fontSize='large'/> 
+        :
+        <StatusIcon 
         badge={true}
         currentStatus={currentStatus}
-        alt={displayName}
+        alt={roomName}
         image={image}
       />
-      <div className="user-name">{displayName}</div>
+      }
+      <div className="user-name">{roomName}</div>
     </div>
   )
 }

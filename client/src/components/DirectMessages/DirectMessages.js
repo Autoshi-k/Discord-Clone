@@ -1,6 +1,4 @@
 import { Divider, ListItem, ListItemText } from "@mui/material";
-import GroupsIcon from '@mui/icons-material/Groups';
-
 
 // Components
 import { Chat } from "../Chat/Chat";
@@ -10,12 +8,10 @@ import FriendsWindow from '../FriendsWindow/FriendsWindow';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-// import { addRoom } from '../../features/user';
 import { useContext } from "react";
-import { SocketContext } from "../../context/socket";
 import { newRoom } from "../../features/rooms";
-import { changeLocation } from "../../features/location";
-// import { Link, Route, Routes } from "react-router-dom";
+
+import { SocketContext } from "../../context/socket";
 
 function DirectMessages() {
   const user = useSelector(state => state.user.value);
@@ -51,7 +47,7 @@ function DirectMessages() {
     .then(data => {
       if (data.err) console.log(data.err);
       dispatch(newRoom(data));
-      socket.emit('add private room', data);
+      socket.emit('add room', data);
     })
   }
  
@@ -60,10 +56,9 @@ function DirectMessages() {
     <Sidebar> 
       <input type="text" placeholder="search or start a chat"/>
       <Divider />
-        <div className="list-item-user direct-to-friends-window" onClick={ () => dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends' })) }>
-          <GroupsIcon fontSize='large'/> 
-          <div>Friends</div>
-        </div>
+      <div className="direct-to-friends-window">
+        <ListItemUser key={9999999} room='friends' roomName='friends' />
+      </div>
       <div className="users-list">
         <div className="sidebar-title" onClick={ () => addCoversation() }>direct messages</div>
         { Object.keys(rooms).length ?
@@ -73,7 +68,7 @@ function DirectMessages() {
             return <ListItemUser 
                     key={index} 
                     room={key} 
-                    displayName={toDisplay.displayName}
+                    roomName={toDisplay.displayName}
                     image={toDisplay.image}
                     currentStatus={toDisplay.currentStatus}
                   />

@@ -10,22 +10,7 @@
   }
 
   .direct-to-friends-window {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 4em;
-    column-gap: 1em;
-    color: $sidebar-text-icons;
     margin: 1em 0;
-    
-    div {
-      font-size: 1.5em;
-    }
-  
-  }
-
-  .direct-to-friends-window:hover {
-    background-color: $lightest-grey;
   }
 
   .sidebar-title {

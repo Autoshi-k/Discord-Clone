@@ -21,8 +21,8 @@ router.get('/', verify, async (req, res) => {
 router.post('/addConv', verify, async (req, res) => {
   const { displayName, tag } = req.body;
   
-  const user = await User.findById(req.user.id).select('_id displayName image');
-  const addUser = await User.findOne({ displayName: displayName }).select('_id displayName image');
+  const user = await User.findById(req.user.id).select('_id displayName image currentStatus');
+  const addUser = await User.findOne({ displayName: displayName }).select('_id displayName image currentStatus');
   if (!addUser) return res.send({ err: 'user doesnt exist' });
   
   // creating new room

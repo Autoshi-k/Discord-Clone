@@ -44,15 +44,15 @@ io.on("connection", async socket => {
   // and joining all the relevate rooms
   const user = await User.findById(socket.handshake.auth.userId);
   const RoomsAsObj = await Participant.find({ userId: socket.handshake.auth.userId })
-  const rooms = RoomsAsObj.map(room => room.roomId);
+  let rooms = RoomsAsObj.map(room => room.roomId);
   socket.join(rooms);
 
   // user making a new conversation
-  socket.on('add private room', newRoomId => {
-    socket.join(newRoomId);
-    socket.to(socket.id).emit('add room to store', )
+  socket.on('add room', newRoom => {
+    rooms.push(newRoom.roomId);
+    socket.join(newRoom);
   })
-
+  
   // user change his status and update all rooms
   socket.on('change my status', async statusNumber => {
     user.currentStatus = statusNumber;
