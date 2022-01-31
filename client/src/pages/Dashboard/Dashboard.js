@@ -38,7 +38,7 @@ function Dashboard() {
       };
       dispatch(login(data.user));
       dispatch(fetchOldRooms(data.objRooms));
-
+      socket.emit('change my status', data.user.currentStatus ? data.user.currentStatus : 1);
       // check if local storage match to the user who is currently logged in
       if (data.user._id === localStorage.getItem('user-data').id) return;
       localStorage.setItem('user-data', JSON.stringify({ id: data.user._id, displayName: data.user.displayName, tag: data.user.tag }));

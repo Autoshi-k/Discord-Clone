@@ -38,45 +38,32 @@ app.use('/api/users', findUsersRouter);
 const server = createServer(app);
 const io = new Server(server);
 
-let connectedUsers = [];
 io.on("connection", async socket => {
   
- 
-  connectedUsers.push({
-    socketId: socket.id,
-    userId: socket.handshake.auth.userId
-  })
-  
-  socket.to(rooms).emit('user changed status', { userId: user._id, newStatus: 1 })
-  // first thing make sure user status is online
-  // user.currentStatus = statusNumber;
-    // await user.save();
+  // at connection getting information about the user
+  // and joining all the relevate rooms
+  const user = await User.findById(socket.handshake.auth.userId);
+  const RoomsAsObj = await Participant.find({ userId: socket.handshake.auth.userId })
+  const rooms = RoomsAsObj.map(room => room.roomId);
+  socket.join(rooms);
 
-  // // can use connection to update user status
-  // const userRooms = await User.findOne({ id: socket.handshake.auth.userId }).select('displayName rooms');
-  const rooms = await Participant.find({ userId: socket.handshake.auth.userId })
-  rooms.forEach(room => socket.join(room.roomId)) // maybe ill need .toString()
+  // user making a new conversation
   socket.on('add private room', newRoomId => {
     socket.join(newRoomId);
     socket.to(socket.id).emit('add room to store', )
   })
 
+  // user change his status and update all rooms
   socket.on('change my status', async statusNumber => {
-    const user = await User.findById(socket.handshake.auth.userId);
     user.currentStatus = statusNumber;
     await user.save();
-
-    // find all user's rooms to send them status update
-    let arrayWithObjects = await Participant.find({ userId: user._id })
-                                 .select('roomId')
-    const rooms = arrayWithObjects.map(room => room.roomId);
     socket.to(rooms).emit('user changed status', { userId: user._id, newStatus: statusNumber })
+    // WHEN DO I NEED TO ADD .TOSTRING() ???????????
   })
 
   socket.on('try send new message', async ({ message, to }) => {
     // to = roomId
-    // to is privateRoom id , privateRoom include user id
-    const participantId = await Participant.findOne({ userId: socket.handshake.auth.userId, roomId: to }).select('_id');
+    const participantId = await Participant.findOne({ userId: user._id.toString(), roomId: to }).select('_id');
     const newMessage = new Message({
       participantId: participantId._id.toString(),
       content: message
@@ -88,9 +75,14 @@ io.on("connection", async socket => {
     socket.to(to).emit('success send new message', { roomId: to, newMessage });
   })
   
-  socket.on('disconnect', () => {
-    const index = connectedUsers.findIndex(user => user.socketID === socket.id)
-    connectedUsers.splice(index, 1);
+  socket.on('disconnect', async () => {
+    // user.currentStatus = 0; // still havnt decide if idle or disconnected
+    // try {
+    //   await user.save();
+    // } catch (err) { console.log(err) }
+
+    // this thing up here is messing up my code
+    // need to make it a normal on/emit
   });
 });
 
