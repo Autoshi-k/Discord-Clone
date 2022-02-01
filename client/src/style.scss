@@ -15,6 +15,7 @@ $sidebar-user-info: #292B2F;
 $primary-color: #36393F;
 $primary-color-hover: #32353B;
 $chat-input: #40444B;
+$green: #3ba55d;
 
 // buttons colors
 $home-button-dark: #23272A;
@@ -32,11 +33,11 @@ $headline-font: 'Luckiest Guy', cursive;
 // @import './pages/login.scss';
 @import './components/DirectMessages/DirectMessages.scss';
 @import './components/ServerBar/ServerBar.scss';
-@import './components/ServerIcon/ServerIcon.scss';
+@import './components/ServerIcon/ServerIcon.scss';  
 @import './components/Sidebar/Sidebar.scss';
 @import './components/ListItemUser/ListItemUser.scss';
 @import './components/SidebarUserInfo/SidebarUserInfo.scss';
 @import './components/PageHeader/PageHeader.scss';
-@import './components//FriendsWindow/FriendsWindow.scss';
+@import './pages/Friends/Friends.scss';
 @import './components/Chat/Chat.scss';
 @import './components/MessageContainer/MessageContainer.scss';

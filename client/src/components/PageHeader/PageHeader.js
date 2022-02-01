@@ -23,13 +23,22 @@ function PageHeader() {
 
   return (
     <>
-      <div className="chat-header">
+      <div className="header">
         
         {
             location.room === 'friends' ?
-            <>            
-              <div aria-hidden="true" className="chat-header-at-icon"><GroupsIcon fontSize='large' sx={{ fontSize: 30, color: '#B9BBBE', width: '2rem' }}/> </div>
-              <div className='room-name'>Friends</div>
+            <>
+              <div className='friends-header'>            
+                <div aria-hidden="true" className="chat-header-at-icon"><GroupsIcon fontSize='large' sx={{ fontSize: 30, color: '#B9BBBE', width: '2rem' }}/> </div>
+                <div className='room-name'>Friends</div>
+              </div>
+              <ul className='friends-header-list'>
+                <li className={location.subRoom === 'online' ? 'active' : null}>online</li>
+                <li className={location.subRoom === 'all' ? 'active' : null}>all</li>
+                <li className={location.subRoom === 'pending' ? 'active' : null}>pending</li>
+                <li className={location.subRoom === 'blocked' ? 'active' : null}>blocked</li>
+                <li className={`add-friend ${location.subRoom === 'blocked' ? 'active' : null}`}>add friend</li>
+              </ul>
             </>
             :
             <>

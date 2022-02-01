@@ -14,7 +14,7 @@ export function ListItemUser({ room, roomName, image, currentStatus }) {
   // when ill have servers ill need to make a condition
   // room include roomID, userID
   const changeStateLocation = () => {
-    dispatch(changeLocation({ lobby: 'direct-messages', room }))
+    dispatch(changeLocation({ lobby: 'direct-messages', room, subRoom: 'online' }))
   };
 
 

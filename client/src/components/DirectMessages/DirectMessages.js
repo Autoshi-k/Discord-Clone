@@ -4,7 +4,7 @@ import { Divider, ListItem, ListItemText } from "@mui/material";
 import { Chat } from "../Chat/Chat";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { ListItemUser } from "../ListItemUser/ListItemUser";
-import FriendsWindow from '../FriendsWindow/FriendsWindow';
+import Friends from "../../pages/Friends/Friends";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -79,7 +79,7 @@ function DirectMessages() {
     </Sidebar>
     {
       location.room === 'friends' ?
-      <FriendsWindow />
+      <Friends />
       :
       <Chat />
     }

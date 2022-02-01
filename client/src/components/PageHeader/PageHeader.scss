@@ -1,7 +1,56 @@
-.chat-header {
+.header {
   height: 3.3rem;
+  width: 100%;  
   display: flex;
   align-items: center;
+  padding: 0 1.3em;
+  
+  .friends-header {
+    display: flex;
+    align-items: center;
+    border-right: 1px solid  $chat-input;
+    padding-right: 1em;
+  }
+
+  .friends-header-list {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding-left: 1.2em;
+    align-items: center;
+    // background-color: green;
+    column-gap: .6em;
+    height: 100%;
+    float: left;
+
+    li {
+      margin: 0;
+      // height: 2em;
+      padding: .3em 1em;
+      color: $text; 
+      cursor: pointer;
+      border-radius: .3em;
+      text-transform: capitalize;
+    }
+
+    .add-friend {
+      background-color: $green;
+      color: white;
+    }
+
+    .add-friend:hover {
+      background-color: $green;
+    }
+
+    li:hover {
+      background-color: $sidebar-hover;
+    }
+
+    li.active {
+      background-color: $lightest-grey;
+      color: white;
+    }
+  }
 
   .room-name {
     color: $chat-name-display;
@@ -10,7 +59,7 @@
     margin: 0 .5em;
   }
 
-  .chat-header-at-icon {
-    padding-left: 1em;
-  }
+  // .chat-header-at-icon {
+  //   padding-left: 1em;
+  // }
 }
