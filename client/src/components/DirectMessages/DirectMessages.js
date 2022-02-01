@@ -1,4 +1,4 @@
-import { Divider, ListItem, ListItemText } from "@mui/material";
+import { Divider } from "@mui/material";
 
 // Components
 import { Chat } from "../Chat/Chat";

@@ -35,12 +35,13 @@ function PageHeader() {
             <div className='room-name'>Friends</div>
           </div>
           <ul className='friends-header-list'>
-            { friendsListItems.map(item => {
+            { friendsListItems.map((item, index) => {
               return (
               <li 
+                key={index}
                 className={`${location.subRoom === item ? 'active' : null} ${item === 'add-friend' ? 'add-friend' : null}`}
                 onClick={ () => dispatch(changeLocation({ ...location, subRoom: item })) }
-                >
+              >
                 { item.split('-').join(' ') }
               </li>
               )}) }

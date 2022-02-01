@@ -1,6 +1,66 @@
 .friends-page {
   flex: 1;
   position: relative;
+  overflow: hidden;
+  
+  .friends-add-friend {
+    position: relative;
+    height: 100%;
+
+    .add-friend-section {
+      text-align: left;
+      padding: 1em 2em;
+    }
+    
+    h3 {
+      margin: 0;
+      font-size: 1.2em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: white;
+    }
+
+    p {
+      margin: 1em 0;
+      font-size: .9em;
+      color: $sidebar-text-icons;
+      text-transform: capitalize;
+    }
+
+    .friend-search {
+      background-color: $sidebar;
+      border-radius: .5em;
+      border: 1px solid $secondry-color;
+      height: 4em;
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1em;
+      margin-bottom: 1.5em;
+
+      input[type=text] {
+        background-color: unset;
+        border: none;
+        color: $text;
+        padding: .5em;
+      }
+
+      input[type=submit] {
+        background-color: $blue;
+        padding: .5em;
+        color: white;
+        font-weight: 500;
+        border: none;
+        border-radius: .3em;
+      }
+
+      input[type=submit]:disabled {
+        background-color: $blue-disabled;
+      }
+    }
+  }
 
   .not-found {
     position: absolute;
