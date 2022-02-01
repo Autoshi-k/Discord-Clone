@@ -33,15 +33,6 @@
       text-transform: capitalize;
     }
 
-    .add-friend {
-      background-color: $green;
-      color: white;
-    }
-
-    .add-friend:hover {
-      background-color: $green;
-    }
-
     li:hover {
       background-color: $sidebar-hover;
     }
@@ -50,6 +41,21 @@
       background-color: $lightest-grey;
       color: white;
     }
+
+    .add-friend {
+      background-color: $green;
+      color: white;
+    }
+
+    .add-friend:hover {
+      background-color: $green;
+    }
+    
+    .add-friend.active {
+      background-color: unset;
+      color: $green;
+    }
+
   }
 
   .room-name {

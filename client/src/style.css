@@ -234,6 +234,15 @@
   text-transform: capitalize;
 }
 
+.header .friends-header-list li:hover {
+  background-color: #393C43;
+}
+
+.header .friends-header-list li.active {
+  background-color: #40444b;
+  color: white;
+}
+
 .header .friends-header-list .add-friend {
   background-color: #3ba55d;
   color: white;
@@ -243,13 +252,9 @@
   background-color: #3ba55d;
 }
 
-.header .friends-header-list li:hover {
-  background-color: #393C43;
-}
-
-.header .friends-header-list li.active {
-  background-color: #40444b;
-  color: white;
+.header .friends-header-list .add-friend.active {
+  background-color: unset;
+  color: #3ba55d;
 }
 
 .header .room-name {
