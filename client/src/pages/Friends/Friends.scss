@@ -60,6 +60,17 @@
         background-color: $blue-disabled;
       }
     }
+
+    .friend-search.error {
+      border: 1px solid $red;
+    }
+
+    .error-message {
+      color: red;
+      font-weight: 400;
+      margin-top: 0;
+      text-transform: unset;  
+    }
   }
 
   .not-found {

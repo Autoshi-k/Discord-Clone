@@ -58,7 +58,8 @@ io.on("connection", async socket => {
     user.currentStatus = statusNumber;
     await user.save();
     socket.to(rooms).emit('user changed status', { userId: user._id, newStatus: statusNumber })
-    // WHEN DO I NEED TO ADD .TOSTRING() ???????????
+    // WHEN DO I NEED TO ADD .TOSTRING() ??????????? user._id ---> hjfwhr374236247
+    // new ObjectId("jkhdfhfu38e3824")
   })
 
   socket.on('try send new message', async ({ message, to }) => {

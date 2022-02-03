@@ -337,6 +337,17 @@
   background-color: #444c95;
 }
 
+.friends-page .friends-add-friend .friend-search.error {
+  border: 1px solid #ed4245;
+}
+
+.friends-page .friends-add-friend .error-message {
+  color: red;
+  font-weight: 400;
+  margin-top: 0;
+  text-transform: unset;
+}
+
 .friends-page .not-found {
   position: absolute;
   top: 50%;
