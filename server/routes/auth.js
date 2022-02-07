@@ -1,7 +1,7 @@
 import express from 'express';
-import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import db from '../connection.js';
 
 export const router = express.Router();
 // validations
@@ -12,61 +12,50 @@ router.post('/register', async (req, res) => {
   const {error} = registerValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   
+  const { displayName, email, password } = req.body;
+
   // check if email already exist
-  const emailExist = await User.findOne({ 'email': req.body.email});
-  if (emailExist) return res.status(400).send('Email already exist');
+  const selectQuery = `SELECT email FROM users WHERE email = '${email}' LIMIT 1`;
+  const [emailExist] = await db.query(selectQuery) ;
+  if (emailExist.length) return res.status(400).send('Email already exist');
+    
   // Hash password
   const salt = await bcrypt.genSalt(10);
-  const hashPassword = await bcrypt.hash(req.body.password, salt);
+  const hashPassword = await bcrypt.hash(password, salt);
   
-  // create new user & password
-  const user = new User({
-    displayName: req.body.displayName,
-    email: req.body.email,
-    tag: Math.floor(Math.random() * (9999 - 1000) + 1000),
-    password: hashPassword 
-  });
+  // get random 4 digits
+  const tag = Math.floor(Math.random() * (9999 - 1000) + 1000);
   
-  console.log(user);
-  // add user & password to DB
-  try {
-    await user.save();
-    res.send(user.id + ' Created');
-  } catch (err) {
-      // i want User schema won't have _id, but when trying to save new user
-      // error => docuement must have an _id before saving
-      console.log(err);
-      res.status(400).send(err);
-  }
+  // creating new user in database
+  const insertQuery = 'INSERT INTO users (name, tag, email, birthday, password) VALUES (?, ?, ?, ?, ?)';
+  const teest = await db.query(insertQuery, [displayName, tag, email, '1997-09-13', hashPassword])
+  console.log(teest);
 });
 
 
 router.post('/login', async (req, res) => {
   // validate before adding a user
-  console.log('0');
   const {error} = loginValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   
-  console.log('1');
+  const { email, password } = req.body;
   
-  // check if email exist
-  const user = await User.findOne({ 'email': req.body.email});
-  if (!user) return res.status(400).send({ err : 'Email or password is wrong'});
-  console.log('2');
+  // check if user email exist
+  const findUserQuery = `SELECT id, email, password FROM users WHERE email = '${email}' LIMIT 1`;
+  const [userRows] = await db.query(findUserQuery);
+  if(!userRows.length) return res.status(400).send('email or password is wrong');
   
-  // validate password --ERROR
-  // const validPass = await bcrypt.compare(req.body.password, user.password);
-  // if (!validPass) return res.status(400).send('email or password is wrong');
-  
-  // set user's status to online
-  user.status = 1; 
-  await user.save();
-  console.log('3');
+  // compare password from the clients' input and password in database
+  bcrypt.compare(password, userRows[0].password, async (err, passwordMatch) => {
+    if (err) throw err;
+    if (passwordMatch) {
+      const updateStatus = `UPDATE users SET online = true, status = 'online' WHERE id =${userRows[0].id} LIMIT 1`;
+      await db.query(updateStatus);
+      // need to understand how to handle with errors with database
+      // creating a token and passing it to the client
+      const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET)
+      res.header('auth-token', token).json(token);
+    } else return res.status(400).send('email or password is wrong');
+  });
 
-  // Create and assign a token
-  const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET)
-  res.header('auth-token', token).json(token);
-  
-  // res.json({ isAuth: true, token, user});
-  console.log('4');
 })
