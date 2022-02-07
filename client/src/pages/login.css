@@ -20,6 +20,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  max-width: 90%;
   width: 35rem;
   border-radius: .4rem;
   padding: 2rem;
