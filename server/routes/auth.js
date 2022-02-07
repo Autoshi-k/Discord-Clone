@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
       await db.query(updateStatus);
       // need to understand how to handle with errors with database
       // creating a token and passing it to the client
-      const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET)
+      const token = jwt.sign({ id: userRows[0].id }, process.env.TOKEN_SECRET)
       res.header('auth-token', token).json(token);
     } else return res.status(400).send('email or password is wrong');
   });
