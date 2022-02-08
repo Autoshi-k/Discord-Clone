@@ -1,8 +1,9 @@
 import express from 'express';
 import { auth as verify } from '../helper/tokenVerify.js';
 import Message from '../models/Message.js';
-import User from '../models/User.js';
+// import User from '../models/User.js';
 import Participant from '../models/Participant.js';
+import db from '../connection.js';
 
 export const router = express.Router();
 
@@ -10,46 +11,17 @@ export const router = express.Router();
 // is the first stop after logging in
 // getting user information is the only purpose 
 
-const getParticipantInformation = async (objRooms, roomId, participant) => {
-  // update information in that sub-object
-  const thisParticipant = await User.findById(participant.userId)
-                                    .select('_id displayName image currentStatus');
-
-  objRooms[roomId].participants[participant._id.toString()] = { 
-    _id: thisParticipant._id, 
-    displayName: thisParticipant.displayName, 
-    image: thisParticipant.image,
-    currentStatus: thisParticipant.currentStatus
-  };
-}
-
-const getParticipants = async (objRooms, room) => {
-  const participantsInRoom = await Participant.find({ roomId: room.roomId })
-                                              .select('userId');
-  const participantsId = participantsInRoom.map(participant => participant._id.toString())
-  const messagesByParticipants = await Message.find({participantId: { $in: participantsId } })
-                                              .sort('createdAt')
-                                              .limit(30);
-  // set sub-object
-  objRooms[room.roomId] = {
-    participants: {},
-    messages: messagesByParticipants
-  };
-
-  await Promise.all(participantsInRoom.map(participant => getParticipantInformation(objRooms, room.roomId, participant)), err => console.log(err))
-}
-
-const getRoomsData = async (objRooms, rooms) => {
-  await Promise.all(rooms.map(room => getParticipants(objRooms, room)), err => console.log(err))
-}
-
 router.get('/', verify, async (req, res) => {
-  const user = await User.findById(req.user.id)
-                         .select('-password -updatedAt -createdAt -__v');
-  const rooms = await Participant.find({ userId: user._id }); // array
-  // create an object with sub-objects of roomId's
-  // any roomId has sub-sub-object with participants and an array for all messages
-  let objRooms = {};
-  await getRoomsData(objRooms, rooms);
-  res.send({ user, objRooms });
+
+  const selectQuery = `SELECT id, name, tag, avatar, statusId FROM users WHERE id = ${req.user.id}`
+  const [userRows] = await db.query(selectQuery);
+  res.send({ user: userRows[0], objRooms: { } });
+  // const user = await User.findById(req.user.id)
+  //                        .select('-password -updatedAt -createdAt -__v');
+  // const rooms = await Participant.find({ userId: user._id }); // array
+  // // create an object with sub-objects of roomId's
+  // // any roomId has sub-sub-object with participants and an array for all messages
+  // let objRooms = {};
+  // await getRoomsData(objRooms, rooms);
+  // res.send({ user, objRooms });
 })

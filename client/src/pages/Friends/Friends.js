@@ -14,6 +14,9 @@ const Friends = () => {
   
   const dispatch = useDispatch();
 
+  const searchFriend = useRef(null);
+
+
   useEffect(() => {
     if (relationships.friends.length) return;
     dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }));
@@ -42,14 +45,33 @@ const Friends = () => {
     
     if (addFriendName.includes('#') && addFriendName.slice(-5)[0] === '#') {
       // is good -- submit
+      const addFriendSearch = searchFriend.current['addFriendSearch'].value;
+      const userName = addFriendSearch.slice(0, addFriendSearch.indexOf('#'));
+      const userTag = addFriendSearch.slice(-4);
+      
+      fetch('/api/users/addFriend', {
+        method: 'POST',
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("auth-token") 
+        },
+        body: JSON.stringify({ name: userName, tag: userTag })
+      })
+      .then(res => res.json())
+      .then(data => console.log(data userid= 3345));
+
     } else if (addFriendName.includes('#')) {
       setError({error: true, message: 'Hm, didn\'t work. Double checkthat the capitalization, spelling, any spaces, and numbers are correct.'})
     } else { 
       setError({error: true, message: `We need ${addFriendName}'s four digits tag so we know which one they are.`})
     }
+
+    
+
   }
+
   
-  console.log(error);
+  
   return (
     <div className="friends-page">
       <PageHeader />
@@ -61,9 +83,10 @@ const Friends = () => {
             <div className="add-friend-section">
               <h3>add friend</h3>
               <p>you can add a friend with their Discord Tag. It's cAsE sEnSitIvE!</p>
-              <form className={`friend-search ${error.error && 'error'}`}>
-                <input type="text" onChange={ (e) => handleChange(e) } ref={inputUserName} placeholder="Enter a Username#0000" />
-                <input type='submit' onClick={ (e) => handleSubmit(e) } value='Send Friend Request'/>
+              <form onSubmit={handleSubmit} ref={searchFriend} className={`friend-search ${error.error && 'error'}`}>
+                <input type="text" name="addFriendSearch" onChange={ (e) => handleChange(e) } ref={inputUserName} placeholder="Enter a Username#0000" />
+                {/* <input type='submit' onClick={ (e) => handleSubmit(e) } value='Send Friend Request'/> */}
+                <input type='submit' value='Send Friend Request'/>
               </form>
               { error.error ?
                 <p className="error-message">{ error.message }</p>  

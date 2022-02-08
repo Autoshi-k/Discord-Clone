@@ -26,10 +26,11 @@ router.post('/register', async (req, res) => {
   // get random 4 digits
   const tag = Math.floor(Math.random() * (9999 - 1000) + 1000);
   
+  // random avatat (for now some random image)
+  const avatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1024px-User-avatar.svg.png';
   // creating new user in database
-  const insertQuery = 'INSERT INTO users (name, tag, email, birthday, password) VALUES (?, ?, ?, ?, ?)';
-  const teest = await db.query(insertQuery, [displayName, tag, email, '1997-09-13', hashPassword])
-  console.log(teest);
+  const insertQuery = 'INSERT INTO users (name, tag, avatar, email, birthday, password) VALUES (?, ?, ?, ?, ?, ?)';
+  const teest = await db.query(insertQuery, [displayName, tag, avatar, email, '1997-09-13', hashPassword])
 });
 
 
@@ -49,7 +50,7 @@ router.post('/login', async (req, res) => {
   bcrypt.compare(password, userRows[0].password, async (err, passwordMatch) => {
     if (err) throw err;
     if (passwordMatch) {
-      const updateStatus = `UPDATE users SET online = true, status = 'online' WHERE id =${userRows[0].id} LIMIT 1`;
+      const updateStatus = `UPDATE users SET statusId = 1 WHERE id =${userRows[0].id} LIMIT 1`;
       await db.query(updateStatus);
       // need to understand how to handle with errors with database
       // creating a token and passing it to the client

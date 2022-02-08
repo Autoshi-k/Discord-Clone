@@ -21,13 +21,13 @@ const SidebarUserInfo = () => {
         <div onClick={ () => changeStatus() }>
           <StatusIcon 
             badge={true}
-            currentStatus={user.currentStatus}
-            alt={user.displayName}
+            currentStatus={user.statusId}
+            alt={user.name}
             image={user.image}
           />
         </div>
         <div className='user-information'>
-          <div className='display-name'>{ user.displayName }</div>
+          <div className='display-name'>{ user.name }</div>
           <div className='mini-sub'>#{ user.tag }</div>
         </div>
       </>
