@@ -1,8 +1,5 @@
 import express from 'express';
 import { auth as verify } from '../helper/tokenVerify.js';
-import Message from '../models/Message.js';
-// import User from '../models/User.js';
-import Participant from '../models/Participant.js';
 import db from '../connection.js';
 
 export const router = express.Router();

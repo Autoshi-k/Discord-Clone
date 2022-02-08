@@ -13,16 +13,8 @@ import { createServer } from 'http';
 import { router as authRouter } from './routes/auth.js';
 import { router as channelsRouter } from './routes/channels.js';
 import { router as findUsersRouter } from './routes/users.js';
-import Message from './models/Message.js';
-import Participant from './models/Participant.js';
-// import User from './models/User.js';
-import db from './connection.js';
 
 dotenv.config();
-
-// Connect to DB
-// app.use(db);
-mongoose.connect('mongodb://localhost:27017/discordDB', () => console.log('connected to DB!'));
 
 // MiddleWares
 const __dirname = dirname(fileURLToPath(import.meta.url));
