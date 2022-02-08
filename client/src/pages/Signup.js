@@ -12,7 +12,7 @@ const Signup = () => {
     e.preventDefault();
     const form = signupForm.current;
 
-    fetch('/api/user/register', {
+    fetch('/api/auth/register', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ displayName: form['displayName'].value,email: form['email'].value, password: form['password'].value })

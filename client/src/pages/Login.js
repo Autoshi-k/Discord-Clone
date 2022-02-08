@@ -16,7 +16,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = loginForm.current;
-    fetch('/api/user/login', {
+    fetch('/api/auth/login', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: form['email'].value, password: form['password'].value })
@@ -25,7 +25,7 @@ const Login = () => {
     .then(res => window.localStorage.setItem('auth-token', res))
     // after logging in, fetching user information
     // from /api/channels as preparation for redirect to /channels
-    .then((fetch('/api/channels', { 
+    .then((fetch('/api/user', { 
       method: 'GET', 
       headers: {
         "content-type": "application/json",

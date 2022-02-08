@@ -11,7 +11,7 @@ import { createServer } from 'http';
 
 // Import routes
 import { router as authRouter } from './routes/auth.js';
-import { router as channelsRouter } from './routes/channels.js';
+import { router as userRouter } from './routes/user.js';
 import { router as findUsersRouter } from './routes/users.js';
 
 dotenv.config();
@@ -22,8 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // route middlewares
-app.use('/api/user', authRouter);
-app.use('/api/channels', channelsRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
 app.use('/api/users', findUsersRouter);
 
 

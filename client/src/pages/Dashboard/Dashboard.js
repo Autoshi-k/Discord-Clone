@@ -23,7 +23,7 @@ function Dashboard() {
   
   // getting the user information and changing the state/localstorage
   useEffect(() => {
-    fetch('/api/channels', {
+    fetch('/api/user', {
       method: 'GET',
       headers: {
         "content-type": "application/json",
