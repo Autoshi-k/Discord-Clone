@@ -12,20 +12,13 @@ export const router = express.Router();
 router.post('/addFriend', verify, async (req, res) => {
   const { name, tag } = req.body;
   const userId = req.user.id;
-  console.log(name, tag);
+  
   const selectQuery = `SELECT id, name, tag FROM users WHERE name = '${name}' AND tag = '${tag}' LIMIT 1`;
-  db.query(selectQuery, 
-          (err, result) => {
-            if (err) console.log(err);
-            console.log(result);
-            if (result.length) {
-              const addFriendQuery = `INSERT INTO friends (first_userid, second_userid, status) VALUES (?, ?, ?)`;
-              db.query(addFriendQuery, 
-                      [userId, result.id, 'pending'], 
-                      (err) => { 
-                        if (err) console.log(err);
-                        return res.send({ success: true, user: result[0] });
-                      });
-            } else return res.send({ err: 'user doesnt exist' });
-          })
+  const [addFriend] = await db.query(selectQuery);
+  if (!addFriend.length) return res.send({ success: false, err: 'user is not found' });
+  
+  const addFriendQuery = `INSERT INTO pending_request (senderId, reciverId) VALUES (?, ?)`;
+  await db.query(addFriendQuery, [userId, addFriend[0].id]);
+  res.send({ success: true, userPending:  addFriend[0] });
+
 })

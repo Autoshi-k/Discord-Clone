@@ -4,11 +4,16 @@ import { Divider } from "@mui/material";
 
 import WumpusNoFriends from '../../assets/WumpusNoFriends.png';
 import WumpusWaitingForFriends from '../../assets/WumpusWaitingForFriends.png';
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { changeLocation } from "../../features/location";
+import { SocketContext } from "../../context/socket";
+import user from "../../features/user";
 
 const Friends = () => {
+  
+  const socket = useContext(SocketContext);
   // while in friends - location have subRoom (auto 'all')
+  const user = useSelector(state => state.user.value);
   const location = useSelector(state => state.location.value);
   const relationships = useSelector(state => state.relationships.value);
   
@@ -48,26 +53,25 @@ const Friends = () => {
       const addFriendSearch = searchFriend.current['addFriendSearch'].value;
       const userName = addFriendSearch.slice(0, addFriendSearch.indexOf('#'));
       const userTag = addFriendSearch.slice(-4);
-      
-      fetch('/api/users/addFriend', {
-        method: 'POST',
-        headers: { 
-          "Content-Type": "application/json",
-          "Authorization": localStorage.getItem("auth-token") 
-        },
-        body: JSON.stringify({ name: userName, tag: userTag })
-      })
-      .then(res => res.json())
-      .then(data => console.log(data userid= 3345));
+      socket.emit('add friend', { senderId: user.id, name: userName, tag: userTag });
+      console.log('sent');
+
+      // fetch('/api/users/addFriend', {
+      //   method: 'POST',
+      //   headers: { 
+      //     "Content-Type": "application/json",
+      //     "Authorization": localStorage.getItem("auth-token") 
+      //   },
+      //   body: JSON.stringify({ name: userName, tag: userTag })
+      // })
+      // .then(res => res.json())
+      // .then(data => console.log(data));
 
     } else if (addFriendName.includes('#')) {
       setError({error: true, message: 'Hm, didn\'t work. Double checkthat the capitalization, spelling, any spaces, and numbers are correct.'})
     } else { 
       setError({error: true, message: `We need ${addFriendName}'s four digits tag so we know which one they are.`})
     }
-
-    
-
   }
 
   

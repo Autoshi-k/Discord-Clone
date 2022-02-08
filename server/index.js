@@ -1,7 +1,6 @@
 import express from 'express';
 const app = express();
 
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 import { dirname } from 'path';
@@ -14,6 +13,8 @@ import { router as authRouter } from './routes/auth.js';
 import { router as userRouter } from './routes/user.js';
 import { router as findUsersRouter } from './routes/users.js';
 
+import db from './connection.js';
+
 dotenv.config();
 
 // MiddleWares
@@ -21,12 +22,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
 // route middlewares
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/users', findUsersRouter);
-
-
 
 // Socket IO
 const server = createServer(app);
@@ -41,8 +41,14 @@ io.on("connection", async socket => {
   // // let rooms = RoomsAsObj.map(room => room.roomId);
   // // socket.join(rooms);
 
-  socket.on('add friend pending', pendingRequest => {
+  socket.on('add friend', async ({senderId, name, tag}) => {
+    const selectQuery = `SELECT id, name, tag, avatar FROM users WHERE name = '${name}' AND tag = '${tag}' LIMIT 1`;
+    const [addFriend] = await db.query(selectQuery);
+    if (!addFriend.length) return res.send({ success: false, err: 'user is not found' });
+    const addFriendQuery = `INSERT INTO pending_requests (senderId, reciverId) VALUES (?, ?)`;
+    await db.query(addFriendQuery, [senderId, addFriend[0].id]);
     
+    socket.emit('pending request', { sender: senderId, userPending: addFriend[0] });
   })
 
   // // user making a new conversation

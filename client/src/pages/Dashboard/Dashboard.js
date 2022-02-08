@@ -3,6 +3,8 @@ import { SocketContext } from '../../context/socket';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/user';
+import { pendingFetch, newFriendRequests } from '../../features/pending';
+
 
 // css
 import './ChannelsHome.css';
@@ -20,6 +22,7 @@ function Dashboard() {
 
   const dispatch = useDispatch();
   const location = useSelector(state => state.location.value);
+  const user = useSelector(state => state.user.value);
   
   // getting the user information and changing the state/localstorage
   useEffect(() => {
@@ -37,7 +40,7 @@ function Dashboard() {
         return;
       };
       dispatch(login(data.user));
-      dispatch(fetchOldRooms(data.objRooms));
+      dispatch(pendingFetch(data.pending));
       socket.emit('change my status', data.user.currentStatus ? data.user.currentStatus : 1);
       // check if local storage match to the user who is currently logged in
       if (data.user._id === localStorage.getItem('user-data').id) return;
@@ -57,6 +60,11 @@ function Dashboard() {
       
       socket.on('user changed status', ({ userId, newStatus }) => {
         dispatch(updateStatus({ userId, newStatus }))
+      })
+
+      socket.on('pending request', ({sender, userPending}) => {
+        const status = sender === user.id ? 'outgoing' : 'incoming';
+        dispatch(newFriendRequests({ status, content: userPending }));
       })
 
     });
