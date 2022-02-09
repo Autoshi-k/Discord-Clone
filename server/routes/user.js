@@ -12,7 +12,7 @@ router.get('/', verify, async (req, res) => {
   const selectUser = `SELECT id, name, tag, avatar, statusId FROM users WHERE id = ${req.user.id}`
   const [userRows] = await db.query(selectUser);
   
-  const selectPending = `SELECT pending_requests.senderId, users.id, users.name, users.tag, users.avatar 
+  const selectPending = `SELECT pending_requests.senderId, users.id, users.name, users.tag, users.avatar, users.statusId 
                          FROM pending_requests 
                          RIGHT JOIN users 
                          ON users.id = pending_requests.reciverId

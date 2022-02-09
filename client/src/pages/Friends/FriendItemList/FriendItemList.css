@@ -1,0 +1,29 @@
+.friend-item-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.friend-item-list .content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: left;
+}
+
+.friend-item-list .content .user-name {
+  color: white;
+  font-weight: 700;
+}
+
+.friend-item-list .content span {
+  display: hidden;
+}
+
+.friend-item-list .content span:hover {
+  display: inline;
+}
+/*# sourceMappingURL=FriendItemList.css.map */

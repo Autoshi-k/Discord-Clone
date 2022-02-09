@@ -1,0 +1,63 @@
+.friend-item-list {
+  display: flex;
+  align-items: center;
+  height: 4em;
+  padding: 1em;
+  border-radius: .2em;
+
+  .content {
+    flex: 1;
+    text-align: left;
+    color: $text;
+    margin-left: 1em;
+
+    .user-name {
+      color: white;
+      font-weight: 700;
+      
+      span {
+        display: none;
+        font-weight: 400;
+        color: $text;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    width: 6.8em;
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 3em;
+      width: 3em;
+      background-color: $sidebar;
+      border-radius: 2em;
+      color: $text;
+    }
+    div:hover {
+      color: white;
+    }
+    div.positive:hover {
+      color: $green;
+    }
+    div.negative:hover {
+      color: $red;
+    }
+  }
+}
+
+.friend-item-list:hover {
+  background-color: $lightest-grey;
+  
+  .user-name span {
+    display: inline;
+  }
+  .actions div {
+    background-color: $secondry-color;
+  }
+}
