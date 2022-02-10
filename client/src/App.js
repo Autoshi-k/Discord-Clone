@@ -15,8 +15,6 @@ function App() {
       <div className="app">
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/channels/@me/:roomId" element={<Dashboard />} /> */}
-          {/* change to loading screen */}
           <Route path="/channels" element={<Dashboard />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
