@@ -11,6 +11,10 @@ const FriendItemList = ({isSender, request}) => {
   const ignoreBtn = () => {
     socket.emit('ignore friend request', { senderId: request.senderId, reciverId: request.id });
   }
+  
+  const addBtn = () => {
+    socket.emit('accept friend request', { senderId: request.senderId, reciverId: request.id });
+  }
 
   return (
     <>
@@ -31,7 +35,7 @@ const FriendItemList = ({isSender, request}) => {
         </div>
         { 
           !isSender &&
-          <div className='positive'>
+          <div className='positive' onClick={() => addBtn()}>
             <CheckIcon />
           </div>
         }

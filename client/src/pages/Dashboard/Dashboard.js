@@ -3,7 +3,7 @@ import { SocketContext } from '../../context/socket';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/user';
-import { pendingFetch, newFriendRequests } from '../../features/pending';
+import { pendingFetch, newFriendRequests, removeFriendRequest } from '../../features/pending';
 
 
 // css
@@ -13,6 +13,7 @@ import ServerBar from '../../components/ServerBar/ServerBar';
 import DirectMessages from '../../components/DirectMessages/DirectMessages';
 import { io } from 'socket.io-client';
 import { addNewMessage, fetchOldRooms, updateStatus } from '../../features/rooms';
+import { addFriend } from '../../features/friends';
 
 
 let socket; // io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
@@ -65,6 +66,17 @@ function Dashboard() {
       socket.on('pending request', ({sender, userPending}) => {
         const status = sender === user.id ? 'outgoing' : 'incoming';
         dispatch(newFriendRequests({ status, content: userPending }));
+      })
+
+      socket.on('ignored friend request', ({ senderId, reciverId}) => {
+        dispatch(removeFriendRequest({ senderId, reciverId}));
+      })
+      
+      socket.on('accepted friend request', ({ senderId, reciverId, friendAdd }) => {
+        console.log('dispatch');
+        dispatch(removeFriendRequest({ senderId, reciverId}));
+        dispatch(addFriend(friendAdd));
+
       })
 
     });

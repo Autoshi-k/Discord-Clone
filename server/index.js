@@ -51,6 +51,22 @@ io.on("connection", async socket => {
     socket.emit('pending request', { sender: senderId, userPending: addFriend[0] });
   })
 
+  socket.on('ignore friend request', async ({ senderId, reciverId }) => {
+    const deleteRequest = `DELETE FROM pending_requests WHERE senderId = ${senderId} AND reciverId = ${reciverId} LIMIT 1`;
+    await db.query(deleteRequest);
+    socket.emit('ignored friend request', { senderId, reciverId });
+  })
+
+  socket.on('accept friend request', async ({ senderId, reciverId }) => {
+    const deleteRequest = `DELETE FROM pending_requests WHERE senderId = ${senderId} AND reciverId = ${reciverId} LIMIT 1`;
+    await db.query(deleteRequest);
+    const insertFriend = `INSERT INTO friends (firstUserId, secondUserId), (firstUserId, secondUserId) VALUES (?, ?), (?, ?)
+                          SELECT id, name, tag, avatar, statusId FROM users WHERE id = ${senderId} LIMIT 1`;
+    const friendAdd = await db.query(insertFriend, [senderId, reciverId, reciverId, senderId]);
+    console.log('socket emit');
+    socket.emit('accepted friend request', { senderId, reciverId, friendAdd });
+  })
+
   // // user making a new conversation
   // socket.on('add room', newRoom => {
   //   rooms.push(newRoom.roomId);

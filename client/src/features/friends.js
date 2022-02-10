@@ -1,21 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const pandingSlice = createSlice({
-  name: 'pending',
+export const friendsSlice = createSlice({
+  name: 'friends',
   initialState: {
     value: {
-      pendingRequests: []
+      friends: []
     }
   },
   reducers: {
-    pendingFetch: (state, action) => {
+    friendsFetch: (state, action) => {
       state.value = action.payload;
     },
-    newFriendRequests: (state, action) => {
-      console.log('hello')
-      let newArray = [...state.value.pendingRequests];
+    addFriend: (state, action) => {
+      let newArray = [...state.value.friends];
       newArray.push(action.payload);
-      state.value = { pendingRequests: newArray };
+      state.value = { friends: newArray };
     },
     removeFriendRequest: (state, action) => {
       let newState = [...state.value.pendingRequests];
@@ -28,6 +27,6 @@ export const pandingSlice = createSlice({
 })
 
 
-export const { pendingFetch, newFriendRequests, removeFriendRequest } = pandingSlice.actions;
+export const { friendsFetch, addFriend } = friendsSlice.actions;
 
-export default pandingSlice.reducer;
+export default friendsSlice.reducer;
