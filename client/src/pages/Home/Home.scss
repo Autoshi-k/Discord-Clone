@@ -40,16 +40,28 @@
     .login {
       background-color: #23272A;
       color:white;
+      @keyframes hoverButtonsLogin {
+        from {background-color: #23272A;}
+        to {background-color: #36393F;}
+      }
     }
     .login:hover {
+      animation-name: hoverButtonsLogin;
+      animation-duration: 0.5s;
       background-color: #36393F;
     }
 
     .register {
       background-color: white;
       color: #23272A;
+      @keyframes hoverButtonsRegister {
+        from {color: #23272A;}
+        to {color: #5865F3;}
+      }
     }
     .register:hover {
+      animation-name: hoverButtonsRegister;
+      animation-duration: 0.5s;
       color: #5865F3;
     }
   }

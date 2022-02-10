@@ -56,7 +56,29 @@
   color: white;
 }
 
+@-webkit-keyframes hoverButtonsLogin {
+  from {
+    background-color: #23272A;
+  }
+  to {
+    background-color: #36393F;
+  }
+}
+
+@keyframes hoverButtonsLogin {
+  from {
+    background-color: #23272A;
+  }
+  to {
+    background-color: #36393F;
+  }
+}
+
 .home .cover-text .login:hover {
+  -webkit-animation-name: hoverButtonsLogin;
+          animation-name: hoverButtonsLogin;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   background-color: #36393F;
 }
 
@@ -65,7 +87,29 @@
   color: #23272A;
 }
 
+@-webkit-keyframes hoverButtonsRegister {
+  from {
+    color: #23272A;
+  }
+  to {
+    color: #5865F3;
+  }
+}
+
+@keyframes hoverButtonsRegister {
+  from {
+    color: #23272A;
+  }
+  to {
+    color: #5865F3;
+  }
+}
+
 .home .cover-text .register:hover {
+  -webkit-animation-name: hoverButtonsRegister;
+          animation-name: hoverButtonsRegister;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   color: #5865F3;
 }
 
