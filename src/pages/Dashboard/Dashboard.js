@@ -19,8 +19,7 @@ import { addFriend } from '../../features/friends';
 let socket; // io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
 
 function Dashboard() {
-  socket = io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
-
+  socket = io('127.0.0.1:3001/', { transports: ['websocket'], auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
   const dispatch = useDispatch();
   const location = useSelector(state => state.location.value);
   const user = useSelector(state => state.user.value);
