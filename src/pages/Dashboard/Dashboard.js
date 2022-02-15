@@ -25,7 +25,7 @@ function Dashboard() {
   const location = useSelector(state => state.location.value);
   const user = useSelector(state => state.user.value);
   
-  // getting the user information and changing the state/localstorage
+  // fetch user information
   useEffect(() => {
     fetch('/api/user', {
       method: 'GET',
@@ -45,12 +45,12 @@ function Dashboard() {
       socket.emit('change my status', data.user.currentStatus ? data.user.currentStatus : 1);
       // check if local storage match to the user who is currently logged in
       if (data.user._id === localStorage.getItem('user-data').id) return;
-      localStorage.setItem('user-data', JSON.stringify({ id: data.user._id, displayName: data.user.displayName, tag: data.user.tag }));
+      localStorage.setItem('user-data', JSON.stringify({ id: data.user.id, name: data.user.name, tag: data.user.tag }));
       localStorage.setItem('email', data.user.email);
     })
   }, []);
 
-
+  // socket.on
   useEffect(() => {
     socket.on("connect", () => {
       
@@ -63,13 +63,12 @@ function Dashboard() {
         dispatch(updateStatus({ userId, newStatus }))
       })
 
-      socket.on('pending request', ({sender, userPending}) => {
-        const status = sender === user.id ? 'outgoing' : 'incoming';
-        dispatch(newFriendRequests({ status, content: userPending }));
+      socket.on('pending request', (userPending) => {
+        dispatch(newFriendRequests(userPending));
       })
 
-      socket.on('ignored friend request', ({ senderId, reciverId}) => {
-        dispatch(removeFriendRequest({ senderId, reciverId}));
+      socket.on('ignored friend request', ({ requestsId }) => {
+        // dispatch(removeFriendRequest({ requestsId }));
       })
       
       socket.on('accepted friend request', ({ senderId, reciverId, friendAdd }) => {

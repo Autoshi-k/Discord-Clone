@@ -8,6 +8,7 @@ const Home = () => {
 
   return (
     <div className="home">
+      {/* hello world */}
       <div className="cover-text">
         <h1>IMAGINE A PLACE...</h1>
         <p>

@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import './style.css';
+// import 'semantic-ui-css/semantic.min.css';
 import 'semantic-ui-css/semantic.min.css';
 import { Routes, Route } from "react-router-dom";
 

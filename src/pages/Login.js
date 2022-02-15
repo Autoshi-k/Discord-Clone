@@ -34,8 +34,9 @@ const Login = () => {
       .then(res => res.json()))
       .then(data => {
         dispatch(login(data.user));
+        console.log(data.user);
         dispatch(fetchOldRooms(data.objRooms));
-        localStorage.setItem('user-data', JSON.stringify({ id: data.user._id, displayName: data.user.displayName, tag: data.user.tag }));
+        localStorage.setItem('user-data', JSON.stringify({ id: data.user.id, name: data.user.name, tag: data.user.tag }));
         localStorage.setItem('email', data.user.email);
       })
       .catch(err => {

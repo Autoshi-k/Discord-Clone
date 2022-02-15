@@ -12,7 +12,6 @@ export const pandingSlice = createSlice({
       state.value = action.payload;
     },
     newFriendRequests: (state, action) => {
-      console.log('hello')
       let newArray = [...state.value.pendingRequests];
       newArray.push(action.payload);
       state.value = { pendingRequests: newArray };

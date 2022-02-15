@@ -5,7 +5,7 @@ import db from '../connection.js';
 
 export const router = express.Router();
 // validations
-import { registerValidation, loginValidation } from '../helper/validation.js';
+import { registerValidation, loginValidation } from '../utilities/validation.js';
 
 router.post('/register', async (req, res) => {
   // validate before adding a user
@@ -30,7 +30,7 @@ router.post('/register', async (req, res) => {
   const avatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1024px-User-avatar.svg.png';
   // creating new user in database
   const insertQuery = 'INSERT INTO users (name, tag, avatar, email, birthday, password) VALUES (?, ?, ?, ?, ?, ?)';
-  const teest = await db.query(insertQuery, [displayName, tag, avatar, email, '1997-09-13', hashPassword])
+  await db.query(insertQuery, [displayName, tag, avatar, email, '1997-09-13', hashPassword])
 });
 
 

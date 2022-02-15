@@ -41,7 +41,7 @@ const Friends = () => {
         location.subRoom && 
         <div className={`friends-${location.subRoom}`}>
           { location.subRoom === 'add-friend' && <AddFriend /> }
-          { pendingRequests && location.subRoom === 'pending' ?
+          { pendingRequests && location.subRoom === 'pending' && pendingRequests.length ?
             <ul className='friend-page-list'>
               { pendingRequests.map(request => {
               return <FriendItemList isSender={request.senderId === user.id} request={request} />

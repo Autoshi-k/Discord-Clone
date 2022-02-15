@@ -1,13 +1,9 @@
 import express from 'express';
-import { auth as verify } from '../helper/tokenVerify.js';
+import { auth as verify } from '../utilities/tokenVerify.js';
 import db from '../connection.js';
 
 export const router = express.Router();
 
-// in this file you can find:
-// find all users (not really needed tbh),
-// add new conversation with user
-// get all history chat with user
 
 router.post('/addFriend', verify, async (req, res) => {
   const { name, tag } = req.body;
