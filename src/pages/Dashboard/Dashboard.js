@@ -12,7 +12,7 @@ import 'semantic-ui-css/semantic.min.css';
 import ServerBar from '../../components/ServerBar/ServerBar';
 import DirectMessages from '../../components/DirectMessages/DirectMessages';
 import { io } from 'socket.io-client';
-import { addNewMessage, fetchOldRooms, updateStatus } from '../../features/rooms';
+import { addNewMessage, updateStatus } from '../../features/rooms';
 import { addFriend } from '../../features/friends';
 
 
@@ -21,9 +21,7 @@ let socket; // io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')
 function Dashboard() {
   socket = io('127.0.0.1:3001/', { transports: ['websocket'], auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
   const dispatch = useDispatch();
-  const location = useSelector(state => state.location.value);
-  const user = useSelector(state => state.user.value);
-  
+
   // fetch user information
   useEffect(() => {
     fetch('/api/user', {

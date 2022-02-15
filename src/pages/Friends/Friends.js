@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import PageHeader from "../../components/PageHeader/PageHeader";
 
-import WumpusWaitingForFriends from '../../assets/WumpusWaitingForFriends.png';
+// import WumpusWaitingForFriends from '../../assets/WumpusWaitingForFriends.png';
 import { useContext } from "react";
-import { changeLocation } from "../../features/location";
 import { SocketContext } from "../../context/socket";
-import user from "../../features/user";
 import AddFriend from './AddFriend/AddFriend';
 import FriendItemList from "./FriendItemList/FriendItemList";
 const Friends = () => {
@@ -27,9 +25,7 @@ const Friends = () => {
 
   const showPageContent = () => {
     if (location.subRoom === 'pending') {
-      pendingRequests.map(request => {
-        <FriendItemList isSender={request.sender === user.id} request={request} />
-      })
+      pendingRequests.map(request => <FriendItemList isSender={request.sender === user.id} request={request} />)
     }
   }
 

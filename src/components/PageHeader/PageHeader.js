@@ -20,7 +20,7 @@ function PageHeader() {
   useEffect(() => {
     if (location.room === 'friends') return;
     const currentRoom = rooms[location.room]
-    const test =  Object.keys(currentRoom.participants).filter(participant => currentRoom.participants[participant]._id !== user._id)
+    const test =  Object.keys(currentRoom.participants).filter(participant => currentRoom.participants[participant].id !== user.id)
     setUserToDisplay(rooms[location.room].participants[test]);
   }, [rooms, location])
   const friendsListItems = ['online', 'all', 'pending', 'blocked', 'add-friend'];

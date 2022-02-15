@@ -22,10 +22,8 @@ export const roomsSlice = createSlice({
       const wantedId = action.payload.userId;
       let newValue = {...state.value}
       const roomIds = Object.keys(state.value).map(key => key);
-      roomIds.forEach(roomId => Object.keys(state.value[roomId].participants).map(participantId => {
-        
-        // if (current(state.value)[roomId].participants[participantId]._id === wantedId) participantsId.push(participantId)
-        if (current(state.value)[roomId].participants[participantId]._id === wantedId) {
+      roomIds.forEach(roomId => Object.keys(state.value[roomId].participants).forEach(participantId => {
+          if (current(state.value)[roomId].participants[participantId]._id === wantedId) {
           newValue[roomId].participants[participantId].currentStatus = action.payload.newStatus;
         }
       }
