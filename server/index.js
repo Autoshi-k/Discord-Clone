@@ -53,9 +53,6 @@ io.on("connection", async socket => {
     const to = connected.find(connectedUser => connectedUser.uid === addFriend[0].id);
     socket.to(socket.id).emit('pending request', rows[0]);
     socket.to(to).emit('pending request', rows[1]);
-    // need to be two emits: one for the sender (me) who will get the first row
-    // two for the reciver who will get the second row
-    // socket.emit('pending request', addFriend[0]);
   })
 
   socket.on('ignore friend request', async ({ requestsId }) => {
@@ -74,35 +71,6 @@ io.on("connection", async socket => {
     socket.emit('accepted friend request', { senderId, reciverId, friendAdd });
   })
 
-  // // user making a new conversation
-  // socket.on('add room', newRoom => {
-  //   rooms.push(newRoom.roomId);
-  //   socket.join(newRoom);
-  // })
-  
-  // // user change his status and update all rooms
-  // socket.on('change my status', async statusNumber => {
-  //   user.currentStatus = statusNumber;
-  //   await user.save();
-  //   socket.to(rooms).emit('user changed status', { userId: user._id, newStatus: statusNumber })
-  //   // WHEN DO I NEED TO ADD .TOSTRING() ??????????? user._id ---> hjfwhr374236247
-  //   // new ObjectId("jkhdfhfu38e3824")
-  // })
-
-  // socket.on('try send new message', async ({ message, to }) => {
-  //   // to = roomId
-  //   const participantId = await Participant.findOne({ userId: user._id.toString(), roomId: to }).select('_id');
-  //   const newMessage = new Message({
-  //     participantId: participantId._id.toString(),
-  //     content: message
-  //     });
-  //   try {
-  //     await newMessage.save();
-  //   } catch (err) { console.log(err) }
-
-  //   socket.to(to).emit('success send new message', { roomId: to, newMessage });
-  // })
-  
   // socket.on('disconnect', async () => {
   //   // user.currentStatus = 0; // still havnt decide if idle or disconnected
   //   // try {
