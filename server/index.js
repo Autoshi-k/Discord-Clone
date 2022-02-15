@@ -32,8 +32,9 @@ app.use('/api/users', findUsersRouter);
 const server = createServer(app);
 const io = new Server(server);
 
+let connected = [];
 io.on("connection", async socket => {
-  
+  connected.push({ sid: socket.id, uid: socket.handshake.auth })
   // // at connection getting information about the user
   // // and joining all the relevate rooms
   // // const user = await User.findById(socket.handshake.auth.userId);
@@ -47,11 +48,11 @@ io.on("connection", async socket => {
     const [addFriend] = await db.query(selectQuery);
     if (!addFriend.length) return res.send({ success: false, err: 'user is not found' });
     const addFriendQuery = `INSERT INTO pending_requests (userId, relatedUserId, direction) 
-                            OUTPUT INSERTED.*
                             VALUES (?, ?, ?), (?, ?, ?)`;
     const [rows] = await db.query(addFriendQuery, [senderId, addFriend[0].id, 'outgoing', addFriend[0].id, senderId, 'incoming']);
-    console.log('rows', rows);
+    const to = connected.find(connectedUser => connectedUser.uid === addFriend[0].id);
     socket.to(socket.id).emit('pending request', rows[0]);
+    socket.to(to).emit('pending request', rows[1]);
     // need to be two emits: one for the sender (me) who will get the first row
     // two for the reciver who will get the second row
     // socket.emit('pending request', addFriend[0]);
