@@ -15,11 +15,11 @@ router.get('/', verify, async (req, res) => {
   
   // get pending requests
   const selectPending = 
-    `SELECT pending_requests.direction, users.id, users.name, users.tag, users.avatar, users.statusId 
+   `SELECT pending_requests.direction, users.id, users.name, users.tag, users.avatar, users.statusId 
     FROM pending_requests 
     RIGHT JOIN users
-                         ON users.id = pending_requests.relatedUserId
-                         WHERE pending_requests.userId = ${userRows[0].id}`
+    ON users.id = pending_requests.relatedUserId
+    WHERE pending_requests.userId = ${userRows[0].id}`
   const [pendingRows] = await db.query(selectPending);
   console.log('pendingRows', pendingRows);
   // const pending = pendingRows.map(request => { 

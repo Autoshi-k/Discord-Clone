@@ -5,17 +5,11 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import { useContext } from "react";
 import { SocketContext } from "../../context/socket";
 import AddFriend from './AddFriend/AddFriend';
-import FriendItemList from "./FriendItemList/FriendItemList";
+import FriendItemList from "./PendingItemList/PendingItemList";
+import FriendList from "./FriendsList/FriendList";
 const Friends = () => {
-  
-  const socket = useContext(SocketContext);
   // while in friends - location have subRoom (auto 'all')
-  const user = useSelector(state => state.user.value);
   const location = useSelector(state => state.location.value);
-  const pendingRequests = useSelector(state => state.pendingRequests.value);
-  
-  const dispatch = useDispatch();
-
 
   // add this later when users can have friends
   // useEffect(() => {
@@ -23,28 +17,14 @@ const Friends = () => {
   //   // dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }));
   // }, [])
 
-  const showPageContent = () => {
-    if (location.subRoom === 'pending') {
-      pendingRequests.map(request => <FriendItemList isSender={request.sender === user.id} request={request} />)
-    }
-  }
-
-  
   return (
     <div className="friends-page">
       <PageHeader />
       {
         location.subRoom && 
         <div className={`friends-${location.subRoom}`}>
-          { location.subRoom === 'add-friend' && <AddFriend /> }
-          { pendingRequests && location.subRoom === 'pending' && pendingRequests.length ?
-            <ul className='friend-page-list'>
-              { pendingRequests.map(request => {
-              return <FriendItemList isSender={request.senderId === user.id} request={request} />
-              })   
-              }
-            </ul>
-          : null 
+          { location.subRoom === 'add-friend' ? <AddFriend /> 
+            : <ul className='friend-page-list'>{ <FriendList /> }</ul>
           }
         </div>
       }

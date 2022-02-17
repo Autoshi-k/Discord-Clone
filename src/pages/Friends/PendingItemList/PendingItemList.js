@@ -6,10 +6,11 @@ import { useContext } from "react";
 import { SocketContext } from "../../../context/socket";
 import { useSelector } from "react-redux";
 
-const FriendItemList = ({isSender, request}) => {
+const PendingItemList = ({ request }) => {
   const user = useSelector(state => state.user.value);
 
   const socket = useContext(SocketContext);
+  
   const ignoreBtn = () => {
     socket.emit('remove friend request', { requestId: [user.id, request.id] });
   }
@@ -18,8 +19,7 @@ const FriendItemList = ({isSender, request}) => {
     socket.emit('remove friend request', { requestId: [user.id, request.id] });
     socket.emit('accept friend request', { requestId: [user.id, request.id] });
   }
-  console.log(request);
-  return (
+    return (
     <>
     <li className="friend-item-list">
       <StatusIcon 
@@ -49,4 +49,4 @@ const FriendItemList = ({isSender, request}) => {
   )
 }
 
-export default FriendItemList;
+export default PendingItemList;
