@@ -4,18 +4,21 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useContext } from "react";
 import { SocketContext } from "../../../context/socket";
+import { useSelector } from "react-redux";
 
 const FriendItemList = ({isSender, request}) => {
+  const user = useSelector(state => state.user.value);
 
   const socket = useContext(SocketContext);
   const ignoreBtn = () => {
-    socket.emit('ignore friend request', { senderId: request.senderId, reciverId: request.id });
+    socket.emit('remove friend request', { requestId: [user.id, request.id] });
   }
   
   const addBtn = () => {
-    socket.emit('accept friend request', { senderId: request.senderId, reciverId: request.id });
+    socket.emit('remove friend request', { requestId: [user.id, request.id] });
+    socket.emit('accept friend request', { requestId: [user.id, request.id] });
   }
-
+  console.log(request);
   return (
     <>
     <li className="friend-item-list">
@@ -27,14 +30,14 @@ const FriendItemList = ({isSender, request}) => {
       />
       <div className='content'>
         <div className='user-name'>{request.name}<span>#{request.tag}</span></div>
-        <div>{isSender ? 'Outgoing' : 'Incoming'} Friend Request</div>
+        <div>{request.direction} Friend Request</div>
       </div>
       <div className='actions'>
         <div className='negative' onClick={() => ignoreBtn()}>
           <ClearIcon />
         </div>
         { 
-          !isSender &&
+          request.direction === 'incoming' &&
           <div className='positive' onClick={() => addBtn()}>
             <CheckIcon />
           </div>

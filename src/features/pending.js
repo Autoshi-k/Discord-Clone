@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 export const pandingSlice = createSlice({
   name: 'pending',
@@ -9,19 +9,21 @@ export const pandingSlice = createSlice({
   },
   reducers: {
     pendingFetch: (state, action) => {
+      console.log(action.payload);
       state.value = action.payload;
     },
     newFriendRequests: (state, action) => {
-      let newArray = [...state.value.pendingRequests];
+      let newArray = [...current(state.value)];
+      console.log(action.payload);
       newArray.push(action.payload);
-      state.value = { pendingRequests: newArray };
+      state.value = newArray;
     },
     removeFriendRequest: (state, action) => {
-      let newState = [...state.value.pendingRequests];
-      const index = newState.find(request => request.sender === action.payload.senderId && request.id === action.payload.reciverId)
-      newState.splice(index, 1);
-      console.log(newState);
-      state.value = { pendingRequests: newState };
+      let newArray = [...current(state.value)];
+      const requestId = action.payload.requestId;
+      const index = newArray.find(request => request.id === requestId[0] || request.id === requestId[1])
+      newArray.splice(index, 1);
+      state.value = newArray;
     }
   }
 })

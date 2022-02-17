@@ -12,7 +12,6 @@ const Friends = () => {
   // while in friends - location have subRoom (auto 'all')
   const user = useSelector(state => state.user.value);
   const location = useSelector(state => state.location.value);
-  const relationships = useSelector(state => state.relationships.value);
   
   const dispatch = useDispatch();
 
@@ -20,7 +19,7 @@ const Friends = () => {
 
 
   useEffect(() => {
-    if (relationships.friends.length) return;
+    if (true) return;
     dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }));
   }, [])
 

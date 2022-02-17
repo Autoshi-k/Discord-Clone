@@ -4,16 +4,18 @@ import { SocketContext } from '../../context/socket';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/user';
 import { pendingFetch, newFriendRequests, removeFriendRequest } from '../../features/pending';
+import { addNewMessage, updateStatus } from '../../features/rooms';
+import { addFriend, friendsFetch } from '../../features/friends';
 
 
 // css
 import './ChannelsHome.css';
 import 'semantic-ui-css/semantic.min.css';
+
+// Components
 import ServerBar from '../../components/ServerBar/ServerBar';
 import DirectMessages from '../../components/DirectMessages/DirectMessages';
 import { io } from 'socket.io-client';
-import { addNewMessage, updateStatus } from '../../features/rooms';
-import { addFriend } from '../../features/friends';
 
 
 let socket; // io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
@@ -39,6 +41,7 @@ function Dashboard() {
       };
       dispatch(login(data.user));
       dispatch(pendingFetch(data.pending));
+      dispatch(friendsFetch(data.friends));
       socket.emit('change my status', data.user.currentStatus ? data.user.currentStatus : 1);
       // check if local storage match to the user who is currently logged in
       if (data.user._id === localStorage.getItem('user-data').id) return;
@@ -60,18 +63,20 @@ function Dashboard() {
         dispatch(updateStatus({ userId, newStatus }))
       })
 
-      socket.on('pending request', (userPending) => {
-        dispatch(newFriendRequests(userPending));
+      socket.on('pending request', ({ request }) => {
+        console.log('pending request socket on');
+        console.log(request);
+        dispatch(newFriendRequests(request));
       })
 
-      socket.on('ignored friend request', ({ requestsId }) => {
-        // dispatch(removeFriendRequest({ requestsId }));
+      socket.on('removed friend request', ({ requestId }) => {
+        console.log(requestId);
+        dispatch(removeFriendRequest({ requestId }));
       })
       
-      socket.on('accepted friend request', ({ senderId, reciverId, friendAdd }) => {
+      socket.on('friend added', ({ friendAdded }) => {
         console.log('dispatch');
-        dispatch(removeFriendRequest({ senderId, reciverId}));
-        dispatch(addFriend(friendAdd));
+        dispatch(addFriend(friendAdded));
 
       })
 

@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 import userReducer from './features/user';
 import roomsReducer from './features/rooms';
 import locationReducer from './features/location';
-import relationshipsReducer from './features/relationships';
 import pendingReducer from './features/pending';
 import friendsReducer from './features/friends';
 
@@ -20,7 +19,6 @@ const store = configureStore({
     user: userReducer,
     rooms: roomsReducer,
     location: locationReducer,
-    relationships: relationshipsReducer,
     pendingRequests: pendingReducer,
     friends: friendsReducer
   }
