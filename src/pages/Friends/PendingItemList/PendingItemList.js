@@ -1,24 +1,11 @@
 import { Divider } from "@mui/material"
 import StatusIcon from "../../../Utilities/StatusIcon";
-import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
-import { useContext } from "react";
-import { SocketContext } from "../../../context/socket";
+import ActionButton from "../../../Utilities/ActionButton";
 import { useSelector } from "react-redux";
 
 const PendingItemList = ({ request }) => {
   const user = useSelector(state => state.user.value);
 
-  const socket = useContext(SocketContext);
-  
-  const ignoreBtn = () => {
-    socket.emit('remove friend request', { requestId: [user.id, request.id] });
-  }
-  
-  const addBtn = () => {
-    socket.emit('remove friend request', { requestId: [user.id, request.id] });
-    socket.emit('accept friend request', { requestId: [user.id, request.id] });
-  }
     return (
     <>
     <li className="friend-item-list">
@@ -30,18 +17,11 @@ const PendingItemList = ({ request }) => {
       />
       <div className='content'>
         <div className='user-name'>{request.name}<span>#{request.tag}</span></div>
-        <div>{request.direction} Friend Request</div>
+        { request.direction && <div>{request.direction} Friend Request</div>}
       </div>
       <div className='actions'>
-        <div className='negative' onClick={() => ignoreBtn()}>
-          <ClearIcon />
-        </div>
-        { 
-          request.direction === 'incoming' &&
-          <div className='positive' onClick={() => addBtn()}>
-            <CheckIcon />
-          </div>
-        }
+        { request.direction ? <ActionButton clear={true} userId={user.id} reqId={request.id} /> : <ActionButton chat={true} userId={user.id} reqId={request.id} /> }
+        { request.direction === 'incoming' && <ActionButton check={true} userId={user.id} reqId={request.id} /> }
       </div>
     </li>
       <Divider sx={{ color: '#40444B' }} />

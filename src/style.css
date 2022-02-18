@@ -272,6 +272,16 @@
   overflow: hidden;
 }
 
+.friends-page h2 {
+  margin: 2em 0 0;
+  text-transform: uppercase;
+  text-align: left;
+  font-size: .9rem;
+  color: #8E9297;
+  font-weight: 800;
+  padding-left: 1.4rem;
+}
+
 .friends-page .friends-add-friend {
   position: relative;
   height: 100%;

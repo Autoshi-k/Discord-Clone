@@ -2,20 +2,23 @@ import { useDispatch, useSelector } from "react-redux";
 import PageHeader from "../../components/PageHeader/PageHeader";
 
 // import WumpusWaitingForFriends from '../../assets/WumpusWaitingForFriends.png';
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { SocketContext } from "../../context/socket";
 import AddFriend from './AddFriend/AddFriend';
 import FriendItemList from "./PendingItemList/PendingItemList";
 import FriendList from "./FriendsList/FriendList";
+import { changeLocation } from "../../features/location";
 const Friends = () => {
-  // while in friends - location have subRoom (auto 'all')
-  const location = useSelector(state => state.location.value);
 
-  // add this later when users can have friends
-  // useEffect(() => {
-  //   // if (relationships.friends.length) return;
-  //   // dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }));
-  // }, [])
+  const location = useSelector(state => state.location.value);
+  const friends = useSelector(state => state.friends.value);
+  const dispatch = useDispatch();
+  
+  // need to fix this use effect
+  useEffect(() => {
+    if (friends.length) return;
+    dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }));
+  }, [friends])
 
   return (
     <div className="friends-page">

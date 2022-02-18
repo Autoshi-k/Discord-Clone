@@ -43,7 +43,6 @@ const Friends = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('???')
     
     if (addFriendName.includes('#') && addFriendName.slice(-5)[0] === '#') {
       
@@ -52,7 +51,7 @@ const Friends = () => {
       const userTag = addFriendSearch.slice(-4);
       
       socket.emit('add friend', { senderId: user.id, name: userName, tag: userTag });
-      console.log('??? OK')
+
     } else if (addFriendName.includes('#')) {
       setError({error: true, message: 'Hm, didn\'t work. Double checkthat the capitalization, spelling, any spaces, and numbers are correct.'})
     } else { 
@@ -69,7 +68,6 @@ const Friends = () => {
         <p>you can add a friend with their Discord Tag. It's cAsE sEnSitIvE!</p>
         <form onSubmit={handleSubmit} ref={searchFriend} className={`friend-search ${error.error && 'error'}`}>
           <input type="text" name="addFriendSearch" onChange={ (e) => handleChange(e) } ref={inputUserName} placeholder="Enter a Username#0000" />
-          {/* <input type='submit' onClick={ (e) => handleSubmit(e) } value='Send Friend Request'/> */}
           <input type='submit' value='Send Friend Request'/>
         </form>
         { error.error ?
