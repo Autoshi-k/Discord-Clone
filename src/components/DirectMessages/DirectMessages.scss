@@ -28,4 +28,42 @@
   .sidebar-title:hover {
     color: white;
   }
+
+  .no-chats {
+    flex: 1;
+    margin: 1em 0;
+    overflow: hidden;
+
+    .empty-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1em;
+    }
+
+    .empty-avatar {
+      height: 2em;
+      width: 2em;
+      border-radius: 2em;
+    }
+    
+    .empty-name {
+      height: 1.4em;
+      width: 80%;
+      border-radius: 2em;
+    }
+
+    .no-1 { background-color: $sidebar-text-icons; opacity: .12; }
+    .no-2 { background-color: $sidebar-text-icons; opacity: .11; }
+    .no-3 { background-color: $sidebar-text-icons; opacity: .1; }
+    .no-4 { background-color: $sidebar-text-icons; opacity: .09; }
+    .no-5 { background-color: $sidebar-text-icons; opacity: .08; }
+    .no-6 { background-color: $sidebar-text-icons; opacity: .07; }
+    .no-7 { background-color: $sidebar-text-icons; opacity: .06; }
+    .no-8 { background-color: $sidebar-text-icons; opacity: .05; }
+    .no-9 { background-color: $sidebar-text-icons; opacity: .04; }
+    .no-10 { background-color: $sidebar-text-icons; opacity: .03; }
+    .no-11 { background-color: $sidebar-text-icons; opacity: .02; }
+    .no-12 { background-color: $sidebar-text-icons; opacity: .01; }
+  }
 }

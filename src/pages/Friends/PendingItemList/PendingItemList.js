@@ -20,8 +20,8 @@ const PendingItemList = ({ request }) => {
         { request.direction && <div>{request.direction} Friend Request</div>}
       </div>
       <div className='actions'>
-        { request.direction ? <ActionButton clear={true} userId={user.id} reqId={request.id} /> : <ActionButton chat={true} userId={user.id} reqId={request.id} /> }
-        { request.direction === 'incoming' && <ActionButton check={true} userId={user.id} reqId={request.id} /> }
+        { request.direction ? <ActionButton clear={true} user={user} req={request} /> : <ActionButton chat={true} user={user} req={request} /> }
+        { request.direction === 'incoming' && <ActionButton check={true} user={user} req={request} /> }
       </div>
     </li>
       <Divider sx={{ color: '#40444B' }} />

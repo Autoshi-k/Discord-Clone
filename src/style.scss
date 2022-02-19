@@ -34,6 +34,30 @@ $sidebar-text-icons: #8E9297;
 // fonts
 $headline-font: 'Luckiest Guy', cursive;
 
+.primary-button {
+  border-radius: .2em;
+  background-color: #5865F2;
+  padding: .5em 1em;
+  border: none;
+  color: white;
+  letter-spacing: .08em;
+  text-transform: capitalize;
+  @keyframes hoverButtons {
+    from {background-color: #5865F2;}
+    to {background-color: #4752C4;}
+  }
+}
+
+.primary-button[type=submit]:disabled {
+  background-color: $blue-disabled;
+}
+
+.primary-button:hover {
+  animation-name: hoverButtons;
+  animation-duration: 0.5s;
+  background-color: #4752C4;
+}
+
 // @import './pages/Home/Home.scss';
 // @import './pages/login.scss';
 @import './components/DirectMessages/DirectMessages.scss';

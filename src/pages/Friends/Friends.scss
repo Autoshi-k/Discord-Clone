@@ -57,18 +57,18 @@
         padding: .5em;
       }
 
-      input[type=submit] {
-        background-color: $blue;
-        padding: .5em;
-        color: white;
-        font-weight: 500;
-        border: none;
-        border-radius: .3em;
-      }
+      // input[type=submit] {
+      //   background-color: $blue;
+      //   padding: .5em;
+      //   color: white;
+      //   font-weight: 500;
+      //   border: none;
+      //   border-radius: .3em;
+      // }
 
-      input[type=submit]:disabled {
-        background-color: $blue-disabled;
-      }
+      // input[type=submit]:disabled {
+      //   background-color: $blue-disabled;
+      // }
     }
 
     .friend-search.error {

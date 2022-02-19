@@ -1,11 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import PageHeader from "../../components/PageHeader/PageHeader";
 
-// import WumpusWaitingForFriends from '../../assets/WumpusWaitingForFriends.png';
-import { useContext, useEffect } from "react";
-import { SocketContext } from "../../context/socket";
+import { useEffect } from "react";
 import AddFriend from './AddFriend/AddFriend';
-import FriendItemList from "./PendingItemList/PendingItemList";
 import FriendList from "./FriendsList/FriendList";
 import { changeLocation } from "../../features/location";
 const Friends = () => {
@@ -31,12 +28,6 @@ const Friends = () => {
           }
         </div>
       }
-        {/* <div className="friends-online">
-          <div class="not-found">
-            <img src={WumpusNoFriends} alt="No Friends Found"/>
-            <div>No one's around to play with Wumpus.</div>
-          </div>
-        </div> */}
     </div>
   )
 }

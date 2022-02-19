@@ -6,7 +6,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { changeLocation } from "../../../features/location";
 import { SocketContext } from "../../../context/socket";
 
-const Friends = () => {
+const AddFriend = () => {
   
   const socket = useContext(SocketContext);
   // while in friends - location have subRoom (auto 'all')
@@ -68,7 +68,7 @@ const Friends = () => {
         <p>you can add a friend with their Discord Tag. It's cAsE sEnSitIvE!</p>
         <form onSubmit={handleSubmit} ref={searchFriend} className={`friend-search ${error.error && 'error'}`}>
           <input type="text" name="addFriendSearch" onChange={ (e) => handleChange(e) } ref={inputUserName} placeholder="Enter a Username#0000" />
-          <input type='submit' value='Send Friend Request'/>
+          <input className='primary-button' type='submit' value='Send Friend Request'/>
         </form>
         { error.error ?
           <p className="error-message">{ error.message }</p>  
@@ -85,4 +85,4 @@ const Friends = () => {
   )
 }
 
-export default Friends;
+export default AddFriend;

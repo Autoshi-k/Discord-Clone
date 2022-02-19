@@ -4,7 +4,7 @@ import { SocketContext } from '../../context/socket';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/user';
 import { pendingFetch, newFriendRequests, removeFriendRequest } from '../../features/pending';
-import { addNewMessage, updateStatus } from '../../features/rooms';
+import { addNewMessage, newRoom, updateStatus } from '../../features/rooms';
 import { addFriend, friendsFetch } from '../../features/friends';
 
 
@@ -64,20 +64,22 @@ function Dashboard() {
       })
 
       socket.on('pending request', ({ request }) => {
-        console.log('pending request socket on');
-        console.log(request);
         dispatch(newFriendRequests(request));
       })
 
       socket.on('removed friend request', ({ requestId }) => {
-        console.log(requestId);
         dispatch(removeFriendRequest({ requestId }));
       })
       
       socket.on('friend added', ({ friendAdded }) => {
-        console.log('dispatch');
         dispatch(addFriend(friendAdded));
+      })
 
+      socket.on('chat added', ({ roomId, friend, erch }) => {
+        // console.log(roomId, friend);  
+        console.log('???????');  
+        // console.log('???????');  
+        dispatch(newRoom({ roomId, friend }));
       })
 
     });

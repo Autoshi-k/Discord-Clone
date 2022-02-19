@@ -10,9 +10,8 @@ export const roomsSlice = createSlice({
       state.value = action.payload;
     }, 
     newRoom: (state, action) => {
-      const roomId = action.payload.roomId;
-      const newValue = {...state.value};
-      newValue[roomId] = action.payload.room;
+      const newValue = {...current(state.value)};
+      newValue[action.payload.roomId] = action.payload.friend;
       state.value = newValue;
     },
     deleteRoom: (state, action) => {

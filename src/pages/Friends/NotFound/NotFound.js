@@ -8,7 +8,7 @@ import { changeLocation } from "../../../features/location";
 const NotFound = () => {
   const location = useSelector(state => state.location.value);
   const dispatch = useDispatch();
-  console.log(WumpusWaitingForFriends);
+
   const objTest = {
     all: {
       src: WumpusWaitingForFriends,
@@ -32,22 +32,15 @@ const NotFound = () => {
       text: 'You can\'t unblock the Wumpus.'
     }
   }
-  if (location.subRoom === 'all') {
-    return (
-      <div>
-        <img src={`${objTest[location.subRoom].src}`} alt={objTest[location.subRoom].alt} />
-        <div>{objTest[location.subRoom].text}</div>
-        { objTest[location.subRoom].button && 
-        <button onClick={() => dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }))}>
-          Add Friend
-        </button> }
-      </div>
-    )
-  }
 
   return (
     <div className='not-found'>
-      <div>No one's around to play with Wumpus.</div>
+       <img src={`${objTest[location.subRoom].src}`} alt={objTest[location.subRoom].alt} />
+        <div>{objTest[location.subRoom].text}</div>
+        { objTest[location.subRoom].button && 
+        <button className='primary-button' onClick={() => dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }))}>
+          Add Friend
+        </button> }
     </div>
   )
 }
