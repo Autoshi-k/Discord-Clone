@@ -22,6 +22,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.get('/delfriends', async (req, res) => {
+  await db.query('DELETE FROM friends');
+  res.send('kill me');
+})
 
 // route middlewares
 app.use('/api/auth', authRouter);
@@ -46,16 +50,12 @@ io.on("connection", async socket => {
     console.log('add friend')
     const selectQuery = `SELECT id, name, tag, avatar, statusId FROM users WHERE name = '${name}' AND tag = '${tag}' LIMIT 1`;
     const [addFriend] = await db.query(selectQuery);
-    if (!addFriend.length) return res.send({ success: false, err: 'user is not found' });
-    const addFriendQuery = `INSERT INTO pending_requests (userId, relatedUserId, direction) 
-                            VALUES (?, ?, ?), (?, ?, ?)`;
+    // if (!addFriend.length) return res.send({ success: false, err: 'user is not found' });
+    const addFriendQuery = 
+     `INSERT INTO pending_requests (userId, relatedUserId, direction) 
+      VALUES (?, ?, ?), (?, ?, ?)`;
     const rows = await db.query(addFriendQuery, [senderId, addFriend[0].id, 'outgoing', addFriend[0].id, senderId, 'incoming']);
     const to = connected.find(connectedUser => connectedUser.uid === addFriend[0].id);
-    // console.log('to', to);
-    // console.log('socket id', socket.id);
-    // socket.to(to).emit('pending request', rows[0]);
-    // console.log('after emit');
-    // socket.to(socket.id).emit('pending request', rows[1]);
     console.log(rows);
     const request = {
       direction: 'outgoing',
@@ -65,9 +65,10 @@ io.on("connection", async socket => {
   })
 
   socket.on('remove friend request', async ({ requestId }) => {
-    const deleteRequest = `DELETE FROM pending_requests 
-                           WHERE userId = ${requestId[0]} AND relatedUserId = ${requestId[1]} 
-                           OR userId = ${requestId[1]} AND relatedUserId = ${requestId[0]} LIMIT 2`;
+    const deleteRequest = 
+     `DELETE FROM pending_requests 
+      WHERE userId = ${requestId[0]} AND relatedUserId = ${requestId[1]} 
+      OR userId = ${requestId[1]} AND relatedUserId = ${requestId[0]} LIMIT 2`;
     await db.query(deleteRequest);
     socket.emit('removed friend request', { requestId });
   })
@@ -77,10 +78,21 @@ io.on("connection", async socket => {
     const selectQuery = `SELECT id, name, tag, avatar, statusId FROM users WHERE id = '${requestId[1]}'LIMIT 1`;
     const [addFriend] = await db.query(selectQuery);
     const insertFriend = 'INSERT INTO friends (userId, friendId) VALUES (?, ?), (?, ?)'
-                          // SELECT id, name, tag, avatar, statusId FROM users WHERE id = ${senderId} LIMIT 1`;
     await db.query(insertFriend, [requestId[0], requestId[1], requestId[1], requestId[0]]);
     console.log('socket emit');
     socket.emit('friend added', { friendAdded: addFriend[0] });
+  })
+
+  socket.on('add chat', async ({ type, user, friend }) => {
+    // type: 0 = mixed, 1 = chatonly, 2 = voiceonly
+    const createRoom = 'INSERT INTO rooms (type) VALUES (?)';
+    const [room] = await db.query(createRoom, [type]);
+    console.log(room.insertId);
+    const addUsers = `INSERT INTO rooms_traffic (roomId, userId) VALUES (?, ?), (?, ?)`;
+    await db.query(addUsers, [room.insertId, user.id, room.insertId, friend.id]);
+    socket.join(room.insertId);
+    // socket.emit('chat added', { roomId: room.insertId, friend });
+    socket.emit('chat added', {erch: 2312});
   })
 
   // socket.on('disconnect', async () => {
