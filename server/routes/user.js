@@ -9,7 +9,7 @@ export const router = express.Router();
 
 const getRooms = async (roomIds, selectRooms) => {
   console.log('roomIds', roomIds);
-  if (!roomIds.lenght) return [];
+  if (!roomIds.length) return [];
   const [response] = await db.query(selectRooms);
   return  response;
 }
