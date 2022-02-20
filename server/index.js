@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/delfriends', async (req, res) => {
-  await db.query('DELETE FROM friends');
+  await db.query('DELETE FROM rooms');
   res.send('kill me');
 })
 
