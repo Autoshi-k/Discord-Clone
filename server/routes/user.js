@@ -7,6 +7,13 @@ export const router = express.Router();
 // is the first stop after logging in
 // or when user already logged in and directed to channels
 
+const getRooms = async (roomIds, selectRooms) => {
+  console.log('roomIds', roomIds);
+  if (!roomIds.lenght) return [];
+  const [response] = await db.query(selectRooms);
+  return  response;
+}
+
 router.get('/', verify, async (req, res) => {
 
   // get basic user information
@@ -42,14 +49,15 @@ router.get('/', verify, async (req, res) => {
     ON rooms_traffic.userId = users.id
     WHERE rooms_traffic.roomId IN (${roomIds}) AND rooms_traffic.userId != ${userRows[0].id}
     `
-  const [roomsRow] = await db.query(selectRooms);
-
+  const roomsRow = await getRooms(roomIds, selectRooms)
+  // let [roomsRow] = roomIds.lenght ? await db.query(selectRooms) : null;
+  console.log(roomsRow);
   res.send({ 
     user: userRows[0], 
     objRooms: { }, 
     pending: pendingRows, 
     friends: friendsRow, 
-    rooms: roomsRow 
+    rooms: roomsRow
   });
   // needs to get all friends, chats and pending 
 })
