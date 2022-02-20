@@ -5,7 +5,7 @@ import { initSocket, socket, Socket } from '../../Utilities/socket';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/user';
 import { pendingFetch, newFriendRequests, removeFriendRequest } from '../../features/pending';
-import { addNewMessage, newRoom, updateStatus } from '../../features/rooms';
+import { addNewMessage, fetchRooms, newRoom, updateStatus } from '../../features/rooms';
 import { addFriend, friendsFetch } from '../../features/friends';
 
 
@@ -44,6 +44,7 @@ function Dashboard() {
       dispatch(login(data.user));
       dispatch(pendingFetch(data.pending));
       dispatch(friendsFetch(data.friends));
+      dispatch(fetchRooms(data.rooms));
       socket.emit('change my status', data.user.currentStatus ? data.user.currentStatus : 1);
       // check if local storage match to the user who is currently logged in
       if (data.user._id === localStorage.getItem('user-data').id) return;

@@ -6,12 +6,16 @@ export const roomsSlice = createSlice({
     value: {}
   },
   reducers: {
-    fetchOldRooms: (state, action) => {
+    fetchRooms: (state, action) => {
+      console.log(action.payload);
       state.value = action.payload;
     }, 
     newRoom: (state, action) => {
-      const newValue = {...current(state.value)};
+      let newValue = {...current(state.value)};
+      console.log(action.payload);
+      console.log(newValue);
       newValue[action.payload.roomId] = action.payload.friend;
+      console.log(newValue);
       state.value = newValue;
     },
     deleteRoom: (state, action) => {
@@ -39,6 +43,6 @@ export const roomsSlice = createSlice({
   }
 })
 
-export const { fetchOldRooms, updateStatus, addNewMessage, newRoom, deleteRoom } = roomsSlice.actions;
+export const { fetchRooms, updateStatus, addNewMessage, newRoom, deleteRoom } = roomsSlice.actions;
 
 export default roomsSlice.reducer;

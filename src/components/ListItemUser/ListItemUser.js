@@ -7,7 +7,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 
 // import Stack from '@mui/material/Stack';
 
-export function ListItemUser({ room, roomName, image, currentStatus }) {
+export function ListItemUser({ room, roomName, avatar, statusId }) {
   
   const location = useSelector(state => state.location.value);
   const dispatch = useDispatch();
@@ -27,9 +27,9 @@ export function ListItemUser({ room, roomName, image, currentStatus }) {
         :
         <StatusIcon 
         badge={true}
-        currentStatus={currentStatus}
+        currentStatus={statusId}
         alt={roomName}
-        image={image}
+        image={avatar}
       />
       }
       <div className="user-name">{roomName}</div>

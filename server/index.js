@@ -84,12 +84,11 @@ io.on("connection", async socket => {
     // type: 0 = mixed, 1 = chatonly, 2 = voiceonly
     const createRoom = 'INSERT INTO rooms (type) VALUES (?)';
     const [room] = await db.query(createRoom, [type]);
-    console.log(room.insertId);
     const addUsers = `INSERT INTO rooms_traffic (roomId, userId) VALUES (?, ?), (?, ?)`;
     await db.query(addUsers, [room.insertId, user.id, room.insertId, friend.id]);
     socket.join(room.insertId);
     // socket.emit('chat added', { roomId: room.insertId, friend });
-    socket.emit('chat added', {erch: 2312});
+    socket.emit('chat added', { roomId: room.insertId, friend });
   })
 
   // socket.on('disconnect', async () => {

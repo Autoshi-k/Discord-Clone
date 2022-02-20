@@ -35,7 +35,7 @@ export const initSocket = (dispatch) => {
     })
 
     socket.on('chat added', ({ roomId, friend }) => {
-      // console.log(roomId, friend);  
+      console.log(roomId, friend);  
       console.log('???????');  
       // console.log('???????');  
       dispatch(newRoom({ roomId, friend }));

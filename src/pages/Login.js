@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from 'react-router-dom';
+import { friendsFetch } from "../features/friends";
 import { pendingFetch } from "../features/pending";
-import { fetchOldRooms } from "../features/rooms";
+import { fetchOldRooms, fetchRooms } from "../features/rooms";
 import { login } from '../features/user';
 
 // import './login.css';
@@ -36,6 +37,8 @@ const Login = () => {
       .then(data => {
         dispatch(login(data.user));
         dispatch(pendingFetch(data.pending));
+        dispatch(friendsFetch(data.friends));
+        dispatch(fetchRooms(data.rooms));
         localStorage.setItem('user-data', JSON.stringify({ id: data.user.id, name: data.user.name, tag: data.user.tag }));
         localStorage.setItem('email', data.user.email);
       })

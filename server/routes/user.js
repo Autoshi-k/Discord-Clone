@@ -26,11 +26,30 @@ router.get('/', verify, async (req, res) => {
   const selectFriends =
    `SELECT users.id, users.name, users.tag, users.avatar, users.statusId
     FROM friends
-    LEFT JOIN users ON users.id = friends.friendId
+    LEFT JOIN users 
+    ON users.id = friends.friendId
     WHERE friends.userId = ${userRows[0].id}`
   const [friendsRow] = await db.query(selectFriends);
-  res.send({ user: userRows[0], objRooms: { }, pending: pendingRows, friends: friendsRow });
+  
+  // get rooms
+  const selectRoomIds = `SELECT roomId FROM rooms_traffic WHERE rooms_traffic.userId = ${userRows[0].id}`;
+  let [roomIdsRow] = await db.query(selectRoomIds);
+  const roomIds = roomIdsRow.map(room => room.roomId);
+  const selectRooms = 
+   `SELECT rooms_traffic.roomId, users.id, users.name, users.tag, users.avatar, users.statusId
+    FROM rooms_traffic
+    LEFT JOIN users 
+    ON rooms_traffic.userId = users.id
+    WHERE rooms_traffic.roomId IN (${roomIds}) AND rooms_traffic.userId != ${userRows[0].id}
+    `
+  const [roomsRow] = await db.query(selectRooms);
 
-
+  res.send({ 
+    user: userRows[0], 
+    objRooms: { }, 
+    pending: pendingRows, 
+    friends: friendsRow, 
+    rooms: roomsRow 
+  });
   // needs to get all friends, chats and pending 
 })

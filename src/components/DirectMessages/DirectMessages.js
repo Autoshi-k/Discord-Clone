@@ -37,16 +37,15 @@ function DirectMessages() {
         <div className="sidebar-title">direct messages</div>
         { Object.keys(rooms).length ?
           Object.keys(rooms).map((key, index) => {
-            const otherParticipantId = Object.keys(rooms[key].participants).filter(participant => rooms[key].participants[participant]._id !== user._id) // will change later in case of multichat
-            const toDisplay = rooms[key].participants[otherParticipantId];
+            const friend = rooms[key];
             return <ListItemUser 
-                    key={index} 
-                    room={key} 
-                    roomName={toDisplay.displayName}
-                    image={toDisplay.image}
-                    currentStatus={toDisplay.currentStatus}
-                  />
-              })
+              key={index} 
+              room={key} 
+              roomName={friend.name}
+              avatar={friend.avatar}
+              statusId={friend.statusId}
+            />
+          })
         : <div className='no-chats'>{ handleNoChat() }</div>
         }
       </div>
