@@ -8,7 +8,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 // import Stack from '@mui/material/Stack';
 
 export function ListItemUser({ room, roomName, avatar, statusId }) {
-  
+  console.log(avatar);
   const location = useSelector(state => state.location.value);
   const dispatch = useDispatch();
   // when ill have servers ill need to make a condition

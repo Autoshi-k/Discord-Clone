@@ -38,6 +38,7 @@ function DirectMessages() {
         { Object.keys(rooms).length ?
           Object.keys(rooms).map((key, index) => {
             const friend = rooms[key];
+            console.log(friend.avatar);
             return <ListItemUser 
               key={index} 
               room={key} 

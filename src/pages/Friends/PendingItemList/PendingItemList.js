@@ -13,7 +13,7 @@ const PendingItemList = ({ request }) => {
         badge={true}
         currentStatus={request.statusId}
         alt={request.name}
-        image={request.image}
+        image={request.avatar}
       />
       <div className='content'>
         <div className='user-name'>{request.name}<span>#{request.tag}</span></div>

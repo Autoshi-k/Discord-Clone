@@ -16,12 +16,12 @@ function PageHeader() {
 
   const dispatch = useDispatch();
 
-  const [userToDisplay, setUserToDisplay] = useState(null);
+  const [room, setRoom] = useState(null);
   useEffect(() => {
     if (location.room === 'friends') return;
-    const currentRoom = rooms[location.room]
-    const test =  Object.keys(currentRoom.participants).filter(participant => currentRoom.participants[participant].id !== user.id)
-    setUserToDisplay(rooms[location.room].participants[test]);
+    setRoom(rooms[location.room]);
+    // const test =  Object.keys(currentRoom.name).filter(participant => currentRoom.participants[participant].id !== user.id)
+    // setUserToDisplay(rooms[location.room].participants[test]);
   }, [rooms, location])
   const friendsListItems = ['online', 'all', 'pending', 'blocked', 'add-friend'];
   return (
@@ -50,9 +50,9 @@ function PageHeader() {
         :
         <>
           <div aria-hidden="true" className="chat-header-at-icon"><AlternateEmailIcon sx={{ fontSize: 30, color: '#B9BBBE', width: '2rem' }} /></div>
-          <div className='room-name'>{ userToDisplay ? userToDisplay.displayName : '' }</div>
+          <div className='room-name'>{ room ? room.name : '' }</div>
           <StatusIcon
-            currentStatus={ userToDisplay?.currentStatus }
+            currentStatus={ room?.statusId }
           alt={ 'status-' }
           />
         </>    

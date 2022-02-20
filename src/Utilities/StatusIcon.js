@@ -14,7 +14,7 @@ const SmallAvatar = styled(Avatar)(() => ({
 }));
 
 const StatusIcon = ({badge, currentStatus, image, alt}) => {
-
+  console.log(image);
   const mapStatus = [offline, online, idle, notDisturb];
 
   return (
