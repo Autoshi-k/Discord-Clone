@@ -15,7 +15,7 @@ const FriendList = () => {
   useEffect(() => {
     setArray([]);
     setResetArray(true);
-  }, [location.subRoom]);
+  }, [location.subRoom, friends, pendingRequests]);
   
   // set new values in array
   useEffect(() => {

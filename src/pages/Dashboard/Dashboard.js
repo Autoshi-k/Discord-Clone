@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { SocketContext } from '../../context/socket';
+import { initSocket, socket, Socket } from '../../Utilities/socket';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/user';
@@ -18,10 +19,11 @@ import DirectMessages from '../../components/DirectMessages/DirectMessages';
 import { io } from 'socket.io-client';
 
 
-let socket; // io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
+// let socket; // io({ auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
 
 function Dashboard() {
-  socket = io('127.0.0.1:3001/', { transports: ['websocket'], auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
+  // socket = io('127.0.0.1:3001/', { auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
+  // socket = io('127.0.0.1:3001/', { transports: ['websocket'], auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
   const dispatch = useDispatch();
 
   // fetch user information
@@ -50,40 +52,10 @@ function Dashboard() {
     })
   }, []);
 
-  // socket.on
+  // socket.on ????
   useEffect(() => {
-    socket.on("connect", () => {
-      
-      socket.on('success send new message', ({ roomId, newMessage }) => {
-        const newMessageObj = { roomId, message: newMessage };
-        dispatch(addNewMessage(newMessageObj))
-      })
-      
-      socket.on('user changed status', ({ userId, newStatus }) => {
-        dispatch(updateStatus({ userId, newStatus }))
-      })
-
-      socket.on('pending request', ({ request }) => {
-        dispatch(newFriendRequests(request));
-      })
-
-      socket.on('removed friend request', ({ requestId }) => {
-        dispatch(removeFriendRequest({ requestId }));
-      })
-      
-      socket.on('friend added', ({ friendAdded }) => {
-        dispatch(addFriend(friendAdded));
-      })
-
-      socket.on('chat added', ({ roomId, friend, erch }) => {
-        // console.log(roomId, friend);  
-        console.log('???????');  
-        // console.log('???????');  
-        dispatch(newRoom({ roomId, friend }));
-      })
-
-    });
-  }, []);
+    initSocket(dispatch);
+  }, [dispatch])
 
   return (
     <>

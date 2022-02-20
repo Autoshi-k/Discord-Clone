@@ -7,10 +7,7 @@ import { ListItemUser } from "../ListItemUser/ListItemUser";
 import Friends from "../../pages/Friends/Friends";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
-import { useContext } from "react";
-
-import { SocketContext } from "../../context/socket";
+import { useSelector } from "react-redux";
 
 function DirectMessages() {
   const user = useSelector(state => state.user.value);
@@ -20,7 +17,7 @@ function DirectMessages() {
   const handleNoChat = () => {
     return [1,2,3,4,5,6,7,8,9,10,11,12].map(box => {
       return (
-        <div className='empty-box'>
+        <div key={box} className='empty-box'>
           <div className={`empty-avatar no-${box}`}></div>
           <div className={`empty-name no-${box}`}></div>
         </div>

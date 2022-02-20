@@ -23,11 +23,9 @@ const ActionButton = ({ check, clear, chat, user, req }) => {
     socket.emit('add chat', { type: 1, user, friend: req });
   }
 
-  console.log('hello')
-
   if (check) {
     return (
-      <div className='postive' onClick={() => addBtn() }>
+      <div className='positive' onClick={() => addBtn() }>
         <CheckIcon />
       </div>
     )
