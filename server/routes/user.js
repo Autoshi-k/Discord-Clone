@@ -8,7 +8,6 @@ export const router = express.Router();
 // or when user already logged in and directed to channels
 
 const getRooms = async (roomIds, selectRooms) => {
-  console.log('roomIds', roomIds);
   if (!roomIds.length) return [];
   const [response] = await db.query(selectRooms);
   return  response;
@@ -43,7 +42,7 @@ router.get('/', verify, async (req, res) => {
   let [roomIdsRow] = await db.query(selectRoomIds);
   const roomIds = roomIdsRow.map(room => room.roomId);
   const selectRooms = 
-   `SELECT rooms_traffic.roomId, users.id, users.name, users.tag, users.avatar, users.statusId
+   `SELECT rooms_traffic.roomId, rooms_traffic.lastVisited, users.id, users.name, users.tag, users.avatar, users.statusId
     FROM rooms_traffic
     LEFT JOIN users 
     ON rooms_traffic.userId = users.id
@@ -51,7 +50,6 @@ router.get('/', verify, async (req, res) => {
     `
   const roomsRow = await getRooms(roomIds, selectRooms)
   // let [roomsRow] = roomIds.lenght ? await db.query(selectRooms) : null;
-  console.log(roomsRow);
   res.send({ 
     user: userRows[0], 
     objRooms: { }, 
