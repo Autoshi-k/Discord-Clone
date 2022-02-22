@@ -99,7 +99,7 @@ io.on("connection", async socket => {
 
   socket.on('update last visit', async ({ room }) => {
     // find room and update last time visited
-    const updateRoom = `UPDATE rooms_traffic SET lastVisited = CURRENT_TIMESTAMP WHERE roomId = ${room}`;
+    const updateRoom = `UPDATE rooms_traffic SET lastVisited = CURRENT_TIMESTAMP WHERE roomId = ${room} AND userId = ${user}`;
     await db.query(updateRoom);
   })
 
