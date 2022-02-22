@@ -20,7 +20,7 @@ export const roomContentSlice = createSlice({
       })
       state.value = {
         usersInRoom: users,
-        messages: action.payload.messages
+        messages: action.payload.messages.reverse()
       }
     },
     newMessage: (state, action) => {
