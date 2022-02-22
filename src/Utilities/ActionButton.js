@@ -8,12 +8,12 @@ const ActionButton = ({ check, clear, chat, user, req }) => {
   const socket = useContext(SocketContext);
 
   const ignoreBtn = () => {
-    socket.emit('remove friend request', { requestId: [user.id, req.id] });
+    socket.emit('remove friend request', { reqId: req.id });
   }
   
   const addBtn = () => {
-    socket.emit('remove friend request', { requestId: [user.id, req.id] });
-    socket.emit('accept friend request', { requestId: [user.id, req.id] });
+    socket.emit('remove friend request', { reqId: req.id });
+    socket.emit('accept friend request', { reqId: req.id });
   }
 
   const startChat = () => {

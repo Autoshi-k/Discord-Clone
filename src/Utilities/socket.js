@@ -27,8 +27,9 @@ export const initSocket = (dispatch) => {
       dispatch(newFriendRequests(request));
     })
 
-    socket.on('removed friend request', ({ requestId }) => {
-      dispatch(removeFriendRequest({ requestId }));
+    socket.on('removed friend request', ({ id, otherId }) => {
+      console.log('removed friend request');
+      dispatch(removeFriendRequest({ id, otherId }));
     })
     
     socket.on('friend added', ({ friendAdded }) => {
