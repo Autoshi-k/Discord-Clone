@@ -2,24 +2,39 @@ import MessageContainer from '../MessageContainer/MessageContainer';
 import EmojiEmotionsRoundedIcon from '@mui/icons-material/EmojiEmotionsRounded';
 import { useContext, useEffect, useState } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SocketContext } from '../../context/socket';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AssistantIcon from '@mui/icons-material/Assistant';
 import GifBoxRoundedIcon from '@mui/icons-material/GifBoxRounded';
 import PageHeader from '../PageHeader/PageHeader';
+import { messagesFetch } from '../../features/roomContent';
 
 export function Chat() {
   const socket = useContext(SocketContext);
   // Redux store
   const location = useSelector(state => state.location.value);
   const rooms = useSelector(state => state.rooms.value);
+  const roomContent = useSelector(state => state.roomContent.value);
   const [currentRoom, setCurrentRoom] = useState(null); // will change later (in case there are no chats at all - what will i show)
   
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (location.room === '') return;
-    setCurrentRoom(rooms[location.room]);
+    // setCurrentRoom(rooms[location.room]);
+    fetch(`/api/messages/getMessages/${location.room}`, {
+      method: 'GET',
+      headers: {
+        "content-type": "application/json",
+        "Authorization": localStorage.getItem("auth-token"),
+      }
+    })
+    .then(res => res.json())
+    .then(data => dispatch(messagesFetch(data)))
+    return () => socket.emit('update last visit', { room: location.room })
   }, [location, rooms])
+
 
   const [message, setMessage] = useState('');
   const changeMesasgeValue = (e) => {
@@ -29,14 +44,15 @@ export function Chat() {
   const submitMessage = (e) => {
     if (e.code !== 'Enter') return;
     e.preventDefault();
-    socket.emit('try send new message', { message, to: location.room });
+    // i want to add 'message didnt deliverd yet' 
+    socket.emit('send message', { message, to: location.room });
     setMessage('');
   }
   
   const determinateType = (message, index) => {
     // check who is the sender to determinate msg type (primary or secondary)
     if (index) {
-      const prevMessage = currentRoom.messages[index - 1];
+      const prevMessage = roomContent.messages[index - 1];
       return message.participantId === prevMessage.participantId ? 'secondary' : 'primary';
     } else return 'primary'
   }
@@ -44,11 +60,11 @@ export function Chat() {
   const createMessage = (message, index) => {
     const type = determinateType(message, index);
     return <MessageContainer 
-              key={ Math.floor(Math.random() * 9999) * (index + 1) }
+              key={index}
               type={type}
-              sender={ currentRoom.participants[message.participantId].displayName }
-              image={ currentRoom.participants[message.participantId].image } 
-              sentAt={message.createdAt} 
+              sender={ roomContent.usersInRoom[message.userId].name }
+              image={ roomContent.usersInRoom[message.userId].avatar } 
+              sentAt={message.created} 
               content={message.content}
               />
             }
@@ -59,8 +75,9 @@ export function Chat() {
       <div className="chat">
 
         { 
-          currentRoom?.messages?.length ? 
-          currentRoom.messages.map((message, index) => createMessage(message, index))
+          roomContent.messages.length ? 
+          // roomContent.messages.map((message, index) => createMessage(message, index))
+          roomContent.messages.map((message, index) => createMessage(message, index))
           : null
         }
 

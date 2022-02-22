@@ -19,11 +19,10 @@ function PageHeader() {
   const [room, setRoom] = useState(null);
   useEffect(() => {
     if (location.room === 'friends') return;
-    setRoom(rooms[location.room]);
-    // const test =  Object.keys(currentRoom.name).filter(participant => currentRoom.participants[participant].id !== user.id)
-    // setUserToDisplay(rooms[location.room].participants[test]);
+    setRoom(rooms.find(room => room.roomId === location.room));
   }, [rooms, location])
   const friendsListItems = ['online', 'all', 'pending', 'blocked', 'add-friend'];
+
   return (
     <>
       <div className="header">
