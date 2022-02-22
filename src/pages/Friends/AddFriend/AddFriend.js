@@ -50,7 +50,7 @@ const AddFriend = () => {
       const userName = addFriendSearch.slice(0, addFriendSearch.indexOf('#'));
       const userTag = addFriendSearch.slice(-4);
       
-      socket.emit('add friend', { senderId: user.id, name: userName, tag: userTag });
+      socket.emit('add friend', { name: userName, tag: userTag });
 
     } else if (addFriendName.includes('#')) {
       setError({error: true, message: 'Hm, didn\'t work. Double checkthat the capitalization, spelling, any spaces, and numbers are correct.'})

@@ -2,7 +2,7 @@ import { Avatar } from '@mui/material';
 
 
 function MessageContainer({ type, sender, image, sentAt, content }) {
-  // const [help, setHelp] = useState('');
+
   let dateDisplay = '';
   let timeDisplay = '';
   const sentDate = new Date(sentAt);

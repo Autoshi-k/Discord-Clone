@@ -20,8 +20,8 @@ export const pandingSlice = createSlice({
     },
     removeFriendRequest: (state, action) => {
       let newArray = [...current(state.value)];
-      const requestId = action.payload.requestId;
-      const index = newArray.find(request => request.id === requestId[0] || request.id === requestId[1])
+      const { id, otherId } = action.payload;
+      const index = newArray.find(request => request.id === id || request.id === otherId)
       newArray.splice(index, 1);
       state.value = newArray;
     }

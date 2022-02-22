@@ -53,7 +53,7 @@ export function Chat() {
     // check who is the sender to determinate msg type (primary or secondary)
     if (index) {
       const prevMessage = roomContent.messages[index - 1];
-      return message.participantId === prevMessage.participantId ? 'secondary' : 'primary';
+      return message.userId === prevMessage.userId ? 'secondary' : 'primary';
     } else return 'primary'
   }
   
