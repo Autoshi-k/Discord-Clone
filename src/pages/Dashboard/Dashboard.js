@@ -45,9 +45,9 @@ function Dashboard() {
       dispatch(pendingFetch(data.pending));
       dispatch(friendsFetch(data.friends));
       dispatch(fetchRooms(data.rooms));
-      socket.emit('change my status', data.user.currentStatus ? data.user.currentStatus : 1);
+      // socket.emit('change my status', data.user.currentStatus ? data.user.currentStatus : 1);
       // check if local storage match to the user who is currently logged in
-      if (data.user._id === localStorage.getItem('user-data').id) return;
+      if (data.user.id === localStorage.getItem('user-data').id) return;
       localStorage.setItem('user-data', JSON.stringify({ id: data.user.id, name: data.user.name, tag: data.user.tag }));
       localStorage.setItem('email', data.user.email);
     })

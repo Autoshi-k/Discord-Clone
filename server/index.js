@@ -11,7 +11,7 @@ import { createServer } from 'http';
 // Import routes
 import { router as authRouter } from './routes/auth.js';
 import { router as userRouter } from './routes/user.js';
-import { router as findUsersRouter } from './routes/users.js';
+import { router as messagesRouter } from './routes/messages.js';
 
 import db from './connection.js';
 const app = express();
@@ -23,14 +23,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/delfriends', async (req, res) => {
-  await db.query('DELETE FROM rooms');
+  await db.query('DELETE FROM messages');
   res.send('kill me');
 })
 
 // route middlewares
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
-app.use('/api/users', findUsersRouter);
+app.use('/api/messages', messagesRouter);
 
 // Socket IO
 const server = createServer(app);
@@ -38,9 +38,16 @@ const io = new Server(server);
 
 let connected = [];
 io.on("connection", async socket => {
-  connected.push({ sid: socket.id, uid: socket.handshake.auth.userId })
-
-  console.log(socket.id, socket.handshake.auth.userId);
+  const user = socket.handshake.auth.userId;
+  connected.push({ sid: socket.id, uid: user })
+  console.log(socket);
+  
+  const selectRoomIds = `SELECT roomId FROM rooms_traffic WHERE rooms_traffic.userId = ${user}`;
+  let [roomIdsRow] = await db.query(selectRoomIds);
+  const roomIds = roomIdsRow.map(room => room.roomId);
+  socket.join(roomIds);
+  console.log(socket);
+  
   socket.on('add friend', async ({senderId, name, tag}) => {
     console.log('add friend', socket.id)
     const selectQuery = `SELECT id, name, tag, avatar, statusId FROM users WHERE name = '${name}' AND tag = '${tag}' LIMIT 1`;
@@ -51,7 +58,6 @@ io.on("connection", async socket => {
       VALUES (?, ?, ?), (?, ?, ?)`;
     const rows = await db.query(addFriendQuery, [senderId, addFriend[0].id, 'outgoing', addFriend[0].id, senderId, 'incoming']);
     const to = connected.find(connectedUser => connectedUser.uid === addFriend[0].id);
-    console.log(rows);
     const request = {
       direction: 'outgoing',
       ...addFriend[0]
@@ -89,6 +95,26 @@ io.on("connection", async socket => {
     socket.join(room.insertId);
     // socket.emit('chat added', { roomId: room.insertId, friend });
     socket.emit('chat added', { roomId: room.insertId, friend });
+  })
+
+  socket.on('update last visit', async ({ room }) => {
+    // find room and update last time visited
+    const updateRoom = `UPDATE rooms_traffic SET lastVisited = CURRENT_TIMESTAMP WHERE roomId = ${room}`;
+    await db.query(updateRoom);
+  })
+
+  socket.on('send message', async ({message, to}) => {
+    console.log('send message to: ', to);
+    // find room
+    const selectRoom = `SELECT id FROM rooms WHERE id = ${to} LIMIT 1`;
+    const [roomId] = await db.query(selectRoom);
+    // create new message
+    const insertMessage = `INSERT INTO messages (userId, roomId, content) VALUES (?, ?, ?)`;
+    const [checkOutput] = await db.query(insertMessage, [user, roomId[0].id, message]);
+    const selectMessage = `SELECT userId, created, content, type FROM messages WHERE id = ${checkOutput.insertId}`;
+    const [messageRow] = await db.query(selectMessage);
+    socket.emit('message sent', { message: messageRow[0] });
+    // socket.to(to).emit('message sent', { message: messageRow[0] });
   })
 
   // socket.on('disconnect', async () => {

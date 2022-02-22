@@ -2,6 +2,7 @@ import { io } from 'socket.io-client';
 import { addNewMessage, newRoom, updateStatus } from '../features/rooms';
 import { newFriendRequests, removeFriendRequest } from '../features/pending';
 import { addFriend } from '../features/friends';
+import { newMessage } from '../features/roomContent';
 
 export const socket = io('127.0.0.1:3001/', { transports: ['websocket'], auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
 export let socketID = '';
@@ -39,5 +40,10 @@ export const initSocket = (dispatch) => {
       console.log('???????');  
       // console.log('???????');  
       dispatch(newRoom({ roomId, friend }));
+    })
+
+    socket.on('message sent', ({ message }) => {
+      console.log(message);
+      dispatch(newMessage(message));
     })
 })}

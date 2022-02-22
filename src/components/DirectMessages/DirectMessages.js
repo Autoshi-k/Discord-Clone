@@ -40,7 +40,7 @@ function DirectMessages() {
             const friend = rooms[key];
             return <ListItemUser 
               key={index} 
-              room={key} 
+              room={friend.roomId} 
               roomName={friend.name}
               avatar={friend.avatar}
               statusId={friend.statusId}

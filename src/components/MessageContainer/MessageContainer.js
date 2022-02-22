@@ -31,7 +31,7 @@ function MessageContainer({ type, sender, image, sentAt, content }) {
   return ( 
     <>    
     { type === 'primary' ? 
-      <div className="message">
+      <div className='message primary'>
         <div className="message-container">
           <div className="avatar">
             <Avatar  
