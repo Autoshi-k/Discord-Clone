@@ -10,6 +10,7 @@ import roomsReducer from './features/rooms';
 import locationReducer from './features/location';
 import pendingReducer from './features/pending';
 import friendsReducer from './features/friends';
+import roomContentReducer from './features/roomContent';
 
 // css
 import App from './App';
@@ -20,7 +21,8 @@ const store = configureStore({
     rooms: roomsReducer,
     location: locationReducer,
     pendingRequests: pendingReducer,
-    friends: friendsReducer
+    friends: friendsReducer,
+    roomContent: roomContentReducer
   }
 })
 
