@@ -53,6 +53,7 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  row-gap: .5em;
 }
 
 .direct-messages-window .direct-to-friends-window {
@@ -677,7 +678,7 @@
 }
 
 .message .avatar {
-  margin: 1.475em auto 0;
+  margin: auto auto 0;
 }
 
 .message span {
@@ -700,7 +701,6 @@
   display: inline-block;
   color: #DEEBE2;
   padding-bottom: .3em;
-  margin-top: 1em;
 }
 
 .message .date {
@@ -728,5 +728,9 @@
 
 .message:last-child {
   scroll-snap-align: end;
+}
+
+.primary {
+  margin-top: 1em;
 }
 /*# sourceMappingURL=style.css.map */
