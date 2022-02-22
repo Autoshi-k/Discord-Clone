@@ -51,10 +51,20 @@ export function Chat() {
   
   const determinateType = (message, index) => {
     // check who is the sender to determinate msg type (primary or secondary)
-    if (index) {
-      const prevMessage = roomContent.messages[index - 1];
-      return message.userId === prevMessage.userId ? 'secondary' : 'primary';
-    } else return 'primary'
+    if (!index) return 'primary';
+    const prevMessage = roomContent.messages[index - 1];
+    if (message.userId !== prevMessage.userId) return 'primary';
+    const prevDate = new Date(prevMessage.created);
+    const nowDate = new Date(message.created);
+    if (nowDate.getDay() !== prevDate.getDay()) return 'primary';
+    if (nowDate.getHours() !== prevDate.getHours()) {
+      return 'primary';
+    } else if (nowDate.getMinutes() - prevDate.getMinutes() >= 5) {
+      return 'primary';
+    }
+    return 'secondary';
+    // } else return 'primary'
+
   }
   
   const createMessage = (message, index) => {
