@@ -1,5 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Roboto:wght@400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Mukta:wght@300&&family=Noto+Sans:wght@400;700&display=swap");
+h1 {
+  color: #FFFFFF;
+  font-family: "Luckiest Guy", cursive;
+  font-size: 1.6rem !important;
+  line-height: 1.2em !important;
+}
+
+.bold-title {
+  text-transform: uppercase;
+  font-size: .9em;
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: #8E9297;
+  text-align: left;
+  margin-bottom: .5rem;
+  cursor: default;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .primary-button {
   border-radius: .2em;
   background-color: #5865F2;
@@ -732,5 +756,208 @@
 
 .primary {
   margin-top: 1em;
+}
+
+.list-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: .6em .5em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  border-radius: .4rem;
+  cursor: pointer;
+  color: #D1DDDE;
+  font-size: 1rem;
+  margin-bottom: .2rem;
+}
+
+.list-item .title {
+  font-size: 1.5em;
+  padding-left: .5em;
+  font-weight: 400;
+}
+
+.list-item:hover {
+  background-color: #34373c;
+  font-weight: 700;
+}
+
+.list-item.active {
+  background-color: #40444b;
+  font-weight: 700;
+}
+
+.thin {
+  padding: .5em .5em;
+}
+
+.list-title {
+  padding-left: .5rem;
+}
+
+.list-title:hover {
+  color: white;
+}
+
+.list-title.thick {
+  font-weight: 700;
+}
+
+.list-title.thick:hover {
+  color: #8E9297;
+}
+
+.settings {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.settings .container-left, .settings .container-right {
+  padding-top: 5rem;
+}
+
+.settings .container-left {
+  width: 35%;
+  background-color: #2F3136;
+  position: relative;
+}
+
+.settings .container-left .container-list {
+  position: absolute;
+  width: 190px;
+  right: 1rem;
+}
+
+.settings .container-right {
+  width: 65%;
+  background-color: #36393F;
+  padding-left: 3rem;
+}
+
+.user-profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.user-profile .user-profile-edit {
+  width: 340px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-right: 1rem;
+}
+
+.user-profile .user-profile-edit section {
+  padding: 2rem 0;
+}
+
+.user-profile .user-profile-edit section:first-of-type {
+  padding-top: 0;
+}
+
+.user-profile .user-profile-edit .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: .2rem;
+}
+
+.user-profile .user-profile-edit .buttons .primary-button {
+  font-weight: 400;
+  letter-spacing: normal;
+  cursor: pointer;
+}
+
+.user-profile .user-profile-edit .buttons .off-button {
+  color: #FFFFFF;
+  font-weight: 400;
+  cursor: pointer;
+  padding: .5em 1.5em;
+}
+
+.user-profile .user-profile-edit .buttons .off-button:hover {
+  text-decoration: underline;
+}
+
+.user-profile .submit-warning {
+  position: absolute;
+  height: 3.5rem;
+  width: 740px;
+  background-color: #222527;
+  border-radius: .5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  bottom: 2rem;
+  color: #FFFFFF;
+  padding: 1rem;
+  text-transform: capitalize;
+}
+
+.profile {
+  width: 300px;
+  background-color: #18191C;
+  border-radius: .6rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile .banner {
+  width: 100%;
+  height: 5rem;
+}
+
+.profile .container-avatar {
+  height: 5rem;
+  width: 5rem;
+  position: absolute;
+  top: 2.5rem;
+  left: 1rem;
+  background-color: #18191C;
+  border-radius: 5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile .conatiner-profile {
+  padding: 1rem;
+  margin-top: 2.5rem;
+  text-align: left;
+  color: #8E9297;
+}
+
+.profile h1 {
+  text-align: left;
+}
+
+.profile span {
+  color: #8E9297;
+  font-size: .8em;
 }
 /*# sourceMappingURL=style.css.map */

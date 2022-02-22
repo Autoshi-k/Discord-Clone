@@ -1,4 +1,4 @@
-import backgroundImage from '../assets/background.png';
+import backgroundImage from '../../assets/background.png';
 import './login.css';
 
 const PageForms = ({children}) => {

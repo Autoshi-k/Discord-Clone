@@ -34,6 +34,30 @@ $sidebar-text-icons: #8E9297;
 // fonts
 $headline-font: 'Luckiest Guy', cursive;
 
+h1 {
+  color: #FFFFFF;
+  font-family: $headline-font;
+  font-size: 1.6rem !important;
+  line-height: 1.2em !important;
+}
+
+.bold-title {
+  text-transform: uppercase;
+  font-size: .9em;
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: $sidebar-text-icons;
+  text-align: left;
+  margin-bottom: .5rem;
+  cursor: default;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .primary-button {
   border-radius: .2em;
   background-color: #5865F2;
@@ -71,3 +95,6 @@ $headline-font: 'Luckiest Guy', cursive;
 @import './pages/Friends/PendingItemList/FriendItemList.scss';
 @import './components/Chat/Chat.scss';
 @import './components/MessageContainer/MessageContainer.scss';
+@import './styles/listItem';
+@import './Styles/settings';
+@import './styles/profile';

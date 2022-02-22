@@ -8,8 +8,9 @@ import { Routes, Route } from "react-router-dom";
 // Pages
 import Home from './pages/Home/Home';
 import Dashboard from './pages/Dashboard/Dashboard';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Login from './pages/Login/Login';
+import Signup from './pages/Login/Signup';
+import Settings from './pages/Settings/Settings';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/channels" element={<Dashboard />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
   );

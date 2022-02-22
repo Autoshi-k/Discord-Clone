@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from 'react-router-dom';
-import { friendsFetch } from "../features/friends";
-import { pendingFetch } from "../features/pending";
-import { fetchOldRooms, fetchRooms } from "../features/rooms";
-import { login } from '../features/user';
+import { friendsFetch } from "../../features/friends";
+import { pendingFetch } from "../../features/pending";
+import { fetchOldRooms, fetchRooms } from "../../features/rooms";
+import { login } from '../../features/user';
 
 // import './login.css';
 import PageForms from "./PageForms";
