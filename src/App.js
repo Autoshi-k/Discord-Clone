@@ -12,6 +12,9 @@ import Login from './pages/Login/Login';
 import Signup from './pages/Login/Signup';
 import Settings from './pages/Settings/Settings';
 
+// TESTINMG
+import {Testing} from './Testing';
+
 function App() {
   return (
       <div className="app">
@@ -21,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path='/testing' element={<Testing />} />
         </Routes>
       </div>
   );
