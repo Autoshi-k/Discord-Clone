@@ -9,30 +9,22 @@ import Section from "../../../Utilities/Section";
 const UserProfile = () => {
 
   const form = useRef(null);
-  const [file, setFile] = useState(null);
+  const [avatar, setAvatar] = useState(null);
 
-  const [displayColorPick, setDisplayColorPick] = useState(false);  
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    await fetch('/api/user/update', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      encoding: 'binary',
-      body: file
-    })
-  }
+  const [displayColorPick, setDisplayColorPick] = useState(false);
+  const [color, setColor] = useState('#7FE3B0');
+
+  const fileSelected = (e) => setAvatar(e.target.files[0]);
 
   return (
     <div className='user-profile'>
-      <form ref={form} onSubmit={(e) => submitHandler(e)} className='user-profile-edit'>
+      <div className='user-profile-edit'>
         <Section title='avatar'>
           <div className='buttons'>
             <label className='primary-button' htmlFor='newAvatar'>
               change avatar
               <input name='newAvatar' id='newAvatar' type='file' accept="image/png, image/jpeg" hidden 
-               onChange={(e) => setFile(e.target.files[0])}
+               onChange={fileSelected}
               />
             </label>
             <div className='off-button'>remove avatar</div>
@@ -46,7 +38,7 @@ const UserProfile = () => {
               <div className='color-title'>default</div>
             </div>
             <div className='container-color'>
-            <div className='color' onClick={ () => setDisplayColorPick(!displayColorPick) } style={{ backgroundColor:'#D1EB82' }} ></div>
+            <div className='color' onClick={ () => setDisplayColorPick(!displayColorPick) } style={{ backgroundColor: color }} ></div>
             { displayColorPick ? 
             <div className='popover'>
               <div className='cover' onClick={ () => setDisplayColorPick(false) }/>
@@ -63,18 +55,11 @@ const UserProfile = () => {
           <div className='description'>You can use markdowns and link if you'd like.</div>
           <textarea />
         </Section>
-        <input name='help' type='text' />
-        <div className='submit-warning'>
-          careful - you have unsaved changes
-          <div className='buttons'>
-            <div className='off-button'>reset</div>
-            <input type='submit' className='primary-button green' value='save changes' />
-          </div>
-        </div>
-      </form>
+      </div>
+      <Submit avatar={avatar} />
       <div className='preview'>
-        <div className='bold-title'>preview</div>
-        <Profile />
+        <div className='bold-title' >preview</div>
+        <Profile color={color}/>
       </div>
     </div>
   )

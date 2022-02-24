@@ -9,6 +9,7 @@
 
   .container-left {
     width: 35%;
+    // background-color: $sidebar;
     background-color: $sidebar;
     position: relative;
 
@@ -19,7 +20,7 @@
     }
   }
   .container-right {
-    width: 65%;
+    flex: 1;
     background-color: $primary-color;
     padding-left: 3rem;
   }
@@ -50,6 +51,7 @@
       display: flex;
       align-items: center;
       gap: .2rem;
+      width: 100%;
       .primary-button {
         font-weight: 400;
         letter-spacing: normal;
@@ -100,6 +102,12 @@
     }
   }
 
+  .buttons {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    justify-content: space-between;
+  }
 
   .submit-warning {
     position: absolute;
@@ -132,5 +140,12 @@
     .off-button {
       font-weight: 700;
     }
+  }
+}
+
+@media (min-width: $breakpoint-tablet) {
+  .container-left {
+    width: 20%;
+    background-color: #2D7D46;
   }
 }

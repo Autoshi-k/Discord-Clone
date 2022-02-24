@@ -837,7 +837,9 @@ ul {
 }
 
 .settings .container-right {
-  width: 65%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   background-color: #36393F;
   padding-left: 3rem;
 }
@@ -878,6 +880,7 @@ ul {
       -ms-flex-align: center;
           align-items: center;
   gap: .2rem;
+  width: 100%;
 }
 
 .user-profile .user-profile-edit .buttons .primary-button {
@@ -942,6 +945,19 @@ ul {
   background-color: #303339;
 }
 
+.user-profile .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 200px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .user-profile .submit-warning {
   position: absolute;
   height: 3.8rem;
@@ -984,6 +1000,13 @@ ul {
 
 .user-profile .submit-warning .off-button {
   font-weight: 700;
+}
+
+@media (min-width: 1200px) {
+  .container-left {
+    width: 20%;
+    background-color: #2D7D46;
+  }
 }
 
 .profile {
@@ -1043,7 +1066,7 @@ ul {
 }
 
 .popover {
-  position: relative;
+  position: absolute;
   z-index: 2;
   top: -2.5rem;
   left: 15rem;

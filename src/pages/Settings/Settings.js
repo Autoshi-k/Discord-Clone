@@ -30,14 +30,14 @@ const Settings = () => {
     })
   }, []);
 
-  const list = ['my account', 'user profile'];
+  const list = ['my-account', 'user-profile'];
   return (
     <div className='settings'>
       <div className='container-left'>
         <div className='container-list'>
           <div className='list-title bold-title thick'>user settings</div>
           <ul>
-            { list.map((item, index) => <ThinListItem key={index} title={item} />) }
+            { list.map((item, index) => <ThinListItem key={index} title={item} room='settings' subRoom={item} />) }
           </ul>
         </div>
       </div>

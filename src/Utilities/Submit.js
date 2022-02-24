@@ -1,29 +1,25 @@
-import { Children } from "react";
+const Submit = ({ name, avatar, email, password }) => {
 
-const Submit = (promps) => {
-
-  
-  const submitHandler = (e) => {
+  const sumbitHandler = (e) => {
     e.preventDefault();
-    console.log(JSON.stringify(promps));
-    console.log(promps);
-    fetch('/api/user/update', {
-      method: 'PUT',
-      headers: {
-        "content-type": "multipart/form-data",
-        "Authorization": localStorage.getItem("auth-token"),
-      },
-      body: promps
+    const formData = new FormData();
+    formData.append('image', avatar);
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('password', password);  
+    fetch('/api/user/test', {
+      method: 'POST',
+      body: formData
     })
   }
 
   return (
     <div className='submit-warning'>
       careful - you have unsaved changes
-      <div onSubmit={(e) => submitHandler(e)} class='buttons'>
+      <form onSubmit={sumbitHandler} class='buttons'>
         <div className='off-button'>reset</div>
         <input type='submit' className='primary-button green' value='save changes' />
-     </div>
+     </form>
     </div>
   )
 }
