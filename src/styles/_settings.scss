@@ -38,6 +38,8 @@
 
     section {
       padding: 2rem 0;
+      color: $chat-text-icons;
+      text-align: left;
     }
 
     section:first-of-type {
@@ -65,20 +67,70 @@
         text-decoration: underline;
       }
     }
+    .section-color {
+      display: flex;
+      .container-color {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-right: 1rem;
+        .color {
+          width: 5rem;
+          height: 3rem;
+          border-radius: .4rem;
+        }
+        .color-title {
+          font-size: .8rem;
+          text-transform: capitalize;
+          margin-top: .4em;
+        }
+      }
+    }
+    // //////////////////////////////////////////////////////
+    .description {
+      padding-bottom: 1rem;
+      color: #ABAFB2;
+    }
+    textarea {
+      width: 100%;
+      height: 10rem;
+      border-radius: .3rem;
+      border: 1px solid $secondry-color;
+      background-color: #303339;
+    }
   }
 
 
   .submit-warning {
     position: absolute;
-    height: 3.5rem;
-    width: 740px;
+    height: 3.8rem;
+    max-width: 740px;
+    width: 60%;
     background-color: #222527;
     border-radius: .5rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     bottom: 2rem;
     color: #FFFFFF;
     padding: 1rem;
     text-transform: capitalize;
+
+    .primary-button.green {
+      background-color: $green;
+      font-weight: 700;
+      @keyframes hoverButtons {
+        from {background-color: $green;}
+        to {background-color: #2D7D46;}
+      }
+    }
+
+    .primary-button.green:hover {
+      background-color: #2D7D46;
+    }
+
+    .off-button {
+      font-weight: 700;
+    }
   }
 }

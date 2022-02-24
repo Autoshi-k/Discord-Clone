@@ -1,0 +1,22 @@
+.color-picker {
+  background-color: $primary-color;
+  width: 200px;
+  border: 1px solid $secondry-color;
+  border-radius: .1rem;
+  padding: .5rem;
+}
+
+.popover {
+  position: relative;
+  z-index: 2;
+  top: -2.5rem;
+  left: 15rem;
+}
+
+.cover {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
