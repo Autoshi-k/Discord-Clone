@@ -16,7 +16,7 @@ const ThinListItem = ({ title, icon, room, subRoom }) => {
         :
         null
       }
-      <div className="user-name">{title}</div>
+      <div className="user-name">{title.split('-').join(' ')}</div>
     </li>
   )
 }
