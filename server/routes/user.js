@@ -1,6 +1,16 @@
 import express, { request } from 'express';
 import { auth as verify } from '../utilities/tokenVerify.js';
 import db from '../connection.js';
+import { uploadAvatar } from '../utilities/s3.js';
+import multer from 'multer';
+import path from 'path';
+import uniqid from 'uniqid';
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, '../temp'),
+  filename: (req, file, cb) => cb(null, uniqid() + path.extname(file.originalname))
+})
+const upload = multer({ storage });
 
 export const router = express.Router();
 
@@ -58,4 +68,36 @@ router.get('/', verify, async (req, res) => {
     rooms: roomsRow
   });
   // needs to get all friends, chats and pending 
+})
+
+router.put('/update', async (req, res) => {
+  console.log('req', req.body);
+  await uploadAvatar(req.body);
+})
+
+router.post('/test', upload.single('image'), async (req, res) => {
+  const getUser = `SELECT name, avatar, email, password FROM users WHERE id = 1 LIMIT 1`;
+  const [userRow] = await db.query(getUser);
+  const user = userRow[0];
+  const body = req.body;
+
+  const newAvatar = req.file ? await uploadAvatar(req.file) : undefined;
+
+  const params = {
+    name: body.name ? body.name : user.name,
+    avatar: newAvatar ? newAvatar.Location : user.avatar,
+    email: body.email ? body.email : user.email,
+    password: body.password ? body.password : user.password,
+  }
+  const updateUser = 
+  `UPDATE users SET 
+    name = '${params.name}',
+    avatar = '${params.avatar}',
+    email = '${params.email}',
+    password = '${params.name}'
+    WHERE id = 1
+    `
+  const test = await db.query(updateUser);
+  console.log(test);
+  res.send({ok: 'ok'});
 })

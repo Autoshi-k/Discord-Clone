@@ -1,7 +1,8 @@
 import express from 'express';
-
-
 import dotenv from 'dotenv';
+import formData from 'express-form-data';
+
+// import multer from 'multer';
 
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -21,6 +22,7 @@ dotenv.config();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(formData.union());
 
 app.get('/delfriends', async (req, res) => {
   await db.query('DELETE FROM messages');
