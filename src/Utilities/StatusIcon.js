@@ -30,7 +30,7 @@ const StatusIcon = ({badge, currentStatus, image, alt}) => {
         <Avatar sx={{ height: 32, width: 32 }} src={image} alt={ alt } />
       </Badge>
       :
-      <Avatar sx={{ height: 10, width: 10 }} src={ mapStatus[currentStatus] } alt={ alt } height='10'/>
+      <Avatar sx={{ height: 10, width: 10 }} src={ mapStatus[currentStatus] } alt={ alt } height='20'/>
     }
       
     </>

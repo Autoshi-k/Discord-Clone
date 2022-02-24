@@ -23,7 +23,7 @@ const SidebarUserInfo = () => {
             badge={true}
             currentStatus={user.statusId}
             alt={user.name}
-            image={user.image}
+            image={user.avatar}
           />
         </div>
         <div className='user-information'>
