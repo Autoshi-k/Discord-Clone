@@ -32,6 +32,7 @@ ul {
   color: white;
   letter-spacing: .08em;
   text-transform: capitalize;
+  min-width: 7rem;
 }
 
 @-webkit-keyframes hoverButtons {
@@ -62,6 +63,13 @@ ul {
   -webkit-animation-duration: 0.5s;
           animation-duration: 0.5s;
   background-color: #4752C4;
+}
+
+.off-button {
+  color: #FFFFFF;
+  font-weight: 400;
+  cursor: pointer;
+  padding: .5em 1.5em;
 }
 
 .action-button {
@@ -1211,5 +1219,117 @@ section:first-of-type {
   right: 0px;
   bottom: 0px;
   left: 0px;
+}
+
+.cover-background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  opacity: .9;
+}
+
+.modal form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: #36393F;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-width: 90%;
+  width: 35rem;
+  border-radius: .4rem;
+  padding: 1rem;
+  padding-top: 2rem;
+}
+
+.modal form h2 {
+  color: white;
+  margin: 0;
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
+.modal form h3 {
+  margin: .7em;
+  color: #D1DDDE;
+  font-size: 1.15rem;
+}
+
+.modal form label {
+  text-align: left;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: #D1DDDE;
+  font-family: 'Mukta', sans-serif;
+  padding: .5em 0;
+}
+
+.modal form input {
+  height: 3em;
+  border-radius: .2em;
+  background-color: #303339;
+  border: 1px solid #222428;
+  margin-bottom: .5em;
+}
+
+.modal form input:-webkit-autofill,
+.modal form input:-webkit-autofill:hover,
+.modal form input:-webkit-autofill:focus,
+.modal form input:-webkit-autofill:active {
+  background-color: #303339 !important;
+  border: 1px solid #222428 !important;
+  color: #f30909 !important;
+}
+
+.modal form .submit {
+  background-color: #5865F2;
+  border: none;
+  color: white;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: capitalize;
+  margin-top: 1em;
+}
+
+@keyframes hoverButtons {
+  from {
+    background-color: #5865F2;
+  }
+  to {
+    background-color: #4752C4;
+  }
+}
+
+.modal form .submit:hover {
+  -webkit-animation-name: hoverButtons;
+          animation-name: hoverButtons;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  background-color: #4752C4;
+}
+
+.modal .buttons {
+  background-color: #222428;
+  position: absolute;
+  left: 0;
+  bottom: -4.6rem;
+  height: 5rem;
+  width: 100%;
+  border-radius: 0 0 .4rem .4rem;
+  padding: 1rem;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,98 @@
+// ////////////// MODAL ////////////// //
+.cover-background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top:0;
+  left: 0;
+  background-color: #000000;
+  opacity: .9;
+}
+.modal {
+  form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #36393F; // primary color
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+    width: 35rem;
+    border-radius: .4rem;
+    padding: 1rem;
+    padding-top: 2rem;
+  
+    h2 {
+      color: white;
+      margin: 0;
+      font-size: 2rem;
+      text-transform: capitalize;
+    }
+  
+    h3 {
+      margin: .7em;
+      color: #D1DDDE; // $text 
+      font-size: 1.15rem;
+    }
+  
+    label {
+      text-align: left;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #D1DDDE; // $text 
+      font-family: 'Mukta', sans-serif;
+      padding: .5em 0;
+    }
+    input {
+      height: 3em;
+      border-radius: .2em;
+      background-color: #303339;
+      border: 1px solid #222428;
+      margin-bottom: .5em;
+    }
+  
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active {
+      background-color: #303339 !important;
+      border: 1px solid #222428 !important;
+      color: #f30909 !important;
+  
+    }
+  
+    .submit {
+      background-color: #5865F2;
+      border: none;
+      color: white;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: capitalize;
+      margin-top: 1em;
+      @keyframes hoverButtons {
+        from {background-color: #5865F2;}
+        to {background-color: #4752C4;}
+      }
+    }
+  
+    .submit:hover {
+      animation-name: hoverButtons;
+      animation-duration: 0.5s;
+      background-color: #4752C4;
+    }
+  }
+
+  .buttons {
+    background-color: #222428;
+    position: absolute;
+    left: 0;
+    bottom: -4.6rem;
+    height: 5rem;
+    width: 100%;
+    border-radius: 0 0 .4rem .4rem;   
+    padding: 1rem;
+    justify-content: flex-end;
+  }
+}

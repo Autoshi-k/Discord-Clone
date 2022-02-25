@@ -68,6 +68,7 @@ ul {
   color: white;
   letter-spacing: .08em;
   text-transform: capitalize;
+  min-width: 7rem;
   @keyframes hoverButtons {
     from {background-color: #5865F2;}
     to {background-color: #4752C4;}
@@ -82,6 +83,13 @@ ul {
   animation-name: hoverButtons;
   animation-duration: 0.5s;
   background-color: #4752C4;
+}
+
+.off-button {
+  color: #FFFFFF;
+  font-weight: 400;
+  cursor: pointer;
+  padding: .5em 1.5em;
 }
 
 .action-button {
@@ -121,3 +129,4 @@ ul {
 @import './Styles/settings';
 @import './styles/profile';
 @import './styles/utilities/colorPicker';
+@import './styles/utilities/utilities';

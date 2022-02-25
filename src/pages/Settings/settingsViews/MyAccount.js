@@ -1,12 +1,16 @@
 import { Avatar, Divider } from "@mui/material";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import Profile from "../../../components/Profile";
-import ActionButton from "../../../Utilities/ActionButton";
+import ModalUpdate from "../../../Utilities/Modal";
 import Section from "../../../Utilities/Section";
 
 const MyAccount = () => {
   const user = useSelector(state => state.user.value);
   const color = '#C3406B';
+
+  const [modalState, setModalState] = useState(true);
+  console.log(modalState);
+
   return (
     <div className='my-account'>
       <Section>
@@ -26,7 +30,7 @@ const MyAccount = () => {
                   <div className='bold-title'>username</div>
                   <div className='user-information'>{user.name}<span>#{user.tag}</span></div>
                 </div>
-                <div className='change-button'>edit</div>
+                <div className='change-button' onClick={() => setModalState(true)}>edit</div>
               </div>
               <div className='row'>
                 <div className='column'>
@@ -59,6 +63,24 @@ const MyAccount = () => {
           <div className='off-button red'>delete account</div>
         </div>
       </Section>
+      { modalState &&
+        <ModalUpdate 
+          modal={{ modalState, setModalState }}
+          title='change your username'
+          subTitle='enter a new username and your existing password'
+          inputs={[{
+            name: 'username',
+            type: 'text',
+            label: true,
+            placeholder: ''
+          }, {
+            name: 'current password',
+            type: 'password',
+            label: true,
+            placeholder: ''
+          }]}
+        />
+      }
     </div>
   )
 }

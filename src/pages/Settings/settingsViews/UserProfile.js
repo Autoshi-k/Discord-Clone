@@ -1,4 +1,4 @@
-import { Divider } from "@mui/material";
+import { Divider, Modal } from "@mui/material";
 import Profile from "../../../components/Profile";
 import { CustomPicker, ChromePicker } from 'react-color';
 import { useRef, useState } from "react";
@@ -14,7 +14,7 @@ const UserProfile = () => {
 
   const [displayColorPick, setDisplayColorPick] = useState(false);
   const [color, setColor] = useState('#7FE3B0');
-
+  
   const fileSelected = (e) => setAvatar(e.target.files[0]);
 
   return (
