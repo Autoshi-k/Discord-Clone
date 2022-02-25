@@ -23,7 +23,7 @@ function App() {
           <Route path="/channels" element={<Dashboard />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path='/settings' element={<Settings />} />
           <Route path='/testing' element={<Testing />} />
         </Routes>
       </div>

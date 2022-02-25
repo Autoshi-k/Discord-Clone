@@ -3,6 +3,9 @@ import { useContext } from 'react';
 import { SocketContext } from '../../context/socket';
 import { updateUserStatus } from '../../features/user';
 import StatusIcon from '../../Utilities/StatusIcon';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { changeLocation } from '../../features/location';
+import { Link } from 'react-router-dom';
 
 const SidebarUserInfo = () => {
   const dispatch = useDispatch();
@@ -30,6 +33,9 @@ const SidebarUserInfo = () => {
           <div className='display-name'>{ user.name }</div>
           <div className='mini-sub'>#{ user.tag }</div>
         </div>
+        <Link to='/settings'>
+          <SettingsIcon />
+        </Link>
       </>
     </div>
     )

@@ -14,6 +14,10 @@ const Settings = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(changeLocation({ lobby: null, room: 'settings', subRoom: 'my-account' }))
+  }, [])
+
+  useEffect(() => {
     fetch('/api/user', {
       method: 'GET',
       headers: {
@@ -43,8 +47,11 @@ const Settings = () => {
         </div>
       </div>
       <div className='container-right'>
-        {/* <UserProfile /> */}
-        <MyAccount />
+        { location.subRoom === list[0] ? 
+          <MyAccount />
+          : <UserProfile />
+        }
+        
       </div>
     </div>
   )
