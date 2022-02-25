@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeLocation } from "../../features/location";
 import { login } from "../../features/user";
 import ThinListItem from "../../Utilities/ThinListItem";
+import MyAccount from "./settingsViews/MyAccount";
 import UserProfile from "./settingsViews/UserProfile";
 
 
@@ -42,7 +43,8 @@ const Settings = () => {
         </div>
       </div>
       <div className='container-right'>
-        <UserProfile />
+        {/* <UserProfile /> */}
+        <MyAccount />
       </div>
     </div>
   )

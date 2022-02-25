@@ -15,7 +15,6 @@ const Profile = ({ color }) => {
         <div className='bold-title'>about me</div>
         <div>some hard coded text here!</div>
       </div>
-      {/* <div className='primary-button'>edit user profile</div> */}
     </div>
   )
 }

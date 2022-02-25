@@ -862,16 +862,6 @@ ul {
   margin-right: 1rem;
 }
 
-.user-profile .user-profile-edit section {
-  padding: 2rem 0;
-  color: #B9BBBE;
-  text-align: left;
-}
-
-.user-profile .user-profile-edit section:first-of-type {
-  padding-top: 0;
-}
-
 .user-profile .user-profile-edit .buttons {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1000,6 +990,145 @@ ul {
 
 .user-profile .submit-warning .off-button {
   font-weight: 700;
+}
+
+.my-account {
+  width: 640px;
+}
+
+.my-account .profile.demi-profile {
+  width: 100%;
+}
+
+.my-account .profile.demi-profile .banner {
+  height: 8rem;
+}
+
+.my-account .profile.demi-profile .container-profile-details {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 3rem;
+}
+
+.my-account .profile.demi-profile .container-profile-details .container-avatar {
+  position: relative;
+  height: 8rem;
+  width: 8rem;
+  top: 0;
+}
+
+.my-account .profile.demi-profile .container-profile-details h1 {
+  position: relative;
+  left: 2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.my-account .profile.demi-profile .container-profile-details .primary-button {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 11em;
+}
+
+.my-account .profile.demi-profile .conatiner-profile {
+  margin-top: 2.5rem;
+}
+
+.my-account .profile.demi-profile .edit-in-profile {
+  width: 100%;
+  background-color: #2F3136;
+  padding: 1rem;
+  border-radius: .4rem;
+}
+
+.my-account .profile.demi-profile .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 4rem;
+}
+
+.my-account .profile.demi-profile .row .change-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #4F545C;
+  height: 2.5rem;
+  color: white;
+  font-weight: 500;
+  text-transform: capitalize;
+  padding: 0 1.3em;
+  border-radius: .2rem;
+}
+
+.my-account .profile.demi-profile .row .user-information {
+  color: #D1DDDE;
+  margin-top: -.5em;
+}
+
+.my-account h2 {
+  color: white;
+  margin: 0 0 1rem;
+}
+
+.my-account .primary-button {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.my-account .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.my-account .buttons .primary-button.red {
+  background-color: #ed4245;
+}
+
+.my-account .buttons .off-button.red {
+  border: 1px solid #ed4245;
+  border-radius: .4rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: .5em 1em;
+  color: #ed4245;
+}
+
+section {
+  padding: 2rem 0;
+  color: #B9BBBE;
+  text-align: left;
+}
+
+section:first-of-type {
+  padding-top: 0;
 }
 
 @media (min-width: 1200px) {

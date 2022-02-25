@@ -84,10 +84,10 @@ router.post('/test', upload.single('image'), async (req, res) => {
   const newAvatar = req.file ? await uploadAvatar(req.file) : undefined;
 
   const params = {
-    name: body.name ? body.name : user.name,
-    avatar: newAvatar ? newAvatar.Location : user.avatar,
-    email: body.email ? body.email : user.email,
-    password: body.password ? body.password : user.password,
+    name: body.name === undefined ? user.name : body.name,
+    avatar: newAvatar === undefined ? user.avatar : newAvatar.Location,
+    email: body.email === undefined ? user.email: body.email ,
+    password: body.password === undefined ? user.password : body.password,
   }
   const updateUser = 
   `UPDATE users SET 

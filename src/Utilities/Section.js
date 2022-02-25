@@ -1,4 +1,4 @@
-const Section = ({ title, children }) => {
+const Section = ({ children, title }) => {
   return (
     <section>
       <div className='bold-title'>{title}</div>
