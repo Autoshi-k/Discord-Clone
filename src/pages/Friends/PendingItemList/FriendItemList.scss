@@ -29,25 +29,6 @@
     justify-content: space-between;
     align-items: center;
     width: 6.8em;
-    div {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 3em;
-      width: 3em;
-      background-color: $sidebar;
-      border-radius: 2em;
-      color: $text;
-    }
-    div:hover {
-      color: white;
-    }
-    div.positive:hover {
-      color: $green;
-    }
-    div.negative:hover {
-      color: $red;
-    }
   }
 }
 

@@ -1,6 +1,7 @@
 import { Avatar, Divider } from "@mui/material";
 import { useSelector } from "react-redux";
 import Profile from "../../../components/Profile";
+import ActionButton from "../../../Utilities/ActionButton";
 import Section from "../../../Utilities/Section";
 
 const MyAccount = () => {
@@ -58,8 +59,6 @@ const MyAccount = () => {
           <div className='off-button red'>delete account</div>
         </div>
       </Section>
-
-      
     </div>
   )
 }

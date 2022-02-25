@@ -64,6 +64,35 @@ ul {
   background-color: #4752C4;
 }
 
+.action-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 3em;
+  width: 3em;
+  background-color: #2F3136;
+  border-radius: 2em;
+  color: #D1DDDE;
+}
+
+.action-button:hover {
+  color: white;
+}
+
+.action-button.positive:hover {
+  color: #3ba55d;
+}
+
+.action-button.negative:hover {
+  color: #ed4245;
+}
+
 .direct-messages-window {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -569,35 +598,6 @@ ul {
   width: 6.8em;
 }
 
-.friend-item-list .actions div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 3em;
-  width: 3em;
-  background-color: #2F3136;
-  border-radius: 2em;
-  color: #D1DDDE;
-}
-
-.friend-item-list .actions div:hover {
-  color: white;
-}
-
-.friend-item-list .actions div.positive:hover {
-  color: #3ba55d;
-}
-
-.friend-item-list .actions div.negative:hover {
-  color: #ed4245;
-}
-
 .friend-item-list:hover {
   background-color: #40444b;
 }
@@ -842,6 +842,10 @@ ul {
           flex: 1;
   background-color: #36393F;
   padding-left: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1rem;
 }
 
 .user-profile {

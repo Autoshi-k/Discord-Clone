@@ -84,6 +84,26 @@ ul {
   background-color: #4752C4;
 }
 
+.action-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+  width: 3em;
+  background-color: $sidebar;
+  border-radius: 2em;
+  color: $text;
+}
+.action-button:hover {
+  color: white;
+}
+.action-button.positive:hover {
+  color: $green;
+}
+.action-button.negative:hover {
+  color: $red;
+}
+
 // @import './pages/Home/Home.scss';
 // @import './pages/login.scss';
 @import './components/DirectMessages/DirectMessages.scss';

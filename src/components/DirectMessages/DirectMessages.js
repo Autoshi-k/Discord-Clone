@@ -7,13 +7,17 @@ import { ListItemUser } from "../ListItemUser/ListItemUser";
 import Friends from "../../pages/Friends/Friends";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { changeLocation } from "../../features/location";
 
 function DirectMessages() {
   const user = useSelector(state => state.user.value);
   const rooms = useSelector(state => state.rooms.value);
   const location = useSelector(state => state.location.value);
   
+  const dispatch = useDispatch();
+
   const handleNoChat = () => {
     return [1,2,3,4,5,6,7,8,9,10,11,12].map(box => {
       return (
@@ -24,6 +28,10 @@ function DirectMessages() {
       )
     })
   }
+
+  useEffect(() => {
+    dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'all' }));
+  }, [])
  
   return (
   <div className="direct-messages-window">
