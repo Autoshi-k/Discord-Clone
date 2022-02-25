@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { changeLocation } from "../../features/location";
 import { login } from "../../features/user";
+import ActionButton from "../../Utilities/ActionButton";
 import ThinListItem from "../../Utilities/ThinListItem";
 import MyAccount from "./settingsViews/MyAccount";
 import UserProfile from "./settingsViews/UserProfile";
@@ -52,7 +54,11 @@ const Settings = () => {
           : <UserProfile />
         }
         
+        <Link to='/channels' >
+          <ActionButton linkButton={true} />
+        </Link>
       </div>
+      
     </div>
   )
 }
