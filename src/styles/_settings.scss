@@ -8,8 +8,8 @@
   }
 
   .container-left {
-    width: 35%;
-    // background-color: $sidebar;
+    flex: 1;
+    min-width: 220px;
     background-color: $sidebar;
     position: relative;
 
@@ -20,7 +20,8 @@
     }
   }
   .container-right {
-    flex: 1;
+    max-width: 1200px;
+    width: 80%;
     background-color: $primary-color;
     padding-left: 3rem;
     display: flex;
