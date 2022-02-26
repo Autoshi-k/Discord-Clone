@@ -15,7 +15,7 @@ const Friends = () => {
   useEffect(() => {
     if (friends.length) return;
     dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }));
-  }, [friends])
+  }, [friends, dispatch])
 
   return (
     <div className="friends-page">

@@ -11,13 +11,12 @@ import UserProfile from "./settingsViews/UserProfile";
 
 const Settings = () => {
   const location = useSelector(state => state.location.value);
-  const user = useSelector(state => state.user.value);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(changeLocation({ lobby: null, room: 'settings', subRoom: 'my-account' }))
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     fetch('/api/user', {
@@ -35,7 +34,7 @@ const Settings = () => {
       };
       dispatch(login(data.user));
     })
-  }, []);
+  }, [dispatch]);
 
   const list = ['my-account', 'user-profile'];
   return (

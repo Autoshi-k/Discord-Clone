@@ -1,6 +1,7 @@
 import { Avatar, Divider } from "@mui/material";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeLocation } from "../../../features/location";
 import ModalUpdate from "../../../Utilities/Modal";
 import Section from "../../../Utilities/Section";
 
@@ -8,9 +9,14 @@ const MyAccount = () => {
   const user = useSelector(state => state.user.value);
   const color = '#C3406B';
 
-  const [modalState, setModalState] = useState(true);
-  console.log(modalState);
+  const dispatch = useDispatch();
+  const [nicknameModal, setNicknameModal] = useState(false);
+  const [emailModal, setEmailModal] = useState(false);
 
+  const handleEditProfile = () => dispatch(changeLocation({ lobby: 'direct-messages', room:'settings', subRoom:'user-profile' })) 
+  const handleNicknameEdit = () => setNicknameModal(true);
+  const handleEmailEdit = () => setEmailModal(true);
+  // const handleNicknameEdit = () => setNicknameModal(true);
   return (
     <div className='my-account'>
       <Section>
@@ -21,7 +27,7 @@ const MyAccount = () => {
               <Avatar sx={{ height: 96, width: 96 }} src={user.avatar} alt={ user.name } />
             </div>
             <h1>{user.name}<span>#{user.tag}</span></h1>
-            <div className='primary-button'>edit user profile</div>
+            <div className='primary-button' onClick={ handleEditProfile }>edit user profile</div>
           </div>
           <div className='conatiner-profile'>
             <div className='edit-in-profile'>
@@ -30,14 +36,14 @@ const MyAccount = () => {
                   <div className='bold-title'>username</div>
                   <div className='user-information'>{user.name}<span>#{user.tag}</span></div>
                 </div>
-                <div className='change-button' onClick={() => setModalState(true)}>edit</div>
+                <div className='change-button' onClick={handleNicknameEdit}>edit</div>
               </div>
               <div className='row'>
                 <div className='column'>
                   <div className='bold-title'>email</div>
                   <div className='user-information'>{user.email} shanidx97@gmail.com</div>
                 </div>
-                <div className='change-button'>edit</div>
+                <div className='change-button' onClick={handleEmailEdit}>edit</div>
               </div>
               <div className='row'>
                 <div className='column'>
@@ -63,13 +69,33 @@ const MyAccount = () => {
           <div className='off-button red'>delete account</div>
         </div>
       </Section>
-      { modalState &&
+      { nicknameModal &&
         <ModalUpdate 
-          modal={{ modalState, setModalState }}
+          modal={nicknameModal}
+          setModal={setNicknameModal}
           title='change your username'
           subTitle='enter a new username and your existing password'
           inputs={[{
             name: 'username',
+            type: 'text',
+            label: true,
+            placeholder: ''
+          }, {
+            name: 'current password',
+            type: 'password',
+            label: true,
+            placeholder: ''
+          }]}
+        />
+      }
+      { emailModal &&
+        <ModalUpdate 
+          modal={emailModal}
+          setModal={setEmailModal} 
+          title='enter an email address'
+          subTitle='enter a new email address and your existing password'
+          inputs={[{
+            name: 'email',
             type: 'text',
             label: true,
             placeholder: ''

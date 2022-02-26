@@ -1,15 +1,11 @@
-import { Divider, Modal } from "@mui/material";
+import { Divider } from "@mui/material";
 import Profile from "../../../components/Profile";
-import { CustomPicker, ChromePicker } from 'react-color';
 import { useRef, useState } from "react";
 import MyColorPicker from "../../../Utilities/MyColorPicker";
 import Submit from "../../../Utilities/Submit";
 import Section from "../../../Utilities/Section";
-import ActionButton from "../../../Utilities/ActionButton";
 
 const UserProfile = () => {
-
-  const form = useRef(null);
   const [avatar, setAvatar] = useState(null);
 
   const [displayColorPick, setDisplayColorPick] = useState(false);
@@ -34,7 +30,7 @@ const UserProfile = () => {
         <Divider sx={{ backgroundColor: '#42454A' }} />
         <Section title='profile color'>
           <div className='section-color'>
-            <div class='container-color'>
+            <div className='container-color'>
               <div className='color default-color' style={{ backgroundColor:'#DEEBE2' }}></div>
               <div className='color-title'>default</div>
             </div>

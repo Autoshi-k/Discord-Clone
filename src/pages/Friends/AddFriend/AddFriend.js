@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Divider } from "@mui/material";
 
 import WumpusNoFriends from '../../../assets/WumpusNoFriends.png';
@@ -10,9 +10,6 @@ const AddFriend = () => {
   
   const socket = useContext(SocketContext);
   // while in friends - location have subRoom (auto 'all')
-  const user = useSelector(state => state.user.value);
-  const location = useSelector(state => state.location.value);
-  
   const dispatch = useDispatch();
 
   const searchFriend = useRef(null);
@@ -21,7 +18,7 @@ const AddFriend = () => {
   useEffect(() => {
     if (true) return;
     dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }));
-  }, [])
+  }, [dispatch])
 
   const inputUserName = useRef(null);;
   //

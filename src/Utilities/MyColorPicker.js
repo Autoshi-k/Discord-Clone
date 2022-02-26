@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { CustomPicker } from 'react-color';
 import {EditableInput, Hue, Saturation } from 'react-color/lib/components/common';
 

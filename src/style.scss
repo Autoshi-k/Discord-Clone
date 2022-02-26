@@ -69,6 +69,7 @@ ul {
   letter-spacing: .08em;
   text-transform: capitalize;
   min-width: 7rem;
+  cursor: pointer;
   @keyframes hoverButtons {
     from {background-color: #5865F2;}
     to {background-color: #4752C4;}

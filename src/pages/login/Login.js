@@ -1,15 +1,14 @@
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, Navigate } from 'react-router-dom';
 import { friendsFetch } from "../../features/friends";
 import { pendingFetch } from "../../features/pending";
-import { fetchOldRooms, fetchRooms } from "../../features/rooms";
+import { fetchRooms } from "../../features/rooms";
 import { login } from '../../features/user';
 
 // import './login.css';
 import PageForms from "./PageForms";
 const Login = () => {
-  const user = useSelector(state => state.user.value);
   const dispatch = useDispatch();
 
   const loginForm = useRef(null);

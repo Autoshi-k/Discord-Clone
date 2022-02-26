@@ -3,12 +3,9 @@ import ClearIcon from '@mui/icons-material/Clear';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import { useContext } from 'react';
 import { SocketContext } from '../context/socket';
-import { useDispatch } from 'react-redux';
-import { changeLocation } from '../features/location';
 
 const ActionButton = ({ check, clear, chat, linkButton, user, req }) => {
   const socket = useContext(SocketContext);
-  const dispatch = useDispatch();
 
   const ignoreBtn = () => {
     socket.emit('remove friend request', { reqId: req.id });
@@ -22,7 +19,6 @@ const ActionButton = ({ check, clear, chat, linkButton, user, req }) => {
   const startChat = () => {
     // change location - maybe in dashbord first check if room exist
     // emit to new/exist chat
-    console.log('heelooo')
     socket.emit('add chat', { type: 1, user, friend: req });
   }
 

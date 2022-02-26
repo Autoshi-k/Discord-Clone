@@ -12,7 +12,6 @@ import { useEffect } from "react";
 import { changeLocation } from "../../features/location";
 
 function DirectMessages() {
-  const user = useSelector(state => state.user.value);
   const rooms = useSelector(state => state.rooms.value);
   const location = useSelector(state => state.location.value);
   
@@ -31,7 +30,7 @@ function DirectMessages() {
 
   useEffect(() => {
     dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'all' }));
-  }, [])
+  }, [dispatch])
  
   return (
   <div className="direct-messages-window">

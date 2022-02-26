@@ -10,7 +10,6 @@ import StatusIcon from '../../Utilities/StatusIcon';
 
 
 function PageHeader() {
-  const user = useSelector(state => state.user.value);
   const rooms = useSelector(state => state.rooms.value);
   const location = useSelector(state => state.location.value);
 

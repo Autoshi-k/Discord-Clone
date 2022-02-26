@@ -16,7 +16,7 @@ const Submit = ({ name, avatar, email, password }) => {
   return (
     <div className='submit-warning'>
       careful - you have unsaved changes
-      <form onSubmit={sumbitHandler} class='buttons'>
+      <form onSubmit={sumbitHandler} className='buttons'>
         <div className='off-button'>reset</div>
         <input type='submit' className='primary-button green' value='save changes' />
      </form>

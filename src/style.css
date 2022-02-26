@@ -33,6 +33,7 @@ ul {
   letter-spacing: .08em;
   text-transform: capitalize;
   min-width: 7rem;
+  cursor: pointer;
 }
 
 @-webkit-keyframes hoverButtons {
@@ -833,7 +834,10 @@ ul {
 }
 
 .settings .container-left {
-  width: 35%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  min-width: 220px;
   background-color: #2F3136;
   position: relative;
 }
@@ -845,9 +849,8 @@ ul {
 }
 
 .settings .container-right {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  max-width: 1200px;
+  width: 80%;
   background-color: #36393F;
   padding-left: 3rem;
   display: -webkit-box;

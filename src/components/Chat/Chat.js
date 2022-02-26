@@ -16,7 +16,6 @@ export function Chat() {
   const location = useSelector(state => state.location.value);
   const rooms = useSelector(state => state.rooms.value);
   const roomContent = useSelector(state => state.roomContent.value);
-  const [currentRoom, setCurrentRoom] = useState(null); // will change later (in case there are no chats at all - what will i show)
   
   const dispatch = useDispatch();
 
@@ -33,7 +32,7 @@ export function Chat() {
     .then(res => res.json())
     .then(data => dispatch(messagesFetch(data)))
     return () => socket.emit('update last visit', { room: location.room })
-  }, [location, rooms])
+  }, [location, rooms, dispatch, socket])
 
 
   const [message, setMessage] = useState('');
