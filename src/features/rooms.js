@@ -7,7 +7,6 @@ export const roomsSlice = createSlice({
   },
   reducers: {
     fetchRooms: (state, action) => {
-      console.log(action.payload);
       state.value = action.payload;
     }, 
     newRoom: (state, action) => {
