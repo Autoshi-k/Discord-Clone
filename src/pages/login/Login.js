@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, Navigate } from 'react-router-dom';
-import { friendsFetch } from "../../features/friends";
-import { pendingFetch } from "../../features/pending";
 import { fetchRooms } from "../../features/rooms";
 import { login } from '../../features/user';
 

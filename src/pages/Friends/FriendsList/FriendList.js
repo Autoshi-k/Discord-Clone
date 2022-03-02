@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import NotFound from "../NotFound/NotFound";
-import PendingItemList from "../PendingItemList/PendingItemList";
+import PendingItemList from '../PendingItemList/PendingItemList';
 
 const FriendList = () => {
   const location = useSelector(state => state.location.value);

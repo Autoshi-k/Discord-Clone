@@ -4,9 +4,8 @@ import { initSocket, socket } from '../../Utilities/socket';
 // Redux
 import { useDispatch } from 'react-redux';
 import { login } from '../../features/user';
-import { pendingFetch } from '../../features/pending';
 import { fetchRooms, } from '../../features/rooms';
-import { friendsFetch, initFetch } from '../../features/friends';
+import { initFetch } from '../../features/friends';
 
 
 // css

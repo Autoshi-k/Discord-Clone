@@ -12,7 +12,7 @@ const AddFriend = () => {
   const socket = useContext(SocketContext);
   // while in friends - location have subRoom (auto 'all')
   const dispatch = useDispatch();
-  const pendingError = useSelector(state => state.pendingRequests.value.errorSendingRecentRequest);
+  const pendingError = useSelector(state => state.friends.value.errorSendingRecentRequest);
   const searchFriend = useRef(null);
 
   const [modal, setModal] = useState(false);
