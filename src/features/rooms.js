@@ -3,19 +3,17 @@ import { createSlice, current } from "@reduxjs/toolkit";
 export const roomsSlice = createSlice({
   name: 'rooms',
   initialState: {
-    value: {}
+    value: []
   },
   reducers: {
     fetchRooms: (state, action) => {
       state.value = action.payload;
     }, 
     newRoom: (state, action) => {
-      let newValue = {...current(state.value)};
-      console.log(action.payload);
-      console.log(newValue);
-      newValue[action.payload.roomId] = action.payload.friend;
-      console.log(newValue);
-      state.value = newValue;
+      const { roomId, userFriend } = action.payload;
+      const roomsArray = [...current(state.value)];
+      roomsArray.push({ roomId, ...userFriend });
+      state.value = roomsArray;
     },
     deleteRoom: (state, action) => {
       

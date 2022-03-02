@@ -23,9 +23,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(formData.union());
-
+const array = [50];
 app.get('/delfriends', async (req, res) => {
-  await db.query('DELETE FROM messages');
+  await db.query('DELETE FROM rooms');
+  await db.query('DELETE FROM rooms_traffic');
+  await db.query(`DELETE FROM friends WHERE friendId IN (${array.join()})`);
   res.send('kill me');
 })
 
@@ -57,11 +59,28 @@ io.on("connection", async socket => {
     const [friendRow] = await db.query(findUser);
     // in case user is not found
     if (!friendRow.length) {
-      socket.emit('add friend not found', { error: 'user not found' });
+      socket.emit('add friend failed', { 
+        error: 'user not found', 
+        message: 'Hm, didn\'nt work. Double check the capitalization, spelling, any spaces, and numbers are corret.' 
+      });
       return;
     }
     const user2 = friendRow[0];
-    
+
+    const findFriendExist = 
+     `SELECT friendId
+      FROM friends
+      WHERE friends.userId1 = ${user} AND friends.userId2 = ${user2.id}
+      OR friends.userId1 = ${user2.id} AND friends.userId2 = ${user}`;
+    const [friendExist] = await db.query(findFriendExist);
+    console.log(friendExist);
+    if (friendExist.length) {
+      socket.emit('add friend failed', { 
+        error: 'friend request failed',
+        message: 'you\'re already friends with that user!' 
+      });
+      return;
+    }
     const findMyself = 
      `SELECT id, name, tag, avatar, statusId 
       FROM users 
@@ -93,7 +112,6 @@ io.on("connection", async socket => {
   })
 
   socket.on('remove friend request', async ({ friendId, friendUserId }) => {
-    console.log(friendId);
     const deleteRequest = 
      `DELETE FROM friends
       WHERE friendId = ${friendId}
@@ -108,22 +126,26 @@ io.on("connection", async socket => {
   socket.on('accept friend request', async ({ friendId, friendUserId }) => {
     const updateQuery = `UPDATE friends SET confirmed = 1 WHERE friendId = ${friendId} LIMIT 1`;
     const [response] = await db.query(updateQuery);
-    console.log(response.serverStatus);
+    // create a room for friends
+    const createRoom = 'INSERT INTO rooms (type) VALUES (?)';
+    const [room] = await db.query(createRoom, 0);
+    const addUsers = `INSERT INTO rooms_traffic (roomId, userId) VALUES (?, ?), (?, ?)`;
+    await db.query(addUsers, [room.insertId, user, room.insertId, friendUserId]);
+
     if (response.serverStatus !== 2) return;
     socket.emit('friend added', { friendId });
     const friendConnected = connected.find(connectedUser => connectedUser.uid === friendUserId)
-    if (friendConnected) socket.to(friendConnected.sid).emit('friend added', { friendId });
+    if (friendConnected) socket.to(friendConnected.sid).emit('friend added', { friendId, roomId: room.insertId });
   })
 
-  socket.on('add chat', async ({ type, user, friend }) => {
+  socket.on('add chat', async ({ type, userFriend }) => {
     // type: 0 = mixed, 1 = chatonly, 2 = voiceonly
     const createRoom = 'INSERT INTO rooms (type) VALUES (?)';
     const [room] = await db.query(createRoom, [type]);
     const addUsers = `INSERT INTO rooms_traffic (roomId, userId) VALUES (?, ?), (?, ?)`;
-    await db.query(addUsers, [room.insertId, user.id, room.insertId, friend.id]);
+    await db.query(addUsers, [room.insertId, user, room.insertId, userFriend.id]);
     socket.join(room.insertId);
-    // socket.emit('chat added', { roomId: room.insertId, friend });
-    socket.emit('chat added', { roomId: room.insertId, friend });
+    socket.emit('chat added', { roomId: room.insertId, userFriend });
   })
 
   socket.on('update last visit', async ({ room }) => {

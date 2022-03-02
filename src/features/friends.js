@@ -17,11 +17,11 @@ export const friendsSlice = createSlice({
       state.value.friends = friends;
     },
     acceptFriend: (state, action) => {
-      const friendId = action.payload;
+      const { friendId, roomId } = action.payload;
       const pendingArray = [...current(state.value.pending)];
       const friendsArray = [...current(state.value.friends)];
       const index = pendingArray.find(request => request.friendId === friendId);
-      friendsArray.push(pendingArray.splice(index, 1)[0]);
+      friendsArray.push({ roomId, ...pendingArray.splice(index, 1)[0]});
       state.value.pending = pendingArray;
       state.value.friends = friendsArray;
     },

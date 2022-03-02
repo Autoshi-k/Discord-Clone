@@ -24,21 +24,21 @@ export const initSocket = (dispatch) => {
 
     socket.on('pending request', (request) => dispatch(createRequest(request)))
 
-    socket.on('add friend not found', ({ error }) => {
-      dispatch(createError({ 
-        error, 
-        message: 'Hm, didn\'nt work. Double check the capitalization, spelling, any spaces, and numbers are corret.' 
-      }));
+    socket.on('add friend failed', ({ error, message }) => {
+      dispatch(createError({ error, message }));
     })
-
+    
     socket.on('removed friend request', ({ friendId }) => dispatch(declineFriend(friendId)))
 
-    socket.on('friend added', ({ friendId }) => {
+    socket.on('friend added', ({ friendId, roomId }) => {
       console.log(friendId);
-      dispatch(acceptFriend(friendId))
+      dispatch(acceptFriend({ friendId, roomId }))
     })
 
-    socket.on('chat added', ({ roomId, friend }) => dispatch(newRoom({ roomId, friend })))
+    socket.on('chat added', ({ roomId, userFriend }) => { 
+      console.log(roomId, userFriend);
+      dispatch(newRoom({ roomId, userFriend }))
+    })
 
     socket.on('message sent', ({ message }) => dispatch(newMessage(message)))
 })}

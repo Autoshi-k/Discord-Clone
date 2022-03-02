@@ -17,7 +17,7 @@ const AddFriend = () => {
 
   const [modal, setModal] = useState(false);
   useEffect(() => {
-    if (pendingError.error === 'user not found') setModal(true);
+    if (['user not found', 'friend request failed'].includes(pendingError.error)) setModal(true);
   }, [pendingError])
 
   useEffect(() => {
