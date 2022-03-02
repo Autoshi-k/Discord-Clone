@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../features/user';
 import { pendingFetch } from '../../features/pending';
 import { fetchRooms, } from '../../features/rooms';
-import { friendsFetch } from '../../features/friends';
+import { friendsFetch, initFetch } from '../../features/friends';
 
 
 // css
@@ -18,7 +18,6 @@ import ServerBar from '../../components/ServerBar/ServerBar';
 import DirectMessages from '../../components/DirectMessages/DirectMessages';
 
 function Dashboard() {
- 
   const dispatch = useDispatch();
 
   // fetch user information
@@ -37,8 +36,7 @@ function Dashboard() {
         return;
       };
       dispatch(login(data.user));
-      dispatch(pendingFetch(data.pending));
-      dispatch(friendsFetch(data.friends));
+      dispatch(initFetch(data.connections));
       dispatch(fetchRooms(data.rooms));
       // check if local storage match to the user who is currently logged in
       if (data.user.id === localStorage.getItem('user-data').id) return;
