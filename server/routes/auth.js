@@ -2,10 +2,29 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../connection.js';
-
-export const router = express.Router();
 // validations
 import { registerValidation, loginValidation } from '../utilities/validation.js';
+
+export const router = express.Router();
+
+const defaultAvatars = [
+  '53l6rkzsl058dp7k',
+  '53l6rkzsl058dk08',
+  '53l6rkzsl058dfjp',
+  '53l6rkzsl058c96c',
+  '53l6rkzsl058c805',
+  '53l6rkzsl058c2w3',
+  '53l6rkzsl058bxh9'
+]
+// const defaultAvatars = [
+//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058dp7k.png',
+//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058dk08.png',
+//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058dfjp.png',
+//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058c96c.png',
+//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058c805.png',
+//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058c2w3.png',
+//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058bxh9.png'
+// ]
 
 router.post('/register', async (req, res) => {
   // validate before adding a user
@@ -27,7 +46,7 @@ router.post('/register', async (req, res) => {
   const tag = Math.floor(Math.random() * (9999 - 1000) + 1000);
   
   // random avatat (for now some random image)
-  const avatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/1024px-User-avatar.svg.png';
+  const avatar = `https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/${defaultAvatars[Math.floor(Math.random(1,4))]}.png`;
   // creating new user in database
   const insertQuery = 'INSERT INTO users (name, tag, avatar, email, birthday, password) VALUES (?, ?, ?, ?, ?, ?)';
   await db.query(insertQuery, [displayName, tag, avatar, email, '1997-09-13', hashPassword])

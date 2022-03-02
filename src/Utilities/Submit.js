@@ -4,9 +4,6 @@ const Submit = ({ name, avatar, email, password }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('image', avatar);
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('password', password);  
     fetch('/api/user/test', {
       method: 'POST',
       body: formData

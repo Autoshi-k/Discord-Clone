@@ -22,7 +22,8 @@ export const uploadAvatar = (file) => {
   const uploadParams = {
     Bucket: bucketName,
     Body: fileStream,
-    Key: 'userAvatars/' + file.filename,
+    // Key: 'userAvatars/' + file.filename,
+    Key: 'defaultAvatars/' + file.filename,
     ContentType: file.mimetype
   };
   return s3.upload(uploadParams).promise();
