@@ -35,8 +35,7 @@ const Login = () => {
       .then(res => res.json()))
       .then(data => {
         dispatch(login(data.user));
-        dispatch(pendingFetch(data.pending));
-        dispatch(friendsFetch(data.friends));
+        // need to dispatch connections
         dispatch(fetchRooms(data.rooms));
         localStorage.setItem('user-data', JSON.stringify({ id: data.user.id, name: data.user.name, tag: data.user.tag }));
         localStorage.setItem('email', data.user.email);

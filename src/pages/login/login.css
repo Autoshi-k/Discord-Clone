@@ -110,7 +110,7 @@
   padding-top: .5em;
 }
 
-.page .cover-background img {
+.page .cover-background-page img {
   -o-object-fit: cover;
      object-fit: cover;
 }
