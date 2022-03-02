@@ -42,10 +42,6 @@ let connected = [];
 io.on("connection", async socket => {
   const user = socket.handshake.auth.userId;
   connected.push({ sid: socket.id, uid: user })
-  // console.log(socket);
-  console.log(socket.id);
-  console.log(connected);
-
   
   const selectRoomIds = `SELECT roomId FROM rooms_traffic WHERE rooms_traffic.userId = ${user}`;
   let [roomIdsRow] = await db.query(selectRoomIds);
@@ -53,53 +49,70 @@ io.on("connection", async socket => {
   // console.log(socket);
   
   socket.on('add friend', async ({ name, tag}) => {
-    const selectQuery = `SELECT id, name, tag, avatar, statusId FROM users WHERE name = '${name}' AND tag = '${tag}' LIMIT 1`;
-    const [friendRow] = await db.query(selectQuery);
-    const reqId = friendRow[0].id;
-    // if (!addFriend.length) return res.send({ success: false, err: 'user is not found' });
-    const addFriendQuery = 
-     `INSERT INTO pending_requests (userId, relatedUserId, direction) 
-      VALUES (?, ?, ?), (?, ?, ?)`;
-    const rows = await db.query(addFriendQuery, [user, reqId, 'outgoing', reqId, user, 'incoming']);
+    const findUser = 
+     `SELECT id, name, tag, avatar, statusId 
+      FROM users 
+      WHERE name = '${name}' AND tag = '${tag}'
+      LIMIT 1`;
+    const [friendRow] = await db.query(findUser);
+    // in case user is not found
+    if (!friendRow.length) {
+      socket.emit('add friend not found', { error: 'user not found' });
+      return;
+    }
+    const user2 = friendRow[0];
     
+    const findMyself = 
+     `SELECT id, name, tag, avatar, statusId 
+      FROM users 
+      WHERE id = ${user}
+      LIMIT 1`;
+    const [myselfRow] = await db.query(findMyself);
+    const user1 = myselfRow[0];
+    const addFriend = 
+     `INSERT INTO friends (userId1, userId2)
+      VALUES (?, ?)`;
+    const [response] = await db.query(addFriend, [user1.id, user2.id]);
+    console.log('response', response); // serverStatus: 2 success?
     const request = {
-      direction: 'outgoing',
-      ...friendRow[0]
+      friendId: response.insertId,
+      confirmed: 0,
+      initiateBy: user1.id,
     }
-    console.log('request emit');
-    socket.emit('pending request', { request });
-    const req = connected.find(connectedUser => connectedUser.uid === reqId);
-    if (req) socket.to(req.sid).emit('pending request', { request });
+    if (response.serverStatus === 2) {
+      socket.emit('pending request', { 
+        ...request,
+        ...user2
+      });
+      // in case user2 is conncted
+      const user2Connected = connected.find(connectedUser => connectedUser.uid === user2.id);
+      if (user2Connected) socket.to(user2Connected.sid).emit('pending request', { 
+        ...request,
+        ...user1
+      });
+    } else socket.emit('add friend failed');
   })
 
-  socket.on('remove friend request', async ({ reqId }) => {
+  socket.on('remove friend request', async ({ friendId, friendUserId }) => {
+    console.log(friendId);
     const deleteRequest = 
-    `DELETE FROM pending_requests 
-    WHERE userId = ${user} AND relatedUserId = ${reqId} 
-    OR userId = ${reqId} AND relatedUserId = ${user} LIMIT 2`;
+     `DELETE FROM friends
+      WHERE friendId = ${friendId}
+      LIMIT 1`;
     await db.query(deleteRequest);
-    console.log('emit');
-    socket.emit('removed friend request', { id: user, otherId: reqId });
-    const req = connected.find(connectedUser => connectedUser.uid === reqId);
-    if (req) socket.to(req.sid).emit('removed friend request', { id: user, otherId: reqId });
+    socket.emit('removed friend request', { friendId });
+    const friendConnected = connected.find(connectedUser => connectedUser.uid === friendUserId);
+    if (friendConnected) socket.to(friendConnected.sid).emit('removed friend request', { friendId });
   })
 
-  socket.on('accept friend request', async ({ reqId }) => {
-    const selectQuery = `SELECT id, name, tag, avatar, statusId FROM users WHERE id = '${reqId}' OR id = '${user}'LIMIT 2`;
-    const [friendRow] = await db.query(selectQuery);
-    const insertFriend = 'INSERT INTO friends (userId, friendId) VALUES (?, ?), (?, ?)'
-    await db.query(insertFriend, [user, reqId, reqId, user]);
-    const sendTo = {};
-    if (friendRow[0].id === user) {
-      sendTo['user'] = friendRow[1];
-      sendTo['req'] = friendRow[0];
-    } else {
-      sendTo['user'] = friendRow[0];
-      sendTo['req'] = friendRow[1];
+  socket.on('accept friend request', async ({ friendId, friendUserId }) => {
+    const updateQuery = `UPDATE friends SET confirmed = 1 WHERE friendId = ${friendId} LIMIT 1`;
+    const [response] = await db.query(updateQuery);
+    if (response.serverStatus === 2) {
+      socket.emit('friend added', { friendId });
+      const friendConnected = connected.find(connectedUser => connectedUser.uid === friendUserId)
+      if (friendConnected) socket.to(friendConnected.sid).emit('friend added', { friendId });
     }
-    socket.emit('friend added', { friendAdded: sendTo.user });
-    const req = connected.find(connectedUser => connectedUser.uid === reqId)
-    if (req) socket.to(req.sid).emit('friend added', { friendAdded: sendTo.req });
   })
 
   socket.on('add chat', async ({ type, user, friend }) => {
