@@ -1,19 +1,24 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Divider } from "@mui/material";
 
 import WumpusNoFriends from '../../../assets/WumpusNoFriends.png';
 import { useContext, useEffect, useRef, useState } from "react";
 import { changeLocation } from "../../../features/location";
 import { SocketContext } from "../../../context/socket";
+import Modal from "../../../Utilities/Modal";
 
 const AddFriend = () => {
   
   const socket = useContext(SocketContext);
   // while in friends - location have subRoom (auto 'all')
   const dispatch = useDispatch();
-
+  const pendingError = useSelector(state => state.pendingRequests.value.errorSendingRecentRequest);
   const searchFriend = useRef(null);
 
+  const [modal, setModal] = useState(false);
+  useEffect(() => {
+    if (pendingError.error === 'user not found') setModal(true);
+  }, [pendingError])
 
   useEffect(() => {
     if (true) return;
@@ -61,16 +66,23 @@ const AddFriend = () => {
   return (
     <>
       <div className="add-friend-section">
-        <h3>add friend</h3>
+        <h3 className='page-title'>add friend</h3>
         <p>you can add a friend with their Discord Tag. It's cAsE sEnSitIvE!</p>
-        <form onSubmit={handleSubmit} ref={searchFriend} className={`friend-search ${error.error && 'error'}`}>
+        <form onSubmit={handleSubmit} ref={searchFriend} className={`friend-search ${pendingError.status && 'error'}`}>
           <input type="text" name="addFriendSearch" onChange={ (e) => handleChange(e) } ref={inputUserName} placeholder="Enter a Username#0000" />
           <input className='primary-button' type='submit' value='Send Friend Request'/>
         </form>
-        { error.error ?
-          <p className="error-message">{ error.message }</p>  
+        { pendingError.status ?
+          <p className="error-message">{ pendingError.message }</p>  
           :
           null
+        }
+        { modal && 
+          <Modal 
+            title='friend request failed'
+            subTitle={'Hm, didn\'nt work. Double check at the capitalization, spelling, any spaces, and numbers are corrent.'}
+            setModal={setModal}
+          />
         }
       </div>
       <Divider sx={{ color: '#8E9297' }}/>

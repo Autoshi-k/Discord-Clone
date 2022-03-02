@@ -5,9 +5,7 @@ import PendingItemList from "../PendingItemList/PendingItemList";
 
 const FriendList = () => {
   const location = useSelector(state => state.location.value);
-  const pendingRequests = useSelector(state => state.pendingRequests.value);
-  const friends = useSelector(state => state.friends.value);
-  
+  const { friends, pending } = useSelector(state => state.friends.value);
   const [array, setArray] = useState([]);
   const [resetArray, setResetArray] = useState(true);
   
@@ -15,12 +13,12 @@ const FriendList = () => {
   useEffect(() => {
     setArray([]);
     setResetArray(true);
-  }, [location.subRoom, friends, pendingRequests]);
+  }, [location.subRoom, friends, pending]);
   
   // set new values in array
   useEffect(() => {
     if (resetArray) {
-      setArray(location.subRoom === 'pending' ? pendingRequests : location.subRoom === 'all' ? friends : friends.filter(friend => friend.status))
+      setArray(location.subRoom === 'pending' ? pending : location.subRoom === 'all' ? friends : friends.filter(friend => friend.statusId))
       setResetArray(false);
     }
   }, [resetArray])
