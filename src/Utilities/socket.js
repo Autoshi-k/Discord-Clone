@@ -33,7 +33,10 @@ export const initSocket = (dispatch) => {
 
     socket.on('removed friend request', ({ friendId }) => dispatch(declineFriend(friendId)))
 
-    socket.on('friend added', (request) => dispatch(acceptFriend(request)))
+    socket.on('friend added', ({ friendId }) => {
+      console.log(friendId);
+      dispatch(acceptFriend(friendId))
+    })
 
     socket.on('chat added', ({ roomId, friend }) => dispatch(newRoom({ roomId, friend })))
 

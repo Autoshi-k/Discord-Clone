@@ -73,7 +73,6 @@ io.on("connection", async socket => {
      `INSERT INTO friends (userId1, userId2)
       VALUES (?, ?)`;
     const [response] = await db.query(addFriend, [user1.id, user2.id]);
-    console.log('response', response); // serverStatus: 2 success?
     const request = {
       friendId: response.insertId,
       confirmed: 0,
@@ -99,7 +98,8 @@ io.on("connection", async socket => {
      `DELETE FROM friends
       WHERE friendId = ${friendId}
       LIMIT 1`;
-    await db.query(deleteRequest);
+    const [response] = await db.query(deleteRequest);
+    console.log(response.serverStatus);
     socket.emit('removed friend request', { friendId });
     const friendConnected = connected.find(connectedUser => connectedUser.uid === friendUserId);
     if (friendConnected) socket.to(friendConnected.sid).emit('removed friend request', { friendId });
@@ -108,11 +108,11 @@ io.on("connection", async socket => {
   socket.on('accept friend request', async ({ friendId, friendUserId }) => {
     const updateQuery = `UPDATE friends SET confirmed = 1 WHERE friendId = ${friendId} LIMIT 1`;
     const [response] = await db.query(updateQuery);
-    if (response.serverStatus === 2) {
-      socket.emit('friend added', { friendId });
-      const friendConnected = connected.find(connectedUser => connectedUser.uid === friendUserId)
-      if (friendConnected) socket.to(friendConnected.sid).emit('friend added', { friendId });
-    }
+    console.log(response.serverStatus);
+    if (response.serverStatus !== 2) return;
+    socket.emit('friend added', { friendId });
+    const friendConnected = connected.find(connectedUser => connectedUser.uid === friendUserId)
+    if (friendConnected) socket.to(friendConnected.sid).emit('friend added', { friendId });
   })
 
   socket.on('add chat', async ({ type, user, friend }) => {

@@ -16,15 +16,6 @@ const defaultAvatars = [
   '53l6rkzsl058c2w3',
   '53l6rkzsl058bxh9'
 ]
-// const defaultAvatars = [
-//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058dp7k.png',
-//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058dk08.png',
-//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058dfjp.png',
-//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058c96c.png',
-//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058c805.png',
-//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058c2w3.png',
-//   'https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/53l6rkzsl058bxh9.png'
-// ]
 
 router.post('/register', async (req, res) => {
   // validate before adding a user
@@ -46,7 +37,7 @@ router.post('/register', async (req, res) => {
   const tag = Math.floor(Math.random() * (9999 - 1000) + 1000);
   
   // random avatat (for now some random image)
-  const avatar = `https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/${defaultAvatars[Math.floor(Math.random(1,4))]}.png`;
+  const avatar = `https://discord-aws-bucket.s3.amazonaws.com/defaultAvatars/${defaultAvatars[Math.floor(Math.random() * 6)]}.png`;
   // creating new user in database
   const insertQuery = 'INSERT INTO users (name, tag, avatar, email, birthday, password) VALUES (?, ?, ?, ?, ?, ?)';
   await db.query(insertQuery, [displayName, tag, avatar, email, '1997-09-13', hashPassword])
