@@ -4,16 +4,15 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import { useContext } from 'react';
 import { SocketContext } from '../context/socket';
 
-const ActionButton = ({ check, clear, chat, linkButton, user, req }) => {
+const ActionButton = ({ check, clear, chat, linkButton, user, req, friendId }) => {
   const socket = useContext(SocketContext);
 
   const ignoreBtn = () => {
-    socket.emit('remove friend request', { reqId: req.id });
+    socket.emit('remove friend request', { friendId, userFriendId: req.id});
   }
   
   const addBtn = () => {
-    socket.emit('remove friend request', { reqId: req.id });
-    socket.emit('accept friend request', { reqId: req.id });
+    socket.emit('accept friend request', { friendId, userFriendId: req.id });
   }
 
   const startChat = () => {

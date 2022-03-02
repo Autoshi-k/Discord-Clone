@@ -54,6 +54,11 @@ ul {
   }
 }
 
+.primary-button.single-button {
+  width: 100%;
+  height: 3.2rem;
+}
+
 .primary-button[type=submit]:disabled {
   background-color: #444c95;
 }
@@ -488,7 +493,7 @@ ul {
   padding: 1em 2em;
 }
 
-.friends-page .friends-add-friend h3 {
+.friends-page .friends-add-friend h3.page-title {
   margin: 0;
   font-size: 1.2em;
   font-weight: 700;
@@ -765,60 +770,6 @@ ul {
 
 .primary {
   margin-top: 1em;
-}
-
-.list-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: .6em .5em;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
-  border-radius: .4rem;
-  cursor: pointer;
-  color: #D1DDDE;
-  font-size: 1rem;
-  margin-bottom: .2rem;
-}
-
-.list-item .title {
-  font-size: 1.5em;
-  padding-left: .5em;
-  font-weight: 400;
-}
-
-.list-item:hover {
-  background-color: #34373c;
-  font-weight: 700;
-}
-
-.list-item.active {
-  background-color: #40444b;
-  font-weight: 700;
-}
-
-.thin {
-  padding: .5em .5em;
-}
-
-.list-title {
-  padding-left: .5rem;
-}
-
-.list-title:hover {
-  color: white;
-}
-
-.list-title.thick {
-  font-weight: 700;
-}
-
-.list-title.thick:hover {
-  color: #8E9297;
 }
 
 .settings {
@@ -1224,6 +1175,60 @@ section:first-of-type {
   left: 0px;
 }
 
+.list-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: .6em .5em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  border-radius: .4rem;
+  cursor: pointer;
+  color: #D1DDDE;
+  font-size: 1rem;
+  margin-bottom: .2rem;
+}
+
+.list-item .title {
+  font-size: 1.5em;
+  padding-left: .5em;
+  font-weight: 400;
+}
+
+.list-item:hover {
+  background-color: #34373c;
+  font-weight: 700;
+}
+
+.list-item.active {
+  background-color: #40444b;
+  font-weight: 700;
+}
+
+.thin {
+  padding: .5em .5em;
+}
+
+.list-title {
+  padding-left: .5rem;
+}
+
+.list-title:hover {
+  color: white;
+}
+
+.list-title.thick {
+  font-weight: 700;
+}
+
+.list-title.thick:hover {
+  color: #8E9297;
+}
+
 .cover-background {
   width: 100vw;
   height: 100vh;
@@ -1232,10 +1237,12 @@ section:first-of-type {
   left: 0;
   background-color: #000000;
   opacity: .9;
+  z-index: 10;
 }
 
-.modal form {
-  position: absolute;
+.modal {
+  z-index: 11;
+  position: fixed;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
@@ -1253,19 +1260,32 @@ section:first-of-type {
   border-radius: .4rem;
   padding: 1rem;
   padding-top: 2rem;
+  text-align: center;
 }
 
-.modal form h2 {
+.modal h2 {
+  text-align: center;
+  padding: 0;
   color: white;
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.8rem;
   text-transform: capitalize;
 }
 
-.modal form h3 {
+.modal h3 {
   margin: .7em;
   color: #D1DDDE;
   font-size: 1.15rem;
+}
+
+.modal form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .modal form label {
@@ -1295,14 +1315,13 @@ section:first-of-type {
   color: #f30909 !important;
 }
 
-.modal form .submit {
+.modal form input[type=submit] {
   background-color: #5865F2;
   border: none;
   color: white;
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: capitalize;
-  margin-top: 1em;
 }
 
 @keyframes hoverButtons {
@@ -1314,7 +1333,7 @@ section:first-of-type {
   }
 }
 
-.modal form .submit:hover {
+.modal form input[type=submit]:hover {
   -webkit-animation-name: hoverButtons;
           animation-name: hoverButtons;
   -webkit-animation-duration: 0.5s;
@@ -1326,11 +1345,11 @@ section:first-of-type {
   background-color: #222428;
   position: absolute;
   left: 0;
-  bottom: -4.6rem;
-  height: 5rem;
+  bottom: -5rem;
+  height: 5.5rem;
   width: 100%;
   border-radius: 0 0 .4rem .4rem;
-  padding: 1rem;
+  padding: 1.2rem;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;

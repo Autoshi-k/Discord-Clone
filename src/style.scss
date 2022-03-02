@@ -76,6 +76,11 @@ ul {
   }
 }
 
+.primary-button.single-button {
+  width: 100%;
+  height: 3.2rem;
+}
+
 .primary-button[type=submit]:disabled {
   background-color: $blue-disabled;
 }
@@ -126,7 +131,6 @@ ul {
 @import './pages/Friends/PendingItemList/FriendItemList.scss';
 @import './components/Chat/Chat.scss';
 @import './components/MessageContainer/MessageContainer.scss';
-@import './styles/listItem';
 @import './Styles/settings';
 @import './styles/profile';
 @import './styles/utilities/colorPicker';
