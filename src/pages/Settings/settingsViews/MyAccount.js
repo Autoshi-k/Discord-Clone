@@ -2,7 +2,7 @@ import { Avatar, Divider } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLocation } from "../../../features/location";
-import ModalUpdate from "../../../Utilities/Modal";
+import ModalUpdate from "../../../Utilities/ModalUpdate";
 import Section from "../../../Utilities/Section";
 
 const MyAccount = () => {
@@ -10,13 +10,18 @@ const MyAccount = () => {
   const color = '#C3406B';
 
   const dispatch = useDispatch();
+
+  // possible modal in this page
   const [nicknameModal, setNicknameModal] = useState(false);
   const [emailModal, setEmailModal] = useState(false);
+  const [passwordModal, setPasswordModal] = useState(false);
 
+  // actions 
   const handleEditProfile = () => dispatch(changeLocation({ lobby: 'direct-messages', room:'settings', subRoom:'user-profile' })) 
   const handleNicknameEdit = () => setNicknameModal(true);
   const handleEmailEdit = () => setEmailModal(true);
-  // const handleNicknameEdit = () => setNicknameModal(true);
+  const handlePasswordEdit = () => setPasswordModal(true);
+  
   return (
     <div className='my-account'>
       <Section>
@@ -50,7 +55,7 @@ const MyAccount = () => {
                   <div className='bold-title'>phone number</div>
                   <div className='user-information'>{0 ? '054-59595259' : 'You don\'t have a phone number yet' }</div>
                 </div>
-                <div className='change-button'>edit</div>
+                <div className='change-button' onClick={handlePasswordEdit}>edit</div>
               </div>
             </div>
           </div>
@@ -59,7 +64,7 @@ const MyAccount = () => {
       <Divider />
       <Section>
         <h2>passwords and authontication</h2>
-        <div className='primary-button'>change password</div>
+        <div className='primary-button' onClick={handlePasswordEdit}>change password</div>
       </Section>
       <Divider />
       <Section title='account removal'>
@@ -74,18 +79,8 @@ const MyAccount = () => {
           modal={nicknameModal}
           setModal={setNicknameModal}
           title='change your username'
-          subTitle='enter a new username and your existing password'
-          inputs={[{
-            name: 'username',
-            type: 'text',
-            label: true,
-            placeholder: ''
-          }, {
-            name: 'current password',
-            type: 'password',
-            label: true,
-            placeholder: ''
-          }]}
+          subTitle='enter a new username and your existing password.'
+          name={true}
         />
       }
       { emailModal &&
@@ -93,18 +88,17 @@ const MyAccount = () => {
           modal={emailModal}
           setModal={setEmailModal} 
           title='enter an email address'
-          subTitle='enter a new email address and your existing password'
-          inputs={[{
-            name: 'email',
-            type: 'text',
-            label: true,
-            placeholder: ''
-          }, {
-            name: 'current password',
-            type: 'password',
-            label: true,
-            placeholder: ''
-          }]}
+          subTitle='enter a new email address and your existing password.'
+          email={true}
+        />
+      }
+      { passwordModal &&
+        <ModalUpdate 
+          modal={passwordModal}
+          setModal={setPasswordModal} 
+          title='change your password'
+          subTitle='enter your current password and a new passowrd.'
+          password={true}
         />
       }
     </div>
