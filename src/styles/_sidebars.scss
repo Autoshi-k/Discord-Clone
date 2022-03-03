@@ -1,0 +1,141 @@
+// ////////// SERVER SIDEBAR //////// //
+.server-bar {
+  height: 100vh;
+  min-width: 5.2em;
+  width: 5.2em;
+  background-color: $darkest-grey;
+
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+}
+
+// Server Icon ---
+
+.server-icon-container {
+  display: flex;  
+  flex-direction: row;
+  justify-content: center;
+}
+
+.server-state {
+  display: none;
+  background-color: white;
+  height: 10%;
+  width: .2em;
+}
+
+.server-icon {
+  margin-top: .5em;
+  transition: 0.3s;
+  overflow: hidden;
+  border-radius: 2em;
+
+  img {
+    width: 30px;
+  }
+}
+
+.server-icon:hover {
+  border-radius: .7em;
+
+  .server-state {
+    display: inline-block;
+
+  }
+}
+
+.server-icon.active {
+  border-radius: .7em;
+}
+
+// ////////// END SERVER SIDEBAR //////// //
+
+
+// //////// SIDE BAR /////// //
+.sidebar {
+  width: 17em;
+  padding: 0 .7em;
+  height: 100vh;
+  background-color: $sidebar;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  // WHAT IS THIS LIST THING
+  // .list {
+  //   // display: flex;
+  //   // flex-direction: column;
+  //   // row-gap: .5em;
+  // }
+
+  input {
+    background-color: $secondry-color;
+    color: $text;
+    border: none;
+    border-radius: .4em;
+    font-size: .9em;
+    height: 2.1rem; //2.1 + 0.6 + 0.6 (1.2) 3.3
+    padding: .6em;
+    width: 100%;
+    margin: .6rem 0;
+  }
+}
+
+// List Item (users) ---
+
+.list-item-user {
+  display: flex;
+  padding: .6em .5em;
+  align-items: center;
+  justify-content: left;
+  border-radius: .4rem;
+  cursor: pointer;
+  color: $text;
+  font-size: .76em;
+
+  .user-name {
+    font-size: 1.5em;
+    padding-left: .5em;
+    font-weight: 400;
+  }
+}
+
+.list-item-user:hover {
+  background-color: #34373c;
+  font-weight: 700; // not doing anything!!
+}
+
+.list-item-user.active {
+  background-color: $lightest-grey;
+  font-weight: 700;
+}
+
+// User Informaion at the bottom ---
+
+.sidebar-user-information {
+  // width: 100%;
+  height: 3.5em;
+  background-color: $sidebar-user-info;
+  margin: 0 -.7em;
+  padding: 0.7em;
+  display: flex;
+  align-items: center;
+  
+
+  .user-information {
+    text-align: left;
+    color: $chat-name-display;
+    margin-left: .5em;
+  }
+  
+  .display-name {
+    font-weight: 600;
+  }
+
+  .mini-sub {
+    // background-color: blue;
+    line-height: .8em;
+    font-size: .8rem;
+  }
+}

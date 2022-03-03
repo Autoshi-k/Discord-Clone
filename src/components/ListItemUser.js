@@ -1,7 +1,7 @@
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { changeLocation } from '../../features/location';
-import StatusIcon from "../../Utilities/StatusIcon";
+import { changeLocation } from '../features/location';
+import StatusIcon from "../Utilities/StatusIcon";
 
 import GroupsIcon from '@mui/icons-material/Groups';
 

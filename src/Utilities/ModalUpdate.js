@@ -10,6 +10,8 @@ const ModalUpdate = ({ name, email, phoneNumber, password, title, subTitle, moda
       headers: { 'content-type': 'application/json'},
       body: JSON.stringify(form)
     })
+    .then(res => res.json())
+    .then(data => { if (data.seccuss) window.location.reload(false) })
   }
 
   const handleChange = (e) => {

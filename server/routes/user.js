@@ -28,7 +28,7 @@ router.get('/', verify, async (req, res) => {
   // get basic user information
   const selectUser = `SELECT id, name, tag, avatar, statusId FROM users WHERE id = ${req.user.id}`
   const [userRows] = await db.query(selectUser);
-  
+
   // get rooms
   const selectRoomIds = `SELECT roomId FROM rooms_traffic WHERE rooms_traffic.userId = ${userRows[0].id}`;
   let [roomIdsRow] = await db.query(selectRoomIds);
@@ -73,29 +73,29 @@ router.put('/update', async (req, res) => {
 })
 
 router.post('/test', upload.single('image'), async (req, res) => {
-  // const getUser = `SELECT name, avatar, email, password FROM users WHERE id = 1 LIMIT 1`;
-  // const [userRow] = await db.query(getUser);
-  // const user = userRow[0];
-  // const body = req.body;
+  const getUser = `SELECT name, avatar, email, password FROM users WHERE id = 1 LIMIT 1`;
+  const [userRow] = await db.query(getUser);
+  const user = userRow[0];
+  const body = req.body;
   await uploadAvatar(req.file);
-  // const newAvatar = req.file ? await uploadAvatar(req.file) : undefined;
-  // console.log(body);
-  // const params = {
-  //   name: body.name === undefined ? user.name : body.name,
-  //   avatar: newAvatar === undefined ? user.avatar : newAvatar.Location,
-  //   email: body.email === undefined ? user.email: body.email ,
-  //   password: body.password === undefined ? user.password : body.password,
-  // }
-  // console.log('params', params);
-  // const updateUser = 
-  // `UPDATE users SET 
-  //   name = '${params.name}',
-  //   avatar = '${params.avatar}',
-  //   email = '${params.email}',
-  //   password = '${params.name}'
-  //   WHERE id = 1
-  //   `
-  // const test = await db.query(updateUser);
-  // console.log(test);
+  const newAvatar = req.file ? await uploadAvatar(req.file) : undefined;
+  console.log(body);
+  const params = {
+    name: body.name === undefined ? user.name : body.name,
+    avatar: newAvatar === undefined ? user.avatar : newAvatar.Location,
+    email: body.email === undefined ? user.email: body.email ,
+    password: body.password === undefined ? user.password : body.password,
+  }
+  console.log('params', params);
+  const updateUser = 
+  `UPDATE users SET 
+    name = '${params.name}',
+    avatar = '${params.avatar}',
+    email = '${params.email}',
+    password = '${params.name}'
+    WHERE id = 1
+    `
+  const test = await db.query(updateUser);
+  console.log(test);
   res.send({ok: 'ok'});
 })
