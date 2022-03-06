@@ -6,6 +6,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { changeLocation } from "../../../features/location";
 import { SocketContext } from "../../../context/socket";
 import Modal from "../../../Utilities/Modal";
+import friends, { createError } from "../../../features/friends";
 
 const AddFriend = () => {
   
@@ -21,27 +22,14 @@ const AddFriend = () => {
   }, [pendingError])
 
   useEffect(() => {
-    if (true) return;
+    if (!friends.length) return;
     dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }));
   }, [dispatch])
 
   const inputUserName = useRef(null);;
-  //
   const [addFriendName, setAddFriendName] = useState('');
-  const [numberSign, setNumberSign] = useState(false);
-  const [error, setError] = useState({ error: false, message: ''});
 
-  const handleChange = (e) => {
-    const newInput = e.target.value;
-    setNumberSign(newInput.includes('#') ? true : false);
-    if (e.key === 'Delete' || e.key === 'Backspace') {
-      setAddFriendName(newInput);
-    } else if (!numberSign) {
-      setAddFriendName(newInput)
-    } else if (!isNaN(newInput.slice(-1)) && addFriendName.slice(-4).includes('#')) { 
-      setAddFriendName(newInput);
-    } else inputUserName.current.value = newInput.slice(0, -1);
-  }
+  const handleChange = (e) => setAddFriendName(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,9 +43,13 @@ const AddFriend = () => {
       socket.emit('add friend', { name: userName, tag: userTag });
 
     } else if (addFriendName.includes('#')) {
-      setError({error: true, message: 'Hm, didn\'t work. Double checkthat the capitalization, spelling, any spaces, and numbers are correct.'})
+      dispatch(createError({
+        error: 'friend request failed',
+        message: 'Hm, didn\'t work. Double checkthat the capitalization, spelling, any spaces, and numbers are correct.'}))
     } else { 
-      setError({error: true, message: `We need ${addFriendName}'s four digits tag so we know which one they are.`})
+      dispatch(createError({
+        error: '',
+        message: `We need ${addFriendName}'s four digits tag so we know which one they are.`}))
     }
   }
 
