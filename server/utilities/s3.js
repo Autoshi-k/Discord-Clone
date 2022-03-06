@@ -18,6 +18,7 @@ const s3 = new AWS.S3 ({
 
 // upload file to s3
 export const uploadAvatar = (file) => {
+  if (!file) return;
   const fileStream = createReadStream(file.path); // what does it do actually
   const uploadParams = {
     Bucket: bucketName,
