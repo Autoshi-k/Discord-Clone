@@ -21,7 +21,7 @@ const PendingItemList = ({ request }) => {
       </div>
       <div className='actions'>
         { !request.confirmed ? <ActionButton clear={true} friendId={request.friendId} req={request} /> : <ActionButton chat={true} user={user} req={request} /> }
-        { request.initiateBy !== user.id && <ActionButton check={true} friendId={request.friendId} req={request} /> }
+        { request.initiateBy !== user.id && !request.confirmed && <ActionButton check={true} friendId={request.friendId} req={request} /> }
       </div>
     </li>
       <Divider sx={{ color: '#40444B' }} />
