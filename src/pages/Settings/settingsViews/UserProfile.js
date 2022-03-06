@@ -4,12 +4,13 @@ import { useRef, useState } from "react";
 import MyColorPicker from "../../../Utilities/MyColorPicker";
 import Submit from "../../../Utilities/Submit";
 import Section from "../../../Utilities/Section";
+import { useSelector } from "react-redux";
 
 const UserProfile = () => {
   const [avatar, setAvatar] = useState(null);
-
+  const user = useSelector(state => state.user.value);
   const [displayColorPick, setDisplayColorPick] = useState(false);
-  const [color, setColor] = useState('#7FE3B0');
+  const [color, setColor] = useState(user.color);
   
   const fileSelected = (e) => setAvatar(e.target.files[0]);
 
@@ -53,7 +54,7 @@ const UserProfile = () => {
           <textarea />
         </Section>
       </div>
-      <Submit avatar={avatar} />
+      <Submit avatar={avatar} color={color} />
       <div className='preview'>
         <div className='bold-title' >preview</div>
         <Profile color={color}/>

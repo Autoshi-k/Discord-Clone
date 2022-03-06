@@ -7,7 +7,6 @@ import Section from "../../../Utilities/Section";
 
 const MyAccount = () => {
   const user = useSelector(state => state.user.value);
-  const color = '#C3406B';
 
   const dispatch = useDispatch();
 
@@ -26,7 +25,7 @@ const MyAccount = () => {
     <div className='my-account'>
       <Section>
         <div className='profile demi-profile'>
-          <div className='banner' style={{ backgroundColor:color }}></div>
+          <div className='banner' style={{ backgroundColor: user.color }}></div>
           <div className='container-profile-details'>
             <div className='container-avatar'>
               <Avatar sx={{ height: 96, width: 96 }} src={user.avatar} alt={ user.name } />
