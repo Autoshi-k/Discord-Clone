@@ -115,18 +115,23 @@
 
 .sidebar-user-information {
   // width: 100%;
+  position: relative;
   height: 3.5em;
   background-color: $sidebar-user-info;
   margin: 0 -.7em;
   padding: 0.7em;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   
+  .user-info-avatar {
+    display: flex;
+    gap: 1em;
+  }
 
   .user-information {
     text-align: left;
     color: $chat-name-display;
-    margin-left: .5em;
   }
   
   .display-name {
@@ -134,8 +139,42 @@
   }
 
   .mini-sub {
-    // background-color: blue;
     line-height: .8em;
     font-size: .8rem;
+  }
+  .settings-button {
+    color: $chat-name-display;
+    height: 1.4em;
+  }
+}
+
+// status-list --
+
+.status-list {
+  width:17rem;
+  padding:.5rem;
+  background-color: $darkest-grey;
+  border-radius: .4rem;
+  position: absolute;
+  bottom: 4rem;
+  color: $sidebar-text-icons;
+  cursor: default;
+
+  li {
+    height: 2.5rem;
+    line-height: 2.5rem;
+    border-radius: .4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .5rem;
+    span {
+      vertical-align: center;
+    }
+  }
+
+  li:hover {
+    background-color: $blue;
+    color: $text;
   }
 }
