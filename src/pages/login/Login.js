@@ -1,16 +1,13 @@
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, Navigate } from 'react-router-dom';
-import { fetchRooms } from "../../features/rooms";
-import { login } from '../../features/user';
 
 // import './login.css';
 import PageForms from "./PageForms";
 const Login = () => {
-  const dispatch = useDispatch();
 
   const loginForm = useRef(null);
   const [rediret, setRedirect] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,41 +17,42 @@ const Login = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: form['email'].value, password: form['password'].value })
     })
-    .then(res => res.headers.get('auth-token'))
-    .then(res => window.localStorage.setItem('auth-token', res))
-    // after logging in, fetching user information
-    // from /api/channels as preparation for redirect to /channels
-    .then((fetch('/api/user', { 
-      method: 'GET', 
-      headers: {
-        "content-type": "application/json",
-        "Authorization": localStorage.getItem("auth-token")
-      } })
-      .then(res => res.json()))
-      .then(data => {
-        dispatch(login(data.user));
-        // need to dispatch connections
-        dispatch(fetchRooms(data.rooms));
-        localStorage.setItem('user-data', JSON.stringify({ id: data.user.id, name: data.user.name, tag: data.user.tag }));
-        localStorage.setItem('email', data.user.email);
-      })
-      .catch(err => {
-        console.log(err)
-      }))
-      .catch(err => console.log(err))
+    .then(res => {
+      if (res.status === 200) window.localStorage.setItem('auth-token', res.headers.get('auth-token'))
+      console.log(res);
+      return res.json();
+    })
+    .then(data => {
+      console.log(data);
+      if (data.failed) {
+        console.log(data.failed);
+        setError({ 
+          email: data.key ? data.key === 'email' ? true : false : true, 
+          password: data.key ? data.key === 'password' ? true: false : true,
+          message: JSON.stringify(data.failed) 
+        });
+        return;
+      } else {
+        localStorage.setItem('user-data', JSON.stringify({ id: data.id, name: data.name, tag: data.tag }));
+        localStorage.setItem('email', data.email);
+        setRedirect(true);
+      }
+    })
+    .catch(err => console.log('err', err))
   }
+
+  console.log(error); 
   return (
       <PageForms>
         { rediret && <Navigate to="/channels" /> }
-        <form onSubmit={ handleSubmit } ref={loginForm} action="/api/user/login" method="POST">
+        <form onSubmit={ handleSubmit } ref={loginForm}>
           <h2>welcome back!</h2>
           <h3>We're so excited to see you again!</h3>
-          <label to='email'>email</label>
+          <label className={`${error.email ? 'error' : ''}`} to='email'>email<span> - {error.message}</span></label>
           <input type="text" name="email" placeholder="" />
-          <label to='password'>password</label>
+          <label className={`${error.password ? 'error' : ''}`} to='password'>password<span> - {error.message}</span></label>
           <input type="password" name="password" placeholder="" />
           <input className='submit' type="submit" value="login" />
-          <button onClick={ () => setRedirect(true) }>go to channels</button>
           <div className="redirect">need an account? <Link to='/register'>Resigster</Link></div>
         </form>
     </PageForms>

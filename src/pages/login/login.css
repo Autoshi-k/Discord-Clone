@@ -57,6 +57,25 @@
   margin-bottom: .5em;
 }
 
+.page form label.error {
+  color: #f30909;
+}
+
+.page form label.error + input {
+  border: 1px solid #f30909;
+}
+
+.page form label > span {
+  display: none;
+  text-transform: none;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.page form label.error > span {
+  display: inline;
+}
+
 .page form input:-webkit-autofill,
 .page form input:-webkit-autofill:hover,
 .page form input:-webkit-autofill:focus,
