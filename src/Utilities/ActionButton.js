@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useContext } from 'react';
 import { changeLocation } from '../features/location';
 import { SocketContext } from '../context/socket';
+import { Link } from 'react-router-dom';
 
 const ActionButton = ({ check, clear, chat, linkButton, user, req, friendId }) => {
   const socket = useContext(SocketContext);
@@ -62,7 +63,10 @@ const ActionButton = ({ check, clear, chat, linkButton, user, req, friendId }) =
   if (linkButton) {
     return (
       <div className='action-button'>
-        <ClearIcon />
+        <Link to='/channels' >
+          <ClearIcon />
+
+        </Link>
       </div>
     )
   }

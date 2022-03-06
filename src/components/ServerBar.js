@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ServerIcon } from '../ServerIcon/ServerIcon';
+import { ServerIcon } from './ServerIcon';
 import Divider from '@mui/material/Divider';
 
 export default function ServerBar() {

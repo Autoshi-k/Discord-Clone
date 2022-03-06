@@ -1,4 +1,4 @@
-import discordImage from '../../assets/discord-image.png';
+import discordImage from '../assets/discord-image.png';
 import Avatar from '@mui/material/Avatar';
 
 export function ServerIcon({ iconStyle, isActive, id, handleServerClick }) {
