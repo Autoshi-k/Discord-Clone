@@ -5,6 +5,8 @@ import { uploadAvatar } from '../utilities/s3.js';
 import multer from 'multer';
 import path from 'path';
 import uniqid from 'uniqid';
+import { comparePasswords, hashPassword } from '../utilities/hash.js';
+import { getUserById } from '../utilities/user.js';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, '../temp'),
@@ -26,11 +28,10 @@ const getRooms = async (roomIds, selectRooms) => {
 router.get('/', verify, async (req, res) => {
 
   // get basic user information
-  const selectUser = `SELECT id, name, tag, avatar, statusId FROM users WHERE id = ${req.user.id}`
-  const [userRows] = await db.query(selectUser);
+  const user = await getUserById(req.user.id);
 
   // get rooms
-  const selectRoomIds = `SELECT roomId FROM rooms_traffic WHERE rooms_traffic.userId = ${userRows[0].id}`;
+  const selectRoomIds = `SELECT roomId FROM rooms_traffic WHERE rooms_traffic.userId = ${user.id}`;
   let [roomIdsRow] = await db.query(selectRoomIds);
   const roomIds = roomIdsRow.map(room => room.roomId);
   const selectRooms = 
@@ -38,7 +39,7 @@ router.get('/', verify, async (req, res) => {
     FROM rooms_traffic
     LEFT JOIN users 
     ON rooms_traffic.userId = users.id
-    WHERE rooms_traffic.roomId IN (${roomIds}) AND rooms_traffic.userId != ${userRows[0].id}
+    WHERE rooms_traffic.roomId IN (${roomIds}) AND rooms_traffic.userId != ${user.id}
     `
   const roomsRow = await getRooms(roomIds, selectRooms)
   // let [roomsRow] = roomIds.lenght ? await db.query(selectRooms) : null;
@@ -48,11 +49,11 @@ router.get('/', verify, async (req, res) => {
     FROM users
     INNER JOIN (SELECT aa.friendId, aa.confirmed, aa.userId1 AS initiateBy, aa.userId2 AS uid
     FROM friends as aa
-    WHERE aa.userId1 = ${userRows[0].id}
+    WHERE aa.userId1 = ${user.id}
     UNION
     SELECT aa.friendId, aa.confirmed, aa.userId1 AS initiateBy, aa.userId1 AS uid
     FROM friends AS aa
-    WHERE aa.userId2 = ${userRows[0].id}) AS temp
+    WHERE aa.userId2 = ${user.id}) AS temp
     ON users.id = temp.uid`;
   
   const [friendsRow] = await db.query(selectFriends);
@@ -60,7 +61,7 @@ router.get('/', verify, async (req, res) => {
 
 
   res.send({ 
-    user: userRows[0],
+    user: user,
     rooms: roomsRow,
     connections: friendsRow
   });
@@ -72,30 +73,48 @@ router.put('/update', async (req, res) => {
   await uploadAvatar(req.body);
 })
 
-router.post('/test', upload.single('image'), async (req, res) => {
-  const getUser = `SELECT name, avatar, email, password FROM users WHERE id = 1 LIMIT 1`;
-  const [userRow] = await db.query(getUser);
-  const user = userRow[0];
+router.post('/updateProfile', verify, upload.single('image'), async (req, res) => {
+  let query = [];
+  let avatarSrc;
+  const user = await getUserById(req.user.id);
   const body = req.body;
-  await uploadAvatar(req.file);
-  const newAvatar = req.file ? await uploadAvatar(req.file) : undefined;
-  console.log(body);
-  const params = {
-    name: body.name === undefined ? user.name : body.name,
-    avatar: newAvatar === undefined ? user.avatar : newAvatar.Location,
-    email: body.email === undefined ? user.email: body.email ,
-    password: body.password === undefined ? user.password : body.password,
-  }
-  console.log('params', params);
+
+  if (req.file) {
+    avatarSrc = await uploadAvatar(req.file);
+    query.push(`avatar = '${avatarSrc.Location}'`);
+  } 
+  
+  if (body.color) query.push(`color = '${body.color}'`);
+
   const updateUser = 
-  `UPDATE users SET 
-    name = '${params.name}',
-    avatar = '${params.avatar}',
-    email = '${params.email}',
-    password = '${params.name}'
-    WHERE id = 1
-    `
+   `UPDATE users 
+    SET ${ query.join(', ') } WHERE id = ${user.id} LIMIT 1`;
   const test = await db.query(updateUser);
-  console.log(test);
-  res.send({ok: 'ok'});
+  res.send({ seccuss: true });
+})
+
+
+
+
+router.post('/updateAccount', verify, async (req, res) => {
+  let setColumn, newValue;
+  const user = await getUserById(req.user.id, true);
+  const body = req.body;
+
+  const isMatch = await comparePasswords(body.password, user.password);
+  if (!isMatch) return res.status(400).send({ failed: 'password does not match' })
+
+  const column = Object.keys(body).filter(key => !['password', 'confirm'].includes(key)) 
+  if (column[0] === 'newPassword') {
+    setColumn = 'password';
+    newValue = await hashPassword(body.newPassword);
+  } else {
+    setColumn = column[0];
+    newValue = body[column[0]];
+  }
+  
+  const updateUser = 
+   `UPDATE users SET ${setColumn} = '${newValue}' WHERE id = ${user.id} LIMIT 1`;
+  await db.query(updateUser);
+  res.send({ seccuss: true });
 })

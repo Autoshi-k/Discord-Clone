@@ -5,9 +5,12 @@ const ModalUpdate = ({ name, email, phoneNumber, password, title, subTitle, moda
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('/api/user/test', {
+    fetch('/api/user/updateAccount', {
       method: 'POST',
-      headers: { 'content-type': 'application/json'},
+      headers: { 
+        'content-type': 'application/json',
+        'Authorization': localStorage.getItem('auth-token'),  
+      },
       body: JSON.stringify(form)
     })
     .then(res => res.json())
@@ -25,7 +28,7 @@ const ModalUpdate = ({ name, email, phoneNumber, password, title, subTitle, moda
   const closeModal = () => setModal(false);
   return (
     <>
-      <div className='cover-background' onClick={closeModal}></div>
+      <div className='modal-cover-background' onClick={closeModal}></div>
       <div className='modal'>
         <form onSubmit={handleSubmit}>
           <h2>{title}</h2>
