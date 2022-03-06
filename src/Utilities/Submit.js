@@ -1,13 +1,17 @@
-const Submit = ({ name, avatar, email, password }) => {
+const Submit = ({ avatar, color }) => {
 
   const sumbitHandler = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('image', avatar);
-    fetch('/api/user/test', {
+    if (avatar) formData.append('image', avatar);
+    if (color) formData.append('color', color);
+    fetch('/api/user/updateProfile', {
       method: 'POST',
+      headers: { "Authorization": localStorage.getItem("auth-token") },
       body: formData
     })
+    .then(res => res.json())
+    .then(data => { if (data.seccuss) window.location.reload(false) })
   }
 
   return (
