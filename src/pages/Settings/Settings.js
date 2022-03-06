@@ -36,6 +36,8 @@ const Settings = () => {
     })
   }, [dispatch]);
 
+  console.log('settings refresh')
+
   const list = ['my-account', 'user-profile'];
   return (
     <div className='settings'>
@@ -53,9 +55,8 @@ const Settings = () => {
           : <UserProfile />
         }
         
-        <Link to='/channels' >
+        
           <ActionButton linkButton={true} />
-        </Link>
       </div>
       
     </div>

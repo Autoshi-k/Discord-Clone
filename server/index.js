@@ -15,6 +15,8 @@ import { router as userRouter } from './routes/user.js';
 import { router as messagesRouter } from './routes/messages.js';
 
 import db from './connection.js';
+// import { getUserById } from './utilities/user.js';
+
 const app = express();
 dotenv.config();
 
@@ -42,10 +44,10 @@ const io = new Server(server);
 
 let connected = [];
 io.on("connection", async socket => {
-  const user = socket.handshake.auth.userId;
-  connected.push({ sid: socket.id, uid: user })
+  const userId = socket.handshake.auth.userId;
+  connected.push({ sid: socket.id, uid: userId })
   
-  const selectRoomIds = `SELECT roomId FROM rooms_traffic WHERE rooms_traffic.userId = ${user}`;
+  const selectRoomIds = `SELECT roomId FROM rooms_traffic WHERE rooms_traffic.userId = ${userId}`;
   let [roomIdsRow] = await db.query(selectRoomIds);
   roomIdsRow.forEach(room => socket.join(room.roomId));
   // console.log(socket);
@@ -70,8 +72,8 @@ io.on("connection", async socket => {
     const findFriendExist = 
      `SELECT friendId
       FROM friends
-      WHERE friends.userId1 = ${user} AND friends.userId2 = ${user2.id}
-      OR friends.userId1 = ${user2.id} AND friends.userId2 = ${user}`;
+      WHERE friends.userId1 = ${userId} AND friends.userId2 = ${user2.id}
+      OR friends.userId1 = ${user2.id} AND friends.userId2 = ${userId}`;
     const [friendExist] = await db.query(findFriendExist);
     console.log(friendExist);
     if (friendExist.length) {
@@ -84,7 +86,7 @@ io.on("connection", async socket => {
     const findMyself = 
      `SELECT id, name, tag, avatar, statusId 
       FROM users 
-      WHERE id = ${user}
+      WHERE id = ${userId}
       LIMIT 1`;
     const [myselfRow] = await db.query(findMyself);
     const user1 = myselfRow[0];
@@ -130,7 +132,7 @@ io.on("connection", async socket => {
     const createRoom = 'INSERT INTO rooms (type) VALUES (?)';
     const [room] = await db.query(createRoom, 0);
     const addUsers = `INSERT INTO rooms_traffic (roomId, userId) VALUES (?, ?), (?, ?)`;
-    await db.query(addUsers, [room.insertId, user, room.insertId, friendUserId]);
+    await db.query(addUsers, [room.insertId, userId, room.insertId, friendUserId]);
 
     if (response.serverStatus !== 2) return;
     socket.emit('friend added', { friendId });
@@ -143,14 +145,14 @@ io.on("connection", async socket => {
     const createRoom = 'INSERT INTO rooms (type) VALUES (?)';
     const [room] = await db.query(createRoom, [type]);
     const addUsers = `INSERT INTO rooms_traffic (roomId, userId) VALUES (?, ?), (?, ?)`;
-    await db.query(addUsers, [room.insertId, user, room.insertId, userFriend.id]);
+    await db.query(addUsers, [room.insertId, userId, room.insertId, userFriend.id]);
     socket.join(room.insertId);
     socket.emit('chat added', { roomId: room.insertId, userFriend });
   })
 
   socket.on('update last visit', async ({ room }) => {
     // find room and update last time visited
-    const updateRoom = `UPDATE rooms_traffic SET lastVisited = CURRENT_TIMESTAMP WHERE roomId = ${room} AND userId = ${user}`;
+    const updateRoom = `UPDATE rooms_traffic SET lastVisited = CURRENT_TIMESTAMP WHERE roomId = ${room} AND userId = ${userId}`;
     await db.query(updateRoom);
   })
 
@@ -160,14 +162,21 @@ io.on("connection", async socket => {
     const [roomId] = await db.query(selectRoom);
     // create new message
     const insertMessage = `INSERT INTO messages (userId, roomId, content) VALUES (?, ?, ?)`;
-    const [checkOutput] = await db.query(insertMessage, [user, roomId[0].id, message]);
+    const [checkOutput] = await db.query(insertMessage, [userId, roomId[0].id, message]);
     const selectMessage = `SELECT userId, created, content, type FROM messages WHERE id = ${checkOutput.insertId}`;
     const [messageRow] = await db.query(selectMessage);
     io.in(to).emit('message sent', { message: messageRow[0] });
   })
 
+  socket.on('change status', async ({newStatus}) => {
+    const updateStatus = `UPDATE users SET statusId = ${newStatus} WHERE id = ${userId} LIMIT 1`;
+    await db.query(updateStatus);
+    socket.to(roomIdsRow).emit('change friend status', { userId, newStatus });
+    socket.emit('change my status', newStatus);
+  })
+
   socket.on('disconnect', async () => {
-    const index = connected.find(connectedUser => connectedUser.uid === user);
+    const index = connected.find(connectedUser => connectedUser.uid === userId);
     connected.splice(index, 1);
   });
 });

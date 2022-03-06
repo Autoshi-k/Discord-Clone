@@ -236,157 +236,6 @@ ul {
   opacity: .01;
 }
 
-.server-bar {
-  height: 100vh;
-  min-width: 5.2em;
-  width: 5.2em;
-  background-color: #202225;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.server-icon-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.server-state {
-  display: none;
-  background-color: white;
-  height: 10%;
-  width: .2em;
-}
-
-.server-icon {
-  margin-top: .5em;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  overflow: hidden;
-  border-radius: 2em;
-}
-
-.server-icon img {
-  width: 30px;
-}
-
-.server-icon:hover {
-  border-radius: .7em;
-}
-
-.server-icon:hover .server-state {
-  display: inline-block;
-}
-
-.server-icon.active {
-  border-radius: .7em;
-}
-
-.sidebar {
-  width: 17em;
-  padding: 0 .7em;
-  height: 100vh;
-  background-color: #2F3136;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.sidebar input {
-  background-color: #202225;
-  color: #D1DDDE;
-  border: none;
-  border-radius: .4em;
-  font-size: .9em;
-  height: 2.1rem;
-  padding: .6em;
-  width: 100%;
-  margin: .6rem 0;
-}
-
-.list-item-user {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: .6em .5em;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
-  border-radius: .4rem;
-  cursor: pointer;
-  color: #D1DDDE;
-  font-size: .76em;
-}
-
-.list-item-user .user-name {
-  font-size: 1.5em;
-  padding-left: .5em;
-  font-weight: 400;
-}
-
-.list-item-user:hover {
-  background-color: #34373c;
-  font-weight: 700;
-}
-
-.list-item-user.active {
-  background-color: #40444b;
-  font-weight: 700;
-}
-
-.sidebar-user-information {
-  height: 3.5em;
-  background-color: #292B2F;
-  margin: 0 -.7em;
-  padding: 0.7em;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.sidebar-user-information .user-information {
-  text-align: left;
-  color: #DEEBE2;
-  margin-left: .5em;
-}
-
-.sidebar-user-information .display-name {
-  font-weight: 600;
-}
-
-.sidebar-user-information .mini-sub {
-  line-height: .8em;
-  font-size: .8rem;
-}
-
 .header {
   height: 3.3rem;
   width: 100%;
@@ -716,7 +565,7 @@ ul {
 }
 
 .message .avatar {
-  margin: auto auto 0;
+  margin: 0 auto;
 }
 
 .message span {
@@ -770,6 +619,254 @@ ul {
 
 .primary {
   margin-top: 1em;
+}
+
+.server-bar {
+  height: 100vh;
+  min-width: 5.2em;
+  width: 5.2em;
+  background-color: #202225;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.server-icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.server-state {
+  display: none;
+  background-color: white;
+  height: 10%;
+  width: .2em;
+}
+
+.server-icon {
+  margin-top: .5em;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  overflow: hidden;
+  border-radius: 2em;
+}
+
+.server-icon img {
+  width: 30px;
+}
+
+.server-icon:hover {
+  border-radius: .7em;
+}
+
+.server-icon:hover .server-state {
+  display: inline-block;
+}
+
+.server-icon.active {
+  border-radius: .7em;
+}
+
+.sidebar {
+  width: 17em;
+  padding: 0 .7em;
+  height: 100vh;
+  background-color: #2F3136;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.sidebar input {
+  background-color: #202225;
+  color: #D1DDDE;
+  border: none;
+  border-radius: .4em;
+  font-size: .9em;
+  height: 2.1rem;
+  padding: .6em;
+  width: 100%;
+  margin: .6rem 0;
+}
+
+.list-item-user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: .6em .5em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  border-radius: .4rem;
+  cursor: pointer;
+  color: #D1DDDE;
+  font-size: .76em;
+}
+
+.list-item-user .user-name {
+  font-size: 1.5em;
+  padding-left: .5em;
+  font-weight: 400;
+}
+
+.list-item-user:hover {
+  background-color: #34373c;
+  font-weight: 700;
+}
+
+.list-item-user.active {
+  background-color: #40444b;
+  font-weight: 700;
+}
+
+.sidebar-user-information {
+  position: relative;
+  height: 3.5em;
+  background-color: #292B2F;
+  margin: 0 -.7em;
+  padding: 0.7em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sidebar-user-information .user-info-avatar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1em;
+}
+
+.sidebar-user-information .user-information {
+  text-align: left;
+  color: #DEEBE2;
+}
+
+.sidebar-user-information .display-name {
+  font-weight: 600;
+}
+
+.sidebar-user-information .mini-sub {
+  line-height: .8em;
+  font-size: .8rem;
+}
+
+.sidebar-user-information .settings-button {
+  color: #DEEBE2;
+  height: 1.4em;
+}
+
+.status-list {
+  width: 17rem;
+  padding: .5rem;
+  background-color: #202225;
+  border-radius: .4rem;
+  position: absolute;
+  bottom: 4rem;
+  color: #8E9297;
+  cursor: default;
+}
+
+.status-list li {
+  height: 2.5rem;
+  line-height: 2.5rem;
+  border-radius: .4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1rem;
+  padding: .5rem;
+}
+
+.status-list li span {
+  vertical-align: center;
+}
+
+.status-list li:hover {
+  background-color: #5865f2;
+  color: #D1DDDE;
+}
+
+.profile {
+  width: 300px;
+  background-color: #18191C;
+  border-radius: .6rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile .banner {
+  width: 100%;
+  height: 5rem;
+}
+
+.profile .container-avatar {
+  height: 5rem;
+  width: 5rem;
+  position: absolute;
+  top: 2.5rem;
+  left: 1rem;
+  background-color: #18191C;
+  border-radius: 5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile .conatiner-profile {
+  padding: 1rem;
+  margin-top: 2.5rem;
+  text-align: left;
+  color: #8E9297;
+}
+
+.profile h1 {
+  text-align: left;
+}
+
+.profile span {
+  color: #8E9297;
+  font-size: .8em;
 }
 
 .settings {
@@ -1104,54 +1201,6 @@ section:first-of-type {
   }
 }
 
-.profile {
-  width: 300px;
-  background-color: #18191C;
-  border-radius: .6rem;
-  overflow: hidden;
-  position: relative;
-}
-
-.profile .banner {
-  width: 100%;
-  height: 5rem;
-}
-
-.profile .container-avatar {
-  height: 5rem;
-  width: 5rem;
-  position: absolute;
-  top: 2.5rem;
-  left: 1rem;
-  background-color: #18191C;
-  border-radius: 5rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.profile .conatiner-profile {
-  padding: 1rem;
-  margin-top: 2.5rem;
-  text-align: left;
-  color: #8E9297;
-}
-
-.profile h1 {
-  text-align: left;
-}
-
-.profile span {
-  color: #8E9297;
-  font-size: .8em;
-}
-
 .color-picker {
   background-color: #36393F;
   width: 200px;
@@ -1229,7 +1278,7 @@ section:first-of-type {
   color: #8E9297;
 }
 
-.cover-background {
+.modal-cover-background {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -1353,5 +1402,70 @@ section:first-of-type {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+}
+
+.icon-backgound {
+  height: 17px;
+  width: 17px;
+  border-radius: 7px;
+  background-color: #2F3136;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.icon {
+  width: 11px;
+  height: 11px;
+  border-radius: 6px;
+}
+
+.idle {
+  position: relative;
+  bottom: 3px;
+  right: 3px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  -webkit-box-shadow: 3px 3px 0 0 #e77529;
+          box-shadow: 3px 3px 0 0 #e77529;
+}
+
+.online {
+  background-color: #3ba55d;
+}
+
+.notDisturb {
+  background-color: #ed4245;
+}
+
+.offline {
+  font-size: 1.5em;
+  display: inline-block;
+  width: 0.4em;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 0.4em;
+  border: 0.2em solid #8E9297;
+  position: relative;
+  border-radius: 0.35em;
+}
+
+.magnifying-glass {
+  font-size: 1.5em;
+  display: inline-block;
+  width: 0.4em;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 0.4em;
+  background-color: #ed4245;
+  position: relative;
+  border-radius: 0.35em;
 }
 /*# sourceMappingURL=style.css.map */

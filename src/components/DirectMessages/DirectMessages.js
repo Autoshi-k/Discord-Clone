@@ -2,8 +2,8 @@ import { Divider } from "@mui/material";
 
 // Components
 import { Chat } from "../Chat/Chat";
-import { Sidebar } from "../Sidebar/Sidebar";
-import { ListItemUser } from "../ListItemUser/ListItemUser";
+import { Sidebar } from "../Sidebar";
+import { ListItemUser } from "../ListItemUser";
 import Friends from "../../pages/Friends/Friends";
 
 // Redux
@@ -14,7 +14,7 @@ import { changeLocation } from "../../features/location";
 function DirectMessages() {
   const rooms = useSelector(state => state.rooms.value);
   const location = useSelector(state => state.location.value);
-  
+  console.log('location', location)
   const dispatch = useDispatch();
 
   const handleNoChat = () => {
@@ -27,10 +27,6 @@ function DirectMessages() {
       )
     })
   }
-
-  useEffect(() => {
-    dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'all' }));
-  }, [dispatch])
  
   return (
   <div className="direct-messages-window">
