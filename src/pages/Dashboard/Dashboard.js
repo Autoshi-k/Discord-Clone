@@ -13,14 +13,17 @@ import './ChannelsHome.css';
 import 'semantic-ui-css/semantic.min.css';
 
 // Components
-import ServerBar from '../../components/ServerBar/ServerBar';
+import ServerBar from '../../components/ServerBar';
 import DirectMessages from '../../components/DirectMessages/DirectMessages';
+import { changeLocation } from '../../features/location';
+
+
 
 function Dashboard() {
   const dispatch = useDispatch();
-
   // fetch user information
   useEffect(() => {
+    // if (localStorage.getItem('auth-token')) return;
     fetch('/api/user', {
       method: 'GET',
       headers: {
@@ -30,22 +33,26 @@ function Dashboard() {
     })
     .then(res => res.json())
     .then(data => {
-      if (data.err) { 
-        console.log(data.err); 
-        return;
-      };
+      if (data.err) return;
       dispatch(login(data.user));
       dispatch(initFetch(data.connections));
       dispatch(fetchRooms(data.rooms));
-      // check if local storage match to the user who is currently logged in
-      if (data.user.id === localStorage.getItem('user-data').id) return;
-      localStorage.setItem('user-data', JSON.stringify({ id: data.user.id, name: data.user.name, tag: data.user.tag }));
-      localStorage.setItem('email', data.user.email);
+      localStorage.setItem('user-data', JSON.stringify({ 
+        id: data.user.id, 
+        name: data.user.name, 
+        tag: data.user.tag, 
+        email: data.user.email 
+      }));
     })
+    .catch(err => console.log(err));
   }, [dispatch]);
 
   useEffect(() => {
     initSocket(dispatch);
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'all' }));
   }, [dispatch])
 
   return (
