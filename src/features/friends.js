@@ -44,11 +44,26 @@ export const friendsSlice = createSlice({
     },
     clearError: (state) => {
       state.value.errorSendingRecentRequest = { status: false, error: '' };
+    },
+    changeFriendStatus: (state, action) => {
+      const { userId, newStatus } = action.payload;
+      const friendsArray = [...current(state.value.friends)];
+      const index = friendsArray.find(friend => friend.id === userId);
+      const friend = friendsArray[index];
+      state.value.friends[index] = { ...friend, statusId: newStatus };
     }
   }
 })
 
-export const { initFetch, acceptFriend, declineFriend, createRequest, createError, clearError } = friendsSlice.actions;
+export const { 
+  initFetch, 
+  acceptFriend, 
+  declineFriend, 
+  createRequest, 
+  createError, 
+  clearError,
+  changeFriendStatus 
+} = friendsSlice.actions;
 
 export default friendsSlice.reducer;
 

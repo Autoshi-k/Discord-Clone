@@ -9,22 +9,20 @@ export const userSlice = createSlice({
       image: '',
       tag: 0,
       email: '',
-      status: 0
+      statusId: 0
     } 
   },
   reducers: {
     login: (state, action) => {
       state.value = action.payload;
     },
-    updateUserStatus: (state, action) => {
-      // console.log(state.value);
-      const newValue = {...state.value};
-      newValue.currentStatus = action.payload;
-      state.value = newValue;
+    updateMyStatus: (state, action) => {
+      const newStatus = action.payload;
+      state.value.statusId = newStatus;
     } 
   }
 })
 
-export const { login, updateUserStatus } = userSlice.actions;
+export const { login, updateMyStatus } = userSlice.actions;
 
 export default userSlice.reducer;
