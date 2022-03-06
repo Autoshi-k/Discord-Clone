@@ -50,7 +50,7 @@
 // /////////// END list item ////////// //
 
 // ////////////// MODAL /////////////// //
-.cover-background {
+.modal-cover-background {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -152,3 +152,76 @@
     justify-content: flex-end;
   }
 }
+
+// /////////// END MODAL ///////////// //
+
+// /////////// STATUS ICON /////////// //
+.icon-backgound {
+  height: 17px;
+  width: 17px;
+  border-radius: 7px;
+  background-color: #2F3136;
+  // background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon {
+  width: 11px;
+  height: 11px;
+  border-radius: 6px;
+}
+.idle {
+  position: relative;
+  bottom: 3px;
+  right: 3px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  box-shadow: 3px 3px 0 0 rgb(231, 117, 41);
+}
+
+.online {
+  background-color: $green;
+}
+
+.notDisturb {
+  background-color: $red;
+}
+
+
+.offline {
+  font-size: 1.5em;
+  display: inline-block;
+  width: 0.4em;
+  box-sizing: content-box;
+  height: 0.4em;
+  border: 0.2em solid $sidebar-text-icons;
+  position: relative;
+  border-radius: 0.35em;
+}
+
+.magnifying-glass {
+  font-size: 1.5em;
+  display: inline-block;
+  width: 0.4em;
+  box-sizing: content-box;
+  height: 0.4em;
+  // border: 0.2em solid $red;
+  background-color: $red;
+  // border-top: 0.2em solid $red;
+  position: relative;
+  border-radius: 0.35em;
+}
+// .magnifying-glass:before {
+//   content: "";
+//   display: inline-block;
+//   position: absolute;
+//   right: -0.25em;
+//   bottom: -0.1em;
+//   border-width: 0;
+//   background: red;
+//   width: 0.35em;
+//   height: 0.08em;
+//   transform: rotate(45deg);
+// }
