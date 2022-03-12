@@ -8,16 +8,19 @@ import { changeLocation } from '../features/location';
 import { SocketContext } from '../context/socket';
 import { Link } from 'react-router-dom';
 
-const ActionButton = ({ check, clear, chat, linkButton, user, req, friendId }) => {
+const ActionButton = ({ check, clear, chat, linkButton, req, friendId }) => {
   const socket = useContext(SocketContext);
+  const user = useSelector(state => state.user.value);
+
+  // const user = useSelector(state => state.user.value);
   const rooms = useSelector(state => state.rooms.value);
   const dispatch = useDispatch();
   const ignoreBtn = () => {
-    socket.emit('remove friend request', { friendId, userFriendId: req.id});
+    socket.emit('remove friend request', { id: user.id, friendId, userFriendId: req.id});
   }
   
   const addBtn = () => {
-    socket.emit('accept friend request', { friendId, userFriendId: req.id });
+    socket.emit('accept friend request', { id: user.id, friendId, userFriendId: req.id });
   }
 
   const startChat = () => {
@@ -27,8 +30,10 @@ const ActionButton = ({ check, clear, chat, linkButton, user, req, friendId }) =
       dispatch(changeLocation({ lobby: 'direct-messages', room: roomExist.roomId }))
       return;
     }
+    console.log(user.id);
     // create new chat
     socket.emit('add chat', { 
+      id: user.id,
       type: 1, userFriend: {
         id: req.id,
         name: req.name,

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const PendingItemList = ({ request }) => {
   const user = useSelector(state => state.user.value);
+  const isclear = true;
 
     return (
     <>
@@ -20,8 +21,10 @@ const PendingItemList = ({ request }) => {
         { !request.confirmed && <div>{`${request.initiateBy === user.id ? 'Outgoing' : 'Incoming'}`} Friend Request</div>}
       </div>
       <div className='actions'>
-        { !request.confirmed ? <ActionButton clear={true} friendId={request.friendId} req={request} /> : <ActionButton chat={true} user={user} req={request} /> }
+        { !request.confirmed ? <ActionButton clear={true} friendId={request.friendId} req={request} /> : <ActionButton chat={true} req={request} /> }
         { request.initiateBy !== user.id && !request.confirmed && <ActionButton check={true} friendId={request.friendId} req={request} /> }
+        {/* {<ActionButton clear={isclear} check={ischeck} chat={true} friendId={request.friendId} req={request} /> } */}
+
       </div>
     </li>
       <Divider sx={{ color: '#40444B' }} />

@@ -5,6 +5,7 @@ import MyColorPicker from "../../../Utilities/MyColorPicker";
 import Submit from "../../../Utilities/Submit";
 import Section from "../../../Utilities/Section";
 import { useSelector } from "react-redux";
+import { BlockPicker } from "react-color";
 
 const UserProfile = () => {
   const [avatar, setAvatar] = useState(null);
@@ -13,7 +14,7 @@ const UserProfile = () => {
   const [color, setColor] = useState(user.color);
   
   const fileSelected = (e) => setAvatar(e.target.files[0]);
-
+  const handleChangeColor = (newColor) => setColor(newColor.hex);
   return (
     <div className='user-profile'>
       <div className='user-profile-edit'>
@@ -32,7 +33,11 @@ const UserProfile = () => {
         <Section title='profile color'>
           <div className='section-color'>
             <div className='container-color'>
-              <div className='color default-color' style={{ backgroundColor:'#DEEBE2' }}></div>
+              <div 
+                className='color default-color' 
+                style={{ backgroundColor: '#5865f2' }}
+                onClick={()=> setColor('#5865f2')}
+              ></div>
               <div className='color-title'>default</div>
             </div>
             <div className='container-color'>
@@ -40,7 +45,10 @@ const UserProfile = () => {
             { displayColorPick ? 
             <div className='popover'>
               <div className='cover' onClick={ () => setDisplayColorPick(false) }/>
-              <MyColorPicker />
+              {/* <MyColorPicker /> */}
+              <BlockPicker 
+                onChangeComplete={ handleChangeColor }
+              />
             </div> 
             : null }
             <div className='color-title'>custom</div>
@@ -57,7 +65,7 @@ const UserProfile = () => {
       <Submit avatar={avatar} color={color} />
       <div className='preview'>
         <div className='bold-title' >preview</div>
-        <Profile color={color}/>
+        <Profile user={{...user, color }}/>
       </div>
     </div>
   )

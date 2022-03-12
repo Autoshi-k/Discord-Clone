@@ -15,7 +15,7 @@
 .home .cover-text h1 {
   font-family: 'Luckiest Guy', cursive;
   font-weight: 700;
-  font-size: 7rem;
+  font-size: 7rem !important;
   letter-spacing: .3rem;
   color: white;
 }

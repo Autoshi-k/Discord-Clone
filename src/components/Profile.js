@@ -1,11 +1,10 @@
-import { Avatar, Divider } from "@mui/material";
-import { useSelector } from "react-redux"
+import { Avatar, Divider } from '@mui/material';
 
-const Profile = ({ color }) => {
-  const user = useSelector(state => state.user.value);
+const Profile = ({ user, open }) => {
+
   return (
-    <div className='profile'>
-      <div className='banner' style={{ backgroundColor:color }}></div>
+    <div className='profile' onClick={() => open(false)}>
+      <div className='banner' style={{ backgroundColor: user.color }}></div>
       <div className='container-avatar'>
         <Avatar sx={{ height: 56, width: 56 }} src={user.avatar} alt={ user.name } />
       </div>

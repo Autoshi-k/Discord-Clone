@@ -13,6 +13,7 @@ const AddFriend = () => {
   const socket = useContext(SocketContext);
   // while in friends - location have subRoom (auto 'all')
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user.value);
   const pendingError = useSelector(state => state.friends.value.errorSendingRecentRequest);
   const searchFriend = useRef(null);
 
@@ -40,7 +41,7 @@ const AddFriend = () => {
       const userName = addFriendSearch.slice(0, addFriendSearch.indexOf('#'));
       const userTag = addFriendSearch.slice(-4);
       
-      socket.emit('add friend', { name: userName, tag: userTag });
+      socket.emit('add friend', { id: user.id, name: userName, tag: userTag });
 
     } else if (addFriendName.includes('#')) {
       dispatch(createError({

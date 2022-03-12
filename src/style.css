@@ -566,6 +566,7 @@ ul {
 
 .message .avatar {
   margin: 0 auto;
+  position: relative;
 }
 
 .message span {
@@ -867,6 +868,12 @@ ul {
 .profile span {
   color: #8E9297;
   font-size: .8em;
+}
+
+.message .profile {
+  position: absolute;
+  top: -.1rem;
+  left: 3.5rem;
 }
 
 .settings {
@@ -1353,6 +1360,25 @@ section:first-of-type {
   background-color: #303339;
   border: 1px solid #222428;
   margin-bottom: .5em;
+}
+
+.modal form label.error {
+  color: #f30909;
+}
+
+.modal form label.error + input {
+  border: 1px solid #f30909;
+}
+
+.modal form label > span {
+  display: none;
+  text-transform: none;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.modal form label.error > span {
+  display: inline;
 }
 
 .modal form input:-webkit-autofill,

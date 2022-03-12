@@ -2,6 +2,9 @@ import { useState } from 'react';
 
 const ModalUpdate = ({ name, email, phoneNumber, password, title, subTitle, modal, setModal }) => {
   const [form, setForm] = useState({})
+  const [error, setError] = useState({
+    error: false
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,8 +17,20 @@ const ModalUpdate = ({ name, email, phoneNumber, password, title, subTitle, moda
       body: JSON.stringify(form)
     })
     .then(res => res.json())
-    .then(data => { if (data.seccuss) window.location.reload(false) })
+    .then(data => { 
+      if (data.seccuss) window.location.reload(false) 
+      if (data.error) {
+        console.log(data);
+        setError({ 
+          [data.key] : JSON.stringify(data.message)
+        });
+        return;
+      }
+    })
+    .catch(err => console.log(err))
   }
+
+  console.log(error);
 
   const handleChange = (e) => {
     console.log(e.target);
@@ -35,30 +50,31 @@ const ModalUpdate = ({ name, email, phoneNumber, password, title, subTitle, moda
           <h3>{subTitle}</h3>
           { name &&
           <>
-            <label htmlFor='name'>username</label>
+            <label className={`${error.name ? 'error' : ''}`} htmlFor='name'>username<span> - {error.name}</span></label>
+            {console.log(error.name)}
             <input type='text' name='name' onChange={ handleChange } placeholder='' />
           </>
           }
           { email &&
           <>
-            <label htmlFor='email'>email</label>
+            <label className={`${error.email ? 'error' : ''}`} htmlFor='email'>email<span> - {error.email}</span></label>
             <input type='text' name='email' onChange={ handleChange } placeholder='' />
           </>
           }
           { phoneNumber &&
           <>
-            <label htmlFor='phoneNumber'>phone number</label>
+            <label className={`${error.phoneNumber ? 'error' : ''}`} htmlFor='phoneNumber'>phone number<span> - {error.phoneNumber}</span></label>
             <input type='text' name='phoneNumber' onChange={ handleChange } placeholder='' />
           </>
           }
-          <label htmlFor='password'>current password</label>
-          <input type='text' name='password' onChange={ handleChange } placeholder='' />
+          <label className={`${error.password ? 'error' : ''}`} htmlFor='password'>current password<span> - {error.password}</span></label>
+          <input type='password' name='password' onChange={ handleChange } placeholder='' />
           { password &&
           <>
-            <label htmlFor='newPassword'>new password</label>
-            <input type='text' name='newPassword' onChange={ handleChange } placeholder='' />
-            <label htmlFor='confirm'>confirm new password</label>
-            <input type='text' name='confirm' onChange={ handleChange } placeholder='' />
+            <label className={`${error.newPassword ? 'error' : ''}`} htmlFor='newPassword'>new password<span> - {error.newPassword}</span></label>
+            <input type='password' name='newPassword' onChange={ handleChange } placeholder='' />
+            <label className={`${error.confirm ? 'error' : ''}`} htmlFor='confirm'>confirm new password<span> - {error.confirm}</span></label>
+            <input type='password' name='confirm' onChange={ handleChange } placeholder='' />
           </>
           }
           <div className='buttons'>

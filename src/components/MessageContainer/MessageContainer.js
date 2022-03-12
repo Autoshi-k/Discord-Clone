@@ -1,8 +1,10 @@
-import { Avatar } from '@mui/material';
+import { Avatar, Modal } from '@mui/material';
+import { useState } from 'react';
+import Profile from '../Profile';
 
 
-function MessageContainer({ type, sender, image, sentAt, content }) {
-
+function MessageContainer({ type, user, sentAt, content }) {
+  const [showProfile, setShowProfile] = useState(false);
   let dateDisplay = '';
   let timeDisplay = '';
   const sentDate = new Date(sentAt);
@@ -33,15 +35,17 @@ function MessageContainer({ type, sender, image, sentAt, content }) {
     { type === 'primary' ? 
       <div className='message primary'>
         <div className="message-container">
-          <div className="avatar">
+          <div className="avatar" onClick={ () => setShowProfile(!showProfile) }>
             <Avatar  
             sx={{ justifySelf:"flex-start" }}
-            src={ image }>
+            src={ user.avatar }>
             </Avatar>
+            { showProfile && 
+                <Profile user={user} open={setShowProfile}/> }
           </div>
           <div className="message-sub-container">
             <div>
-              <div className='username'>{ sender }</div>
+              <div className='username'>{ user.name }</div>
               <span className='date'>{ dateDisplay } { timeDisplay }</span>
             </div>
           <div className='message-content'>{ content }</div>

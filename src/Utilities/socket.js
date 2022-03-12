@@ -6,11 +6,13 @@ import { updateMyStatus } from '../features/user';
 
 export const socket = io('127.0.0.1:3001/', { transports: ['websocket'], auth: { userId: JSON.parse(localStorage.getItem('user-data')).id } });
 export let socketID = '';
+
 // socket.on('connect', () => {
 //   socketID = socket.id;
 // })
 
 export const initSocket = (dispatch) => {
+  if (!socket) return;
   socket.on('connect', () => {
     socketID = socket.id;
 

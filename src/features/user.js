@@ -19,10 +19,11 @@ export const userSlice = createSlice({
     updateMyStatus: (state, action) => {
       const newStatus = action.payload;
       state.value.statusId = newStatus;
-    } 
+    },
+    logout: (state) => { }
   }
 })
 
-export const { login, updateMyStatus } = userSlice.actions;
+export const { login, updateMyStatus, logout } = userSlice.actions;
 
 export default userSlice.reducer;

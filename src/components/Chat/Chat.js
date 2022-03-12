@@ -16,7 +16,8 @@ export function Chat() {
   const location = useSelector(state => state.location.value);
   const rooms = useSelector(state => state.rooms.value);
   const roomContent = useSelector(state => state.roomContent.value);
-  
+  const user = useSelector(state => state.user.value);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export function Chat() {
     })
     .then(res => res.json())
     .then(data => dispatch(messagesFetch(data)))
-    return () => socket.emit('update last visit', { room: location.room })
+    return () => socket.emit('update last visit', { id: user.id, room: location.room })
   }, [location, rooms, dispatch, socket])
 
 
@@ -44,7 +45,7 @@ export function Chat() {
     if (e.code !== 'Enter') return;
     e.preventDefault();
     // i want to add 'message didnt deliverd yet' 
-    socket.emit('send message', { message, to: location.room });
+    socket.emit('send message', { id: user.id, message, to: location.room });
     setMessage('');
   }
   
@@ -65,14 +66,17 @@ export function Chat() {
     // } else return 'primary'
 
   }
-  
+  const test = () => {
+    console.log('this is test')
+    socket.emit('test', { id: user.id });
+  }
   const createMessage = (message, index) => {
     const type = determinateType(message, index);
     return <MessageContainer 
               key={index}
               type={type}
-              sender={ roomContent.usersInRoom[message.userId].name }
-              image={ roomContent.usersInRoom[message.userId].avatar } 
+              user={ roomContent.usersInRoom[message.userId] }
+              // image={ roomContent.usersInRoom[message.userId].avatar } 
               sentAt={message.created} 
               content={message.content}
               />
@@ -81,6 +85,7 @@ export function Chat() {
   return (
     <div className="chat-window">
       <PageHeader />
+      {/* <button onClick={ test }>click me to test</button> */}
       <div className="chat">
 
         { 

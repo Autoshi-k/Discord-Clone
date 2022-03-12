@@ -8,9 +8,8 @@ export const router = express.Router();
 router.get('/getMessages/:id', verify, async (req, res) => {
   const { id } = req.params;
   // const userId = req.user.id;
-  console.log('id', id);
   const selectParticipants = 
-   `SELECT users.id, users.name, users.avatar, users.tag 
+   `SELECT users.id, users.name, users.avatar, users.tag, users.color
     FROM rooms_traffic
     RIGHT JOIN users
     ON rooms_traffic.userId = users.id

@@ -14,7 +14,7 @@ const Friends = () => {
   // need to fix this use effect
   useEffect(() => {
     if (friends.length) return;
-    dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'add-friend' }));
+    dispatch(changeLocation({ room: 'friends', subRoom: 'add-friend' }));
   }, [friends, dispatch])
 
   return (

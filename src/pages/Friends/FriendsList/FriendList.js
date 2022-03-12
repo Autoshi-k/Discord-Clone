@@ -7,21 +7,20 @@ const FriendList = () => {
   const location = useSelector(state => state.location.value);
   const { friends, pending } = useSelector(state => state.friends.value);
   const [array, setArray] = useState([]);
-  const [resetArray, setResetArray] = useState(true);
   
+  const handleSetArray = () => {
+    const sub = location.subRoom;
+    if (sub === 'pending') return pending;
+    if (sub === 'online') return friends.filter(friend => friend.statusId);
+    if (sub === 'all') return friends;
+    if (sub === 'blocked') return [];
+  }
+
   // location chaged so needs to change the array's values
   useEffect(() => {
-    setArray([]);
-    setResetArray(true);
+    setArray(handleSetArray);
   }, [location.subRoom, friends, pending]);
   
-  // set new values in array
-  useEffect(() => {
-    if (resetArray) {
-      setArray(location.subRoom === 'pending' ? pending : location.subRoom === 'all' ? friends : friends.filter(friend => friend.statusId))
-      setResetArray(false);
-    }
-  }, [resetArray])
 
   return (
     <>

@@ -1,15 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeLocation } from "../features/location";
 
 
-const ThinListItem = ({ title, icon, room, subRoom }) => {
+const ThinListItem = ({ title, icon, room, subRoom, changeLocation, action }) => {
   const location = useSelector(state => state.location.value);
-
-  const dispatch = useDispatch();
-  const changeStateLocation = () => { dispatch(changeLocation({ lobby: 'direct-messages', room, subRoom })) };
-
   return (
-    <li className={`list-item thin ${location.subRoom === subRoom ? 'active' : ''}`} onClick={ changeStateLocation }>
+    // <li className={`list-item thin ${location.subRoom === subRoom ? 'active' : ''}`} onClick={ changeStateLocation }>
+    <li className={`list-item thin ${location.subRoom === subRoom ? 'active' : ''}`} onClick={ () => action(room, subRoom) }>
       {
         icon ?
         <div>O-O</div>

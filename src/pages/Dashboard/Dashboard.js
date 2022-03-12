@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { SocketContext } from '../../context/socket';
 import { initSocket, socket } from '../../Utilities/socket';
+
 // Redux
 import { useDispatch } from 'react-redux';
 import { login } from '../../features/user';
@@ -21,6 +22,7 @@ import { changeLocation } from '../../features/location';
 
 function Dashboard() {
   const dispatch = useDispatch();
+  // let socket;
   // fetch user information
   useEffect(() => {
     // if (localStorage.getItem('auth-token')) return;
@@ -46,18 +48,19 @@ function Dashboard() {
     })
     .catch(err => console.log(err));
   }, [dispatch]);
-
+  
   useEffect(() => {
     initSocket(dispatch);
   }, [dispatch])
-
+  
   useEffect(() => {
     dispatch(changeLocation({ lobby: 'direct-messages', room: 'friends', subRoom: 'all' }));
   }, [dispatch])
-
+  
+  console.log('sockett !!! ',socket);
   return (
     <>
-      <div className="dashboad">
+      <div className='dashboad'>
         <SocketContext.Provider value={ socket }>
           <ServerBar />
           <DirectMessages />

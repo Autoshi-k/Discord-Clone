@@ -15,7 +15,8 @@ export const roomContentSlice = createSlice({
         users[user.id] = { 
           name: user.name, 
           avatar: user.avatar,
-          tag: user.tag   
+          tag: user.tag,
+          color: user.color
         }
       })
       state.value = {
@@ -28,14 +29,7 @@ export const roomContentSlice = createSlice({
       console.log(action.payload);
       newArray.push(action.payload);
       state.value.messages = newArray;
-    },
-    // removeFriendRequest: (state, action) => {
-    //   let newArray = [...current(state.value)];
-    //   const requestId = action.payload.requestId;
-    //   const index = newArray.find(request => request.id === requestId[0] || request.id === requestId[1])
-    //   newArray.splice(index, 1);
-    //   state.value = newArray;
-    // }
+    }
   }
 })
 

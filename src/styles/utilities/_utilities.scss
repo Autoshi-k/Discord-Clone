@@ -60,6 +60,7 @@
   opacity: .9;
   z-index: 10;
 }
+
 .modal {
   z-index: 11;
   position: fixed;
@@ -109,6 +110,23 @@
         border: 1px solid #222428;
         margin-bottom: .5em;
       }
+      
+      label.error {
+        color: #f30909;
+      }
+      
+      label.error + input {
+        border: 1px solid #f30909;
+      }
+      label > span {
+        display: none;
+        text-transform: none;
+        font-style: italic;
+        font-weight: 400;
+      }
+      label.error > span {
+        display: inline;
+      }
   
     input:-webkit-autofill,
     input:-webkit-autofill:hover, 
@@ -152,6 +170,9 @@
     justify-content: flex-end;
   }
 }
+
+
+
 
 // /////////// END MODAL ///////////// //
 

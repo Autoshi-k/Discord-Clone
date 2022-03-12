@@ -12,7 +12,7 @@ const Home = () => {
   }, []);
   return (
     <>
-      { redirect && <Navigate to="/channels" /> }
+      {/* { redirect && <Navigate to="/channels" /> } */}
       <div className="home">
         <div className="cover-text">
           <h1>IMAGINE A PLACE...</h1>
@@ -28,9 +28,9 @@ const Home = () => {
 
         </div>
         <div aria-hidden="true" className="cover-background">
-          <img src={ clouds } className="cover" alt="clouds" />
-          <img src={ leftArt } className="cover" alt="left" />
-          <img src={ rightArt } className="cover right" alt="right" />
+          <img src={ clouds } className="cover-home" alt="clouds" />
+          <img src={ leftArt } className="cover-home" alt="left" />
+          <img src={ rightArt } className="cover-home right" alt="right" />
         </div>
       </div>
     </>

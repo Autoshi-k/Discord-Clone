@@ -7,6 +7,7 @@ import path from 'path';
 import uniqid from 'uniqid';
 import { comparePasswords, hashPassword } from '../utilities/hash.js';
 import { getUserById } from '../utilities/user.js';
+import { updateValidation } from '../utilities/validation.js';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, '../temp'),
@@ -57,7 +58,6 @@ router.get('/', verify, async (req, res) => {
     ON users.id = temp.uid`;
   
   const [friendsRow] = await db.query(selectFriends);
-  // console.log(test)
 
 
   res.send({ 
@@ -69,10 +69,10 @@ router.get('/', verify, async (req, res) => {
 })
 
 router.put('/update', async (req, res) => {
-  console.log('req', req.body);
   await uploadAvatar(req.body);
 })
 
+// update profile - avatar  / background color
 router.post('/updateProfile', verify, upload.single('image'), async (req, res) => {
   let query = [];
   let avatarSrc;
@@ -95,14 +95,23 @@ router.post('/updateProfile', verify, upload.single('image'), async (req, res) =
 
 
 
-
+// update account -  require password - nickname, email, password
 router.post('/updateAccount', verify, async (req, res) => {
   let setColumn, newValue;
   const user = await getUserById(req.user.id, true);
   const body = req.body;
 
+  const {error} = updateValidation(req.body);
+  if (error) return res.status(400).send({ 
+    error: true,
+    message: error.details[0].type === 'string.empty' ? 
+    'this field is required' : error.details[0].type === 'string.email' ? 
+    'must be a valid email' : 'too many or not enough characters',
+    key: error?.details[0]?.context?.key
+  });
+
   const isMatch = await comparePasswords(body.password, user.password);
-  if (!isMatch) return res.status(400).send({ failed: 'password does not match' })
+  if (!isMatch) return res.status(400).send({ error: true,  message: 'password is invalid', key: 'password'})
 
   const column = Object.keys(body).filter(key => !['password', 'confirm'].includes(key)) 
   if (column[0] === 'newPassword') {

@@ -46,10 +46,10 @@ export default SidebarUserInfo;
 
 
 const StatusList = ({setShowList}) => {
-
   const socket = useContext(SocketContext);
+  const user = useSelector(state => state.user.value);
   const handleChangeStatus = (index) => {
-    socket.emit('change status', { newStatus: index });
+    socket.emit('change status', { id: user.id, newStatus: index });
     setShowList(false);
   }
   return (

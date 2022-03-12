@@ -8,13 +8,11 @@ import Friends from "../../pages/Friends/Friends";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { changeLocation } from "../../features/location";
 
 function DirectMessages() {
   const rooms = useSelector(state => state.rooms.value);
   const location = useSelector(state => state.location.value);
-  console.log('location', location)
+  // console.log('location', location);
   const dispatch = useDispatch();
 
   const handleNoChat = () => {
